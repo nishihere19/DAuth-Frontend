@@ -1,0 +1,85 @@
+{
+	"name": "dauth-frontend",
+	"version": "1.0.0",
+	"description": "delta oauth2.0 frontend",
+	"main": "main.ts",
+	"private": true,
+	"scripts": {
+		"build": "npm run validate && npm run prelint && npm run lint && cross-env NODE_ENV=production webpack",
+		"build:dev": "npm run validate && npm run prelint && npm run lint && cross-env NODE_ENV=development webpack",
+		"dev": "webpack serve",
+		"start": "serve public --listen 8080",
+		"validate": "svelte-check",
+		"format": "prettier --write ./src/**/*.{js,svelte,html,ts}",
+		"lint": "eslint './src/**/*.{js,ts,svelte}'",
+		"lint:fix": "eslint --fix './src/**/*.{js,ts,svelte}'",
+		"prelint": "npm run format",
+		"prepare": "husky install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/delta/DAuth-Frontend.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/delta/DAuth-Frontend/issues"
+	},
+	"homepage": "https://github.com/delta/DAuth-Frontend#readme",
+	"devDependencies": {
+		"@babel/core": "^7.12.17",
+		"@babel/plugin-transform-runtime": "^7.12.17",
+		"@babel/preset-env": "^7.12.17",
+		"@babel/runtime": "^7.12.18",
+		"@tsconfig/svelte": "^2.0.1",
+		"@types/css-minimizer-webpack-plugin": "^3.0.0",
+		"@types/mini-css-extract-plugin": "^1.2.2",
+		"@types/webpack-dev-server": "^3.11.1",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"autoprefixer": "^10.2.4",
+		"babel-loader": "^8.2.2",
+		"clean-webpack-plugin": "^3.0.0",
+		"core-js": "^3.9.0",
+		"cross-env": "^7.0.3",
+		"css-loader": "^5.0.2",
+		"css-minimizer-webpack-plugin": "^3.0.0",
+		"dotenv-webpack": "^7.0.3",
+		"eslint": "^7.27.0",
+		"eslint-plugin-svelte3": "^3.2.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^11.0.0",
+		"mini-css-extract-plugin": "^1.3.8",
+		"postcss": "8.3",
+		"postcss-loader": "^5.0.0",
+		"prettier": "^2.3.0",
+		"prettier-plugin-svelte": "^2.3.0",
+		"regenerator-runtime": "^0.13.7",
+		"sass": "^1.32.8",
+		"sass-loader": "^11.0.1",
+		"svelte": "^3.32.3",
+		"svelte-check": "^1.1.35",
+		"svelte-loader": "^3.0.0",
+		"svelte-preprocess": "^4.6.9",
+		"ts-loader": "^8.0.17",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.1.5",
+		"webpack": "^5.23.0",
+		"webpack-cli": "^4.5.0",
+		"webpack-dev-server": "^3.11.2"
+	},
+	"dependencies": {
+		"serve": "^11.3.2"
+	},
+	"browserslist": [
+		"defaults"
+	],
+	"husky": {
+		"hooks": {
+			"pre-commit": " echo 'staging' lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts,css,md,svelte}": "prettier --write"
+	}
+}
