@@ -19,7 +19,13 @@ module.exports = {
     overrides: [
       {
         files: ['*.svelte'],
-        processor: 'svelte3/svelte3'
+        processor: 'svelte3/svelte3',
+        rules:{
+          "@typescript-eslint/no-unsafe-assignment": "off",
+          "@typescript-eslint/no-unsafe-call": "off",
+          "@typescript-eslint/no-unsafe-return": "off",
+          "@typescript-eslint/no-unsafe-member-access":"off"
+        }
       }
     ],
     settings: {

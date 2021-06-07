@@ -1,31 +1,35 @@
-<style lang="scss">
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-
-    h1 {
-      color: #ff3e00;
-      text-transform: uppercase;
-      font-size: 4em;
-      font-weight: 100;
-    }
-
-    @media (min-width: 640px) {
-      max-width: none;
-    }
+<style>
+  :global(html) {
+    background-color: var(--theme-background);
+    color: var(--theme-text);
   }
 </style>
 
 <script lang="ts">
-  let name = 'world';
+  import { Router, Link, Route } from 'svelte-routing';
+  import Registrationdetails from './routes/Registrationdetails.svelte';
+  import Register from './routes/Register.svelte';
+  import Login from './routes/Login.svelte';
+  import Dashboard from './routes/Dashboard.svelte';
+  import ThemeContext from './ThemeContext.svelte';
+  import ThemeToggle from './ThemeToggle.svelte';
+
+  export let url = '';
 </script>
 
-<main>
-  <h1>Hello {name}!</h1>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build
-    Svelte apps.
-  </p>
-</main>
+<Router {url}>
+  <ThemeContext>
+    <nav class="navbar">
+      <Link to="/dashboard">Dashbaord</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/">Register</Link>
+    </nav>
+    <div>
+      <Route path="/login" component={Login} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/registerdetails" component={Registrationdetails} />
+      <Route path="/" component={Register} />
+    </div>
+    <ThemeToggle />
+  </ThemeContext>
+</Router>
