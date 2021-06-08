@@ -45,6 +45,7 @@ import fs from 'fs';
 import path from 'path';
 
 const Dotenv = require('dotenv-webpack');
+const { preprocess } = require('./svelte.config');
 
 const mode = process.env.NODE_ENV ?? 'development';
 const isProduction = mode === 'production';
@@ -77,7 +78,7 @@ const config: Configuration = {
 			// Rule: Svelte
 			{
 				test: /\.svelte$/,
-				exclude: /node_modules/,
+				// exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
 					options: {
@@ -93,7 +94,9 @@ const config: Configuration = {
 							optimistic: true,
 						},
 						preprocess: SveltePreprocess({
-							scss: true,
+							scss: {
+								includePaths: ['theme'],
+							},
 							sass: true,
 							postcss: {
 								plugins: [
@@ -113,6 +116,19 @@ const config: Configuration = {
 					fullySpecified: false
 				}
 			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use:  [
+						'file-loader',
+				],
+			},
+			{
+        test: /\.(png|jpe?g|gif|jp2|webp)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
+      },
 
 			// Rule: SASS
 			{
@@ -139,11 +155,13 @@ const config: Configuration = {
 			// Rule: CSS
 			{
 				test: /\.css$/,
+				include: path.resolve(__dirname, 'src'),
 				use: [
 					{
 						loader: MiniCssExtractPlugin.loader
 					},
-					'css-loader',
+					// 'style-loader',
+					'css-loader'
 				]
 			},
 
@@ -151,7 +169,7 @@ const config: Configuration = {
 			{
 				test: /\.ts$/,
 				use: 'ts-loader',
-				exclude: /node_modules/
+				// exclude: /node_modules/
 			}
 		]
 	},
