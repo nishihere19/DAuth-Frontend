@@ -50,6 +50,8 @@ const { preprocess } = require('./svelte.config');
 const mode = process.env.NODE_ENV ?? 'development';
 const isProduction = mode === 'production';
 const isDevelopment = !isProduction;
+// import * from './declaration';
+// import * as sapperfiles from 'src/declaration';
 
 const config: Configuration = {
 	mode: isProduction ? 'production' : 'development',
