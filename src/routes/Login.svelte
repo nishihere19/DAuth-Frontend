@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { router } from '@spaceavocado/svelte-router';
-  import axios from 'axios';
+  import { axiosInstance } from 'src/utils/axios';
   import { toast, ToastContainer } from 'svelte-toastify';
   import config from '../../env';
   let rollno = '';
@@ -20,7 +20,7 @@
     let value = Number(rollno);
     if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
       let email = rollno + '@nitt.edu';
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/login`,
         data: {

@@ -9,8 +9,8 @@
   import { router } from '@spaceavocado/svelte-router';
   import { toast, ToastContainer } from 'svelte-toastify';
   import { Roll_Number } from '../stores';
-  import axios from 'axios';
   import config from '../../env';
+  import { axiosInstance } from '../utils/axios';
 
   let rollno = '';
   function handlechange(e) {
@@ -21,13 +21,14 @@
     if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
       Roll_Number.set(value);
       let email = rollno + '@nitt.edu';
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/start`,
         data: {
           email: email.toString()
         },
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
       })
         .then(response => {
           $router.push('/registrationdetails');

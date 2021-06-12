@@ -10,7 +10,7 @@
   import { toast } from 'svelte-toastify';
   //import { Roll_Number } from '../stores';
   import config from '../../env';
-  import axios from 'axios';
+  import { axiosInstance } from 'src/utils/axios';
   let state = {
     name: '',
     department: '',
@@ -43,7 +43,7 @@
       toast.error('Please fill all the details!');
     else {
       let newphone = `+91${state.phone}`;
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/register`,
         data: {
