@@ -95,9 +95,19 @@ input:checked + .slider:before {
 
 //starter page
 
-#input_rollno {
+.input_details{
+  color:inherit;
   height: 25px;
   width: 250px;
+  border: none;
+  background-color: inherit;
+  border-bottom: 2px solid #3bbf3beb;
+}
+
+.input_details{
+  &:focus { 
+    outline: none !important;
+    }
 }
 #submit_rollnumber {
   border-radius: 0px;
@@ -113,7 +123,23 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 640px) {
-  #input_rollno {
+  .input_details {
     width: 200px !important;
   }
+}
+
+.input_details:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-color: red !important;
+  background-image: none !important;
+  color: -internal-light-dark(black, white) !important;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px transparent inset !important;
 }

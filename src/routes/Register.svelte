@@ -6,6 +6,39 @@
 </style>
 
 <script lang="ts">
+  import { router } from '@spaceavocado/svelte-router';
+  import { toast, ToastContainer } from 'svelte-toastify';
+  import { Roll_Number } from '../stores';
+  import axios from 'axios';
+  import config from '../../env';
+
+  let rollno = '';
+  function handlechange(e) {
+    rollno = e.target.value;
+  }
+  function verify() {
+    let value = Number(rollno);
+    if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
+      Roll_Number.set(value);
+      let email = rollno + '@nitt.edu';
+      axios({
+        method: 'post',
+        url: `${config.backendurl}/auth/start`,
+        data: {
+          email: email.toString()
+        },
+        headers: { 'Content-Type': 'application/json' }
+      })
+        .then(response => {
+          $router.push('/registrationdetails');
+          toast.success(response.data.message);
+        })
+        .catch(error => {
+          //console.log(error);
+          toast.error('Something went wrong, please try again!');
+        });
+    } else toast.error('Invalid roll number');
+  }
 </script>
 
 <main>
@@ -17,7 +50,16 @@
   />
   <h1 class="Dauth_title">DAuth</h1>
   <p>Please enter your roll number to get started with DAuth!</p>
-  <input type="text" id="input_rollno" name="rollno" />
+  <input
+    type="text"
+    class="input_details"
+    name="rollno"
+    placeholder="Roll Number"
+    on:change={e => {
+      handlechange(e);
+    }}
+  />
   <br />
-  <button id="submit_rollnumber" type="submit">Submit</button>
+  <button id="submit_rollnumber" type="submit" on:click={verify}>Submit</button>
+  <ToastContainer />
 </main>
