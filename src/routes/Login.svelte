@@ -6,11 +6,13 @@
 </style>
 
 <script lang="ts">
-  import { router } from '@spaceavocado/svelte-router';
-  import auth from 'src/utils/auth';
+  import { auth } from 'src/utils/auth';
+  import { navigate } from 'svelte-routing';
   import { axiosInstance } from 'src/utils/axios';
   import { toasts, ToastContainer } from 'svelte-toasts';
   import config from '../../env';
+  export let isauth = localStorage.getItem('isDAuth');
+  if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
   let rollno = '';
   let password = '';
   function handlechange(e) {
@@ -32,7 +34,8 @@
       })
         .then(response => {
           localStorage.setItem('isDAuth', 'true');
-          $router.push('/dashboard');
+          auth.set('false');
+          navigate('/dashboard', { replace: true });
           toasts.add({
             title: 'Success!',
             description: response.data.message,

@@ -8,7 +8,6 @@
 
 <script lang="ts">
   import { toasts } from 'svelte-toasts';
-  //import { Roll_Number } from '../stores';
   import config from '../../env';
   import { axiosInstance } from 'src/utils/axios';
   let state = {

@@ -6,17 +6,16 @@
 </style>
 
 <script lang="ts">
-  import { router } from '@spaceavocado/svelte-router';
+  import { navigate } from 'svelte-routing';
   import { toasts, ToastContainer } from 'svelte-toasts';
   import { Roll_Number } from '../stores';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import Button from '@smui/button';
-  //import auth from '../utils/auth';
-  export let auth;
-  console.log($auth);
-  if (auth==true) {
-    $router.push('/dashboard');
+  export let isauth = localStorage.getItem('isDAuth');
+  console.log(isauth);
+  if (isauth) {
+    navigate('/dashboard', { replace: true });
   }
   let rollno = '';
   function handlechange(e) {
@@ -29,14 +28,14 @@
       let email = rollno + '@nitt.edu';
       axiosInstance({
         method: 'post',
-        url: `${config.backendurl}/auth/start`,
+        url: `${config.backendurl}/isauth/start`,
         data: {
           email: email.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
         .then(response => {
-          $router.push('/registrationdetails');
+          navigate('/registerdetails', { replace: true });
           toasts.add({
             title: 'Success',
             description: response.data.message,
@@ -81,7 +80,7 @@
     src="https://delta.nitt.edu/images/deltaLogoGreen.png"
     alt="Delta logo"
   />
-  <h1 class="Dauth_title">DAuth</h1>
+  <h1 class="Disauth_title">DAuth</h1>
   <p>Please enter your roll number to get started with DAuth!</p>
   <input
     type="text"

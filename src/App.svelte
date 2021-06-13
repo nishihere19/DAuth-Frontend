@@ -6,69 +6,98 @@
 </style>
 
 <script lang="ts">
-
-  import RouterLink from '@spaceavocado/svelte-router/component/link';
-  import createRouter from '@spaceavocado/svelte-router';
-  import RouterView from '@spaceavocado/svelte-router/component/view';
+  import { navigate } from 'svelte-routing';
   import Registrationdetails from './routes/Registrationdetails.svelte';
+  import { Router, Link, Route } from 'svelte-routing';
   import Register from './routes/Register.svelte';
   import Login from './routes/Login.svelte';
-  import Dashboard from './routes/Dashboard.svelte';
   import ThemeContext from './ThemeContext.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
   import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
   import { axiosInstance } from 'src/utils/axios';
-  import Nav from '../src/routes/Nav.svelte';
+  import Dashboard from './routes/Dashboard.svelte';
   import config from '../env';
-  import auth from './utils/auth';
+  import { onMount } from 'svelte';
+  let url = '/';
+  import { auth } from './utils/auth';
   let isauth;
-  const unsubscribe = auth.subscribe(value=>{
-    isauth= value;
-  })
+  if ($auth) {
+    const unsubscribe = auth.subscribe(value => {
+      isauth = value;
+    });
+  }
   console.log($auth);
-  createRouter({
-    routes: [
-      {
-        path: '/',
-        name: 'REGISTER',
-        component: Register,
-        props: {
-          auth: $auth
-        }
-      },
-      {
-        path: '/login',
-        name: 'LOGIN',
-        component: Login,
-        props: {
-          auth: $auth
-        }
-      },
-      {
-        path: '/registrationdetails',
-        name: 'DETAILS',
-        component: Registrationdetails,
-        props: {
-          auth: $auth
-        }
-      },
-      {
-        path: '/dashboard',
-        name: 'DASHBOARD',
-        component: Dashboard,
-        props: {
-          auth: $auth
-        }
-      }
-    ]
+  onMount(() => {
+    axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/is-auth`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        console.log(response);
+        localStorage.setItem('isDAuth', 'true');
+        auth.set(localStorage.getItem('isDAuth'));
+      })
+      .catch(error => {
+        console.log(error.message);
+        localStorage.clear();
+        auth.set(localStorage.getItem('isDAuth'));
+      });
   });
+  function logout() {
+    axiosInstance({
+      method: 'post',
+      url: `${config.backendurl}/auth/logout`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        localStorage.setItem('isDAuth', 'false');
+        auth.set('false');
+        navigate('/');
+        toasts.add({
+          title: 'Success!',
+          description: response.data.message,
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'success',
+          theme: localStorage.getItem('DAuth-theme')
+        });
+      })
+      .catch(error => {
+        toasts.add({
+          title: 'Oops',
+          description: 'Please try again!!',
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'error',
+          theme: localStorage.getItem('DAuth-theme')
+        });
+      });
+  }
 </script>
 
-<ThemeContext>
-  <Nav auth={isauth} />
-  <RouterView />
-  <ThemeToggle />
-  <ToastContainer let:data
-    ><FlatToast {data} /> <!-- Provider template for your toasts --></ToastContainer
+<Router {url}>
+  <ThemeContext>
+    {#if !isauth || isauth == 'false'}
+      <nav class="navbar">
+        <Link to="/login">Login</Link>
+        <Link to="/">Register</Link>
+      </nav>
+    {/if}
+    {#if isauth == 'true'}
+      <nav class="navbar">
+        <a as="button" on:click={logout} href="/">Logout</a>
+      </nav>
+    {/if}
+    <div>
+      <Route path="/login" component={Login} bind:isauth />
+      <Route path="/dashboard" component={Dashboard} bind:isauth />
+      <Route path="/registerdetails" component={Registrationdetails} bind:isauth />
+      <Route exact path="/" component={Register} bind:isauth />
+    </div>
+    <ThemeToggle />
+    <ToastContainer let:data
+    ><FlatToast {data} /></ToastContainer
   >
-</ThemeContext>
+  </ThemeContext>
+</Router>

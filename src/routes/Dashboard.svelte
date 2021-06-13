@@ -6,15 +6,11 @@
 </style>
 
 <script lang="ts">
-  import { axiosInstance } from 'src/utils/axios';
-  import config from '../../env';
-  import { router } from '@spaceavocado/svelte-router';
-  import {onMount} from 'svelte';
- // import auth from '../utils/auth';
-  export let auth;
-  console.log(auth);
-  if (!auth || auth == false) {
-    $router.push('/');
+  import { navigate } from 'svelte-routing';
+  export let isauth = localStorage.getItem('isDAuth');
+  console.log(isauth);
+  if (isauth == 'false') {
+    navigate('/',{replace:true});
   }
 </script>
 
