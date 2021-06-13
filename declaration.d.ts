@@ -12,7 +12,7 @@ declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
 
-declare module 'svelte-toastify'
+declare module 'svelte-toasts'
 
 declare module '@spaceavocado/svelte-router'
 declare module '@spaceavocado/svelte-router/component/view'

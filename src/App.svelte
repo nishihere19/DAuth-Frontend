@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+
   import RouterLink from '@spaceavocado/svelte-router/component/link';
   import createRouter from '@spaceavocado/svelte-router';
   import RouterView from '@spaceavocado/svelte-router/component/view';
@@ -15,52 +16,59 @@
   import Dashboard from './routes/Dashboard.svelte';
   import ThemeContext from './ThemeContext.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
-  import { toast, ToastContainer } from 'svelte-toastify';
-  toast.configure({
-    position: 'top-right'
-  });
-
-  // export let url = '';
+  import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
+  import { axiosInstance } from 'src/utils/axios';
+  import Nav from '../src/routes/Nav.svelte';
+  import config from '../env';
+  import auth from './utils/auth';
+  let isauth;
+  const unsubscribe = auth.subscribe(value=>{
+    isauth= value;
+  })
+  console.log($auth);
   createRouter({
     routes: [
       {
         path: '/',
         name: 'REGISTER',
-        component: Register
+        component: Register,
+        props: {
+          auth: $auth
+        }
       },
       {
         path: '/login',
         name: 'LOGIN',
-        component: Login
+        component: Login,
+        props: {
+          auth: $auth
+        }
       },
       {
         path: '/registrationdetails',
         name: 'DETAILS',
-        component: Registrationdetails
+        component: Registrationdetails,
+        props: {
+          auth: $auth
+        }
       },
       {
         path: '/dashboard',
         name: 'DASHBOARD',
-        component: Dashboard
+        component: Dashboard,
+        props: {
+          auth: $auth
+        }
       }
     ]
   });
 </script>
 
 <ThemeContext>
-  <nav class="navbar">
-    <RouterLink to="/dashboard">Dashboard</RouterLink>
-    <RouterLink to="/login">Login</RouterLink>
-    <RouterLink to="/">Register</RouterLink>
-  </nav>
-  <RouterView>
-    <div>
-      <!-- <Route path="/login" component={Login} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/registerdetails" component={Registrationdetails} />
-      <Route path="/" component={Register} /> -->
-    </div>
-  </RouterView>
+  <Nav auth={isauth} />
+  <RouterView />
   <ThemeToggle />
-  <ToastContainer />
+  <ToastContainer let:data
+    ><FlatToast {data} /> <!-- Provider template for your toasts --></ToastContainer
+  >
 </ThemeContext>

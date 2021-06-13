@@ -7,8 +7,9 @@
 
 <script lang="ts">
   import { router } from '@spaceavocado/svelte-router';
-  import axios from 'axios';
-  import { toast, ToastContainer } from 'svelte-toastify';
+  import auth from 'src/utils/auth';
+  import { axiosInstance } from 'src/utils/axios';
+  import { toasts, ToastContainer } from 'svelte-toasts';
   import config from '../../env';
   let rollno = '';
   let password = '';
@@ -20,7 +21,7 @@
     let value = Number(rollno);
     if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
       let email = rollno + '@nitt.edu';
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/login`,
         data: {
@@ -30,13 +31,42 @@
         headers: { 'Content-Type': 'application/json' }
       })
         .then(response => {
+          localStorage.setItem('isDAuth', 'true');
           $router.push('/dashboard');
-          toast.success(response.data.message);
+          toasts.add({
+            title: 'Success!',
+            description: response.data.message,
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'success',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+          location.reload();
+          //toast.success(response.data.message);
         })
         .catch(error => {
-          toast.error('Invalid roll number or password!');
+          toasts.add({
+            title: 'Oops',
+            description: 'Invalid roll number or password!',
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'error',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+          //toast.error('Invalid roll number or password!');
         });
-    } else toast.error('Invalid roll number');
+    } else {
+      toasts.add({
+        title: 'Oops',
+        description: 'Invalid roll number!',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'error',
+        theme: localStorage.getItem('DAuth-theme')
+      });
+
+      // toast.error('Invalid roll number');
+    }
   }
 </script>
 

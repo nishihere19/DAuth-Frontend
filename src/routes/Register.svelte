@@ -7,11 +7,17 @@
 
 <script lang="ts">
   import { router } from '@spaceavocado/svelte-router';
-  import { toast, ToastContainer } from 'svelte-toastify';
+  import { toasts, ToastContainer } from 'svelte-toasts';
   import { Roll_Number } from '../stores';
-  import axios from 'axios';
   import config from '../../env';
-
+  import { axiosInstance } from '../utils/axios';
+  import Button from '@smui/button';
+  //import auth from '../utils/auth';
+  export let auth;
+  console.log($auth);
+  if (auth==true) {
+    $router.push('/dashboard');
+  }
   let rollno = '';
   function handlechange(e) {
     rollno = e.target.value;
@@ -21,7 +27,7 @@
     if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
       Roll_Number.set(value);
       let email = rollno + '@nitt.edu';
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/start`,
         data: {
@@ -31,13 +37,40 @@
       })
         .then(response => {
           $router.push('/registrationdetails');
-          toast.success(response.data.message);
+          toasts.add({
+            title: 'Success',
+            description: response.data.message,
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'success',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+
+          //toast.success(response.data.message);
         })
         .catch(error => {
           //console.log(error);
-          toast.error('Something went wrong, please try again!');
+          toasts.add({
+            title: 'Oops',
+            description: 'Something went wrong, please try again!',
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'error',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+          // toast.error('Something went wrong, please try again!');
         });
-    } else toast.error('Invalid roll number');
+    } else {
+      toasts.add({
+        title: 'Oops',
+        description: 'Invalid roll number',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'error',
+        theme: localStorage.getItem('DAuth-theme')
+      });
+      //toast.error('Invalid roll number');
+    }
   }
 </script>
 
@@ -60,6 +93,8 @@
     }}
   />
   <br />
-  <button id="submit_rollnumber" type="submit" on:click={verify}>Submit</button>
+  <Button id="submit_rollnumber" class="variant-raised" type="submit" on:click={verify}
+    >Submit</Button
+  >
   <ToastContainer />
 </main>

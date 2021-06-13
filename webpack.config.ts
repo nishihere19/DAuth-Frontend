@@ -178,6 +178,7 @@ const config: Configuration = {
 	devServer: {
 		hot: true,
 		stats: 'none',
+		historyApiFallback: true,
 		contentBase: 'public',
 		watchContentBase: true
 	},

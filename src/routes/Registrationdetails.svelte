@@ -7,10 +7,10 @@
 </style>
 
 <script lang="ts">
-  import { toast } from 'svelte-toastify';
+  import { toasts } from 'svelte-toasts';
   //import { Roll_Number } from '../stores';
   import config from '../../env';
-  import axios from 'axios';
+  import { axiosInstance } from 'src/utils/axios';
   let state = {
     name: '',
     department: '',
@@ -40,10 +40,18 @@
       state.password.length == 0 ||
       state.confirmpass.length == 0
     )
-      toast.error('Please fill all the details!');
+      toasts.add({
+        title: 'Something is missing!',
+        description: 'Please fill all details',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'info',
+        theme: localStorage.getItem('DAuth-theme')
+      });
+    //toast.error('Something went wrong, please try again!');
     else {
       let newphone = `+91${state.phone}`;
-      axios({
+      axiosInstance({
         method: 'post',
         url: `${config.backendurl}/auth/register`,
         data: {
@@ -58,13 +66,28 @@
         headers: { 'Content-Type': 'application/json' }
       })
         .then(response => {
-          console.log(response);
-          toast.success(response.data.message);
+          toasts.add({
+            title: 'Success',
+            description: response.data.message,
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'success',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+          //toast.success(response.data.message);
           //$router.push('/registrationdetails');
         })
         .catch(error => {
           //console.log(error);
-          toast.error('Something went wrong, please try again!');
+          toasts.add({
+            title: 'Oops',
+            description: 'Something went wrong, please try again!',
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'error',
+            theme: localStorage.getItem('DAuth-theme')
+          });
+          //toast.error('Something went wrong, please try again!');
         });
     }
   }
