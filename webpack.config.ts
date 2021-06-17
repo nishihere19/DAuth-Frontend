@@ -50,6 +50,8 @@ const { preprocess } = require('./svelte.config');
 const mode = process.env.NODE_ENV ?? 'development';
 const isProduction = mode === 'production';
 const isDevelopment = !isProduction;
+// import * from './declaration';
+// import * as sapperfiles from 'src/declaration';
 
 const config: Configuration = {
 	mode: isProduction ? 'production' : 'development',
@@ -77,7 +79,7 @@ const config: Configuration = {
 		rules: [
 			// Rule: Svelte
 			{
-				test: /\.svelte$/,
+				test: /.(svelte|html)$/,
 				// exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
@@ -86,7 +88,7 @@ const config: Configuration = {
 							// Dev mode must be enabled for HMR to work!
 							dev: isDevelopment
 						},
-						emitCss: isProduction,
+						emitCss: false,
 						hotReload: isDevelopment,
 						hotOptions: {
 							// List of options and defaults: https://www.npmjs.com/package/svelte-loader-hot#usage
@@ -100,7 +102,7 @@ const config: Configuration = {
 							sass: true,
 							postcss: {
 								plugins: [
-									Autoprefixer
+									Autoprefixer,
 								]
 							}
 						})
@@ -154,14 +156,19 @@ const config: Configuration = {
 
 			// Rule: CSS
 			{
-				test: /\.css$/,
-				include: path.resolve(__dirname, 'src'),
+				test: /\.(css)$/,
+
+				include: [path.resolve(__dirname, 'src'),path.resolve(__dirname, 'node_modules')],
 				use: [
 					{
 						loader: MiniCssExtractPlugin.loader
 					},
-					// 'style-loader',
-					'css-loader'
+					{
+					loader: 'css-loader',
+					options: {
+						url: false, // necessary if you use url('/path/to/some/asset.png|jpg|gif')
+						modules: true
+					}}
 				]
 			},
 
@@ -176,6 +183,7 @@ const config: Configuration = {
 	devServer: {
 		hot: true,
 		stats: 'none',
+		historyApiFallback: true,
 		contentBase: 'public',
 		watchContentBase: true
 	},

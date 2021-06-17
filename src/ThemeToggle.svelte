@@ -1,9 +1,10 @@
 <script>
   import { getContext } from 'svelte';
   const { toggle } = getContext('theme');
+  import { Switch } from 'svelte-materialify';
 </script>
 
-<label class="switch">
-  <input type="checkbox" id="theme_toggler" on:change={toggle} />
-  <span class="slider round" />
+<label as="checkbox" on:change={toggle} class="switch">
+  <input type="checkbox" id="theme_toggler" />
+  <Switch color="#3bbf3beb" />
 </label>
