@@ -18,7 +18,28 @@
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;
+  let departments = [];
   onMount(() => {
+    document
+      .querySelector('.form')
+      .addEventListener('keypress', function (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        }
+      });
+  });
+  async function getDepartments() {
+    let result = await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/departments`
+    });
+    result.data.forEach(item => {
+      departments.push(item.department);
+    });
+    return departments;
+  }
+  onMount(async () => {
+    await getDepartments();
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
@@ -84,6 +105,7 @@
         headers: { 'Content-Type': 'application/json' }
       })
         .then(response => {
+          navigate('/', { replace: true });
           toasts.add({
             title: 'Success',
             description: `${response.data.message}. Kindly Login!`,
@@ -93,20 +115,14 @@
             showProgress: true,
             theme: $theme.name
           });
-          navigate('/login', { replace: true });
         })
         .catch(error => {
-          let message;
-          if (error.response) {
-            message = error.response.data.message;
-          } else if (error.request) {
-            message = error.request.data.message;
-          } else {
-            message = 'Something went wrong, please try again!';
-          }
           toasts.add({
             title: 'Oops',
-            description: message,
+            description:
+              error.response.data.message ||
+              error.response.data.errors[0].msg ||
+              'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
             type: 'error',
@@ -119,91 +135,107 @@
 </script>
 
 <main>
-  <div class="logo_div">
-    <img
-      class="delta_logo"
-      src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-      alt="Delta logo"
-    />
-  </div>
-  <div class="center">
-    <h2 class="Dauth_title">DAuth</h2>
-    <h6>Please enter the details to create an account!</h6>
-    <br />
-    <div class="form" />
-    <input
-      type="text"
-      class="input_details"
-      id="input_name"
-      name="name"
-      placeholder="Name"
-      value={state.name}
-      on:change={e => {
-        handleChange(e);
-      }}
-    /><br />
-    <br />
-    <input
-      type="text"
-      class="input_details"
-      id="input_department"
-      name="department"
-      placeholder="Department"
-      value={state.department}
-      on:change={handleChange}
-    /><br />
-    <br />
-    <input
-      type="number"
-      class="input_details"
-      id="input_year"
-      name="batch"
-      placeholder="Batch"
-      value={state.batch}
-      on:change={handleChange}
-    /><br />
-    <br />
-    <input
-      type="tel"
-      class="input_details"
-      bind:this={phoneInputField}
-      id="input_phone"
-      name="phone"
-      placeholder="Phone Number"
-      value={state.phone}
-      on:change={handleChange}
-    /><br />
-    <br />
-    <input
-      type="email"
-      class="input_details"
-      id="input_mail"
-      name="email"
-      placeholder="Alternate Email ID"
-      value={state.email}
-      on:change={handleChange}
-    /><br />
-    <br />
-    <input
-      type="password"
-      class="input_details"
-      id="input_password"
-      name="password"
-      placeholder="Password"
-      value={state.password}
-      on:change={handleChange}
-    /><br />
-    <br />
-    <input
-      type="password"
-      class="input_details"
-      id="input_repeat_password"
-      name="confirmPassword"
-      placeholder="Confirm Password"
-      value={state.confirmPassword}
-      on:change={handleChange}
-    /><br />
-    <br />
-  </div>
-  <button id="submit_button" type="submit" on:click={handleSubmit}>Submit</button>
+  {#await getDepartments()}
+    <div>Loading..</div>
+  {:then department}
+    <div class="logo_div">
+      <img
+        class="delta_logo"
+        src="https://delta.nitt.edu/images/deltaLogoGreen.png"
+        alt="Delta logo"
+      />
+    </div>
+    <div class="center">
+      <h2 class="Dauth_title">DAuth</h2>
+      <h6>Please enter the details to create an account!</h6>
+      <div class="form" />
+      <label for="name">Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        value={state.name}
+        on:change={e => {
+          handleChange(e);
+        }}
+      /><br />
+      <br />
+      <label for="department">Department</label><br />
+      <select
+        class="input_details"
+        id="input_department"
+        name="department"
+        bind:value={state.department}
+        on:blur={handleChange}
+      >
+        <option disabled selected value> -- select an option -- </option>
+        {#each departments as department}
+          {#if $theme.name == 'dark'}
+            <option value={department} style="background:#212121; color:#f1f1f1"
+              >{department}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={department} style="background:#f1f1f1; color:#282230"
+              >{department}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
+      <label for="batch">Batch</label><br />
+      <input
+        type="number"
+        class="input_details"
+        id="input_year"
+        name="batch"
+        value={state.batch}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="phone">Phone Number</label><br />
+      <input
+        type="tel"
+        class="input_details"
+        bind:this={phoneInputField}
+        id="input_phone"
+        name="phone"
+        value={state.phone}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="email">Alternate Email Id</label><br />
+      <input
+        type="email"
+        class="input_details"
+        id="input_mail"
+        name="email"
+        value={state.email}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_password"
+        name="password"
+        value={state.password}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="confirmPassword">Confirm Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_repeat_password"
+        name="confirmPassword"
+        value={state.confirmPassword}
+        on:change={handleChange}
+      /><br />
+      <br />
+    </div>
+    <button id="submit_button" type="submit" on:click={handleSubmit}>Submit</button>
+  {/await}
 </main>

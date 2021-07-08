@@ -43,6 +43,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import fs from 'fs';
 import path from 'path';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
 
 const Dotenv = require('dotenv-webpack');
 const { preprocess } = require('./svelte.config');
@@ -50,8 +51,6 @@ const { preprocess } = require('./svelte.config');
 const mode = process.env.NODE_ENV ?? 'development';
 const isProduction = mode === 'production';
 const isDevelopment = !isProduction;
-// import * from './declaration';
-// import * as sapperfiles from 'src/declaration';
 
 const config: Configuration = {
 	mode: isProduction ? 'production' : 'development',
@@ -70,10 +69,9 @@ const config: Configuration = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: path.resolve(__dirname, 'public/build'),
-		publicPath: '/build/',
-		filename: '[name].js',
-		chunkFilename: '[name].[id].js'
+		path: path.resolve(__dirname, './public/build'),
+		publicPath: '/',
+		filename: isProduction ? 'app-[contenthash].js' : 'app.js'
 	},
 	module: {
 		rules: [
@@ -181,10 +179,16 @@ const config: Configuration = {
 		]
 	},
 	devServer: {
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Expose-Headers': 'Content-Length',
+			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+			'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+		},
 		hot: true,
 		stats: 'none',
-		historyApiFallback: true,
 		contentBase: 'public',
+		historyApiFallback: true,
 		watchContentBase: true
 	},
 	target: isDevelopment ? 'web' : 'browserslist',
@@ -199,7 +203,8 @@ const config: Configuration = {
 			systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
 			silent: true, // hide any errors
 			defaults: false // load '.env.defaults' as the default values if empty.
-		})
+		}),
+		new HTMLWebpackPlugin()
 	],
 	devtool: isProduction && !sourceMapsInProduction ? false : 'source-map',
 	stats: {

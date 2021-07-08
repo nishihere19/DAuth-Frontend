@@ -20,14 +20,14 @@ main{
 }
 
 h2{
-  font-size:4rem;
-  font-weight: 300;
-  line-height: 0;
+  font-size: 4rem;
+  margin-block-start:0 !important;
+  margin-block-end:0.5rem !important;
 }
 
 h6{
+  margin-block-start:0 !important;
   font-size: 1.3rem;
-  font-weight: 100;
 }
 //logo on landing page
 .delta_logo{
@@ -47,6 +47,7 @@ h6{
   text-decoration: none;
   font-size: 1.3rem;
   padding: 10px;
+  letter-spacing: 2px;
 }
 
 // .navbar button{
@@ -74,35 +75,67 @@ h6{
 
 //starter page
 
+.form{
+  margin:auto;
+  font-size: 1.2rem;
+}
+
 .input_details{
   color:inherit;
   height: 25px;
   width: 400px;
   border: none;
+  border-bottom: 2px solid rgb(119, 119, 119);
   background-color: inherit;
-  border-bottom: 2px solid #3bbf3beb;
   font-size: 1.2rem;
 }
 
 .input_details{
   &:focus { 
     outline: none !important;
+    border-bottom: 2px solid #3bbf3beb;
     }
 }
-#submit_button {
+#submit_button{
+  border: 2px solid rgb(119, 119, 119);
+  color: rgb(119, 119, 119);
+}
+#submit_button{
+  &:hover{
+    border: 2px solid #3bbf3beb; 
+    color: #3bbf3b;
+  }
+}
+#allowButton {
+  border: 2px solid #3bbf3b;
+  color: #3bbf3b;
+}
+.webmailId{
+  color: #3bbf3b;
+}
+#submit_button, #allowButton, #denyButton {
   border-radius: 0px;
   height: 35px;
   width: 150px;
   margin: 20px !important;
   background-color: inherit;
-  border: 2px solid #3bbf3b;
-  color: #3bbf3b;
+}
+
+#denyButton{
+  border: 2px solid rgb(119, 119, 119);
+  color: rgb(119, 119, 119);
 }
 
 
 @media (max-width: 640px) {
+  h2{
+    font-size: 2rem;
+  }
   .input_details {
     width: 300px !important;
+  }
+  .headerMain{
+    margin:1rem !important;
   }
 }
 
@@ -129,4 +162,223 @@ h6{
   display: none;
 }
 
-//intl-tel
+//authorise apps
+
+.authoriseAppContainer{
+  padding:7rem 0;
+}
+
+#authoriseTitle, h2,h6, footer{
+    color: inherit;
+    font-weight: 300;
+    text-align: center;
+    // padding: 0 0 0.4em 0;
+    vertical-align: baseline;
+}
+#authoriseTitle, footer{
+  letter-spacing: 4px;
+}
+#userGreeting{
+  color: inherit;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: center;
+  vertical-align: baseline;
+}
+#authoriseTitle{
+  font-size: 1rem;
+  margin-top: -.3em;
+}
+
+.headerMain{
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 999;
+  padding: 3em 2em;
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+  -moz-box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+  border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+#authoriseDeltaLogo{
+  height:50px;
+}
+
+#deltaLogo, .mainContent{
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.mainContent{
+  margin-top: 5rem;
+}
+#deltaLogo{
+  position: absolute;
+  right:2em;
+  margin-top: -0.3rem;
+}
+ .allowAccess, .accessInfo{
+  text-align: left;
+}
+
+.accessInfo{
+  color:rgb(119, 119, 119);
+}
+#userProfileIcon{
+  height:30px;
+  margin: 0 .4rem 0 0;
+}
+
+#thirdPartApp, #userDashboard{
+  color:#3bbf3b;
+  text-decoration: none !important;
+}
+
+.greetingHeader{
+  display: inline-flex;
+}
+#userInfo{
+  position: absolute;
+  left:2em;
+}
+
+@media (max-width: 640px) {
+  .headerMain{
+    max-width: 300px !important;
+  }
+}
+
+//loader
+
+.loader {
+  border: 10px solid #85858561; /* Light grey */
+  border-top: 10px solid #3bbf3b; /* Delta green */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.redirectContainer{
+  padding:7rem 0;
+  text-align: center;
+}
+
+/*error page*/
+.noise {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  opacity: .02;
+}
+
+.overlay {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 1;
+}
+
+.overlay::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan 7.5s linear 0s infinite;
+}
+
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  35%, 100% { background-position: 0 100vh; }
+}
+
+.terminal {
+  box-sizing: inherit;
+  height: 100%;
+  text-align: left;
+  max-width: 100%;
+  padding: 4rem;
+  text-transform: uppercase;
+}
+
+.output {
+  color: #3bbf3b;
+  text-shadow:
+      0 0 1px rgba(51, 255, 51, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.output::before {
+  content: "> ";
+}
+
+.errorLink {
+  color: inherit;
+  border-bottom: 2px solid #3bbf3b;
+  text-decoration: none;
+}
+
+.errorLink::before {
+  content: "[";
+}
+
+.errorLink::after {
+  content: "]";
+}
+
+.errorcode {
+  color: inherit;
+}
+
+/*verification page*/
+
+.verifyContainer{
+  padding:4rem;
+}
+
+.verifyTitle{
+  color: #3bbf3b;
+}
+
+.verifyContent{
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+}

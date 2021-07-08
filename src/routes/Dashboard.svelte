@@ -7,8 +7,7 @@
 
 <script lang="ts">
   import { navigate } from 'svelte-routing';
-  export let isauth = localStorage.getItem('isDAuth');
-  console.log(isauth);
+  export let isauth;
   if (isauth == 'false') {
     navigate('/', { replace: true });
   }

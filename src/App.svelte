@@ -6,11 +6,13 @@
 </style>
 
 <script lang="ts">
+  import AuthorizeApp from './routes/AuthorizeApp.svelte';
   import { navigate } from 'svelte-routing';
   import RegistrationDetails from './routes/RegistrationDetails.svelte';
   import { Router, Link, Route } from 'svelte-routing';
   import Register from './routes/Register.svelte';
   import Login from './routes/Login.svelte';
+  import Redirect from './routes/Redirect.svelte';
   import ThemeContext from './ThemeContext.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
   import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
@@ -20,14 +22,18 @@
   import { onMount } from 'svelte';
   import { auth } from './utils/auth';
   import { Footer } from 'svelte-materialify';
+  import Error from './routes/Error.svelte';
+  import VerifyEmail from './routes/VerifyEmail.svelte';
   let isauth = '';
-  let url = '/';
+  let url = '';
   if ($auth) {
     auth.subscribe(value => {
       isauth = value;
     });
   }
   onMount(() => {
+    let element: HTMLBodyElement = document.querySelector('.navbar');
+    element.style.display = 'inline-flex';
     axiosInstance({
       method: 'get',
       url: `${config.backendurl}/auth/is-auth`,
@@ -55,7 +61,7 @@
         localStorage.removeItem('isDAuth');
         auth.set(localStorage.getItem('isDAuth'));
         isauth = $auth;
-        if (!localStorage.getItem('isDAuth')) navigate('/', { replace: true });
+        navigate('/', { replace: true });
         toasts.add({
           title: 'Success!',
           description: response.data.message,
@@ -67,17 +73,12 @@
         });
       })
       .catch(error => {
-        let message;
-        if (error.response) {
-          message = error.response.data.message;
-        } else if (error.request) {
-          message = error.request.data.message;
-        } else {
-          message = 'Something went wrong, please try again!';
-        }
         toasts.add({
           title: 'Oops',
-          description: message,
+          description:
+            error.response.data.message ||
+            error.response.data.errors[0].msg ||
+            'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
           type: 'error',
@@ -106,8 +107,8 @@
     <div class="main-content">
       {#if !$auth || $auth == 'false'}
         <nav class="navbar">
-          <Link to="/login"><div class="text-button">Login</div></Link>
-          <Link to="/"><div class="text-button">Register</div></Link>
+          <Link to="/"><div class="text-button">Login</div></Link>
+          <Link to="/register"><div class="text-button">Register</div></Link>
         </nav>
       {/if}
       {#if $auth == 'true'}
@@ -118,10 +119,14 @@
         </nav>
       {/if}
 
-      <Route path="/login" component={Login} bind:isauth />
-      <Route path="/dashboard" component={Dashboard} bind:isauth />
-      <Route path="/registerdetails" component={RegistrationDetails} bind:isauth />
-      <Route path="/" component={Register} bind:isauth />
+      <Route path="register" component={Register} bind:isauth />
+      <Route path="dashboard" component={Dashboard} bind:isauth />
+      <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
+      <Route path="authorize" component={AuthorizeApp} bind:isauth />
+      <Route path="redirect" component={Redirect} bind:isauth />
+      <Route path="/*" component={Error} />
+      <Route path="/verify" component={VerifyEmail} />
+      <Route path="/" component={Login} bind:isauth />
     </div>
     <ThemeToggle />
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>
