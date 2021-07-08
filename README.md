@@ -1,8 +1,6 @@
 # Delta OAuth2.0 Frontend
 
-## Table of Contents
-
-
+Frontend repository for D-Auth
 
 ## Resources
 
