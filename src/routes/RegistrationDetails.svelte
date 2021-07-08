@@ -19,15 +19,6 @@
   let phoneInputField;
   let phoneInput;
   let departments = [];
-  onMount(() => {
-    document
-      .querySelector('.form')
-      .addEventListener('keypress', function (e: KeyboardEvent) {
-        if (e.key === 'Enter') {
-          handleSubmit();
-        }
-      });
-  });
   async function getDepartments() {
     let result = await axiosInstance({
       method: 'get',
@@ -43,6 +34,13 @@
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
+    document
+      .querySelector('.center')
+      .addEventListener('keypress', function (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        }
+      });
   });
   let state = {
     name: '',
