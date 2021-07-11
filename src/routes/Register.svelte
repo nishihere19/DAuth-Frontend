@@ -11,12 +11,11 @@
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import { Button } from 'svelte-materialify';
-  export let isauth = localStorage.getItem('isDAuth');
   import { getContext, onMount } from 'svelte';
   let { theme } = getContext('theme');
-  if (isauth) {
-    navigate('/dashboard', { replace: true });
-  }
+  // if (isauth) {
+  //   navigate('/dashboard', { replace: true });
+  // }
   onMount(() => {
     document
       .querySelector('.form')

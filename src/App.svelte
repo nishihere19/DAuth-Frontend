@@ -34,22 +34,6 @@
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
     element.style.display = 'inline-flex';
-    axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/auth/is-auth`,
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        localStorage.setItem('isDAuth', 'true');
-        auth.set(localStorage.getItem('isDAuth'));
-        isauth = $auth;
-        navigate('/dashboard', { replace: true });
-      })
-      .catch(error => {
-        localStorage.removeItem('isDAuth');
-        isauth = $auth;
-        auth.set(localStorage.getItem('isDAuth'));
-      });
   });
   function logout() {
     axiosInstance({
@@ -92,6 +76,11 @@
 <svelte:head>
   <title>DAuth</title>
   <link
+    rel="icon"
+    href="https://delta.nitt.edu/images/deltaLogoGreen.png"
+    type="image/icon type"
+  />
+  <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css"
     integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw=="
@@ -107,26 +96,28 @@
     <div class="main-content">
       {#if !$auth || $auth == 'false'}
         <nav class="navbar">
-          <Link to="/"><div class="text-button">Login</div></Link>
-          <Link to="/register"><div class="text-button">Register</div></Link>
+          <Link to="/" class="nav-links"><div class="text-button">Login</div></Link>
+          <Link to="/register" class="nav-links"
+            ><div class="text-button">Register</div></Link
+          >
         </nav>
       {/if}
       {#if $auth == 'true'}
         <nav class="navbar">
-          <a as="button" href="/" on:click={logout}
-            ><div class="text-button">Logout</div></a
+          <button class="nav-links" id="logoutBtn" on:click={logout}
+            ><div class="text-button">Logout</div></button
           >
         </nav>
       {/if}
 
-      <Route path="register" component={Register} bind:isauth />
+      <Route path="register" component={Register} />
       <Route path="dashboard" component={Dashboard} bind:isauth />
       <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
       <Route path="/*" component={Error} />
-      <Route path="/verify" component={VerifyEmail} />
-      <Route path="/" component={Login} bind:isauth />
+      <Route path="verify" component={VerifyEmail} />
+      <Route exact path="/" component={Login} bind:isauth />
     </div>
     <ThemeToggle />
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>

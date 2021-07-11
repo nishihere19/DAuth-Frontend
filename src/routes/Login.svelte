@@ -15,8 +15,8 @@
   import { getContext, onMount } from 'svelte';
   import { searchQuery } from 'src/utils/queryHandler';
   let { theme } = getContext('theme');
-  export let isauth = localStorage.getItem('isDAuth');
-  if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
+  export let isauth;
+  //if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
   let webmailId = '';
   let password = '';
   onMount(() => {
@@ -26,6 +26,22 @@
         if (e.key === 'Enter') {
           verify();
         }
+      });
+    axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/is-auth`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        localStorage.setItem('isDAuth', 'true');
+        auth.set(localStorage.getItem('isDAuth'));
+        isauth = $auth;
+        navigate('/dashboard', { replace: true });
+      })
+      .catch(error => {
+        localStorage.removeItem('isDAuth');
+        isauth = $auth;
+        auth.set(localStorage.getItem('isDAuth'));
       });
   });
   function handlechange(e) {
