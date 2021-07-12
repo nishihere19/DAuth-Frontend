@@ -8,7 +8,6 @@
 <script lang="ts">
   import { axiosInstance } from 'src/utils/axios';
   import { getContext, onMount } from 'svelte';
-  import { Link, navigate } from 'svelte-routing';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   let { theme } = getContext('theme');
@@ -77,7 +76,9 @@
                 {myClient.clientId}
               </li>
               <li>
-                <span class="listTitle">Client Secret: </span>{myClient.clientSecret}
+                <p>
+                  <span class="listTitle">Client Secret: </span>{myClient.clientSecret}
+                </p>
               </li>
               <li>
                 <span class="listTitle">Homepage URL:</span>

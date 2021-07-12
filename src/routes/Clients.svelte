@@ -8,7 +8,7 @@
 <script lang="ts">
   import { axiosInstance } from 'src/utils/axios';
   import { getContext, onMount } from 'svelte';
-  import { Link, navigate } from 'svelte-routing';
+  import { Link } from 'svelte-routing';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   let { theme } = getContext('theme');

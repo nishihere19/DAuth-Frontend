@@ -199,13 +199,7 @@ option {
 #authoriseTitle, footer{
   letter-spacing: 4px;
 }
-#userGreeting{
-  color: inherit;
-  font-weight: 300;
-  letter-spacing: 2px;
-  text-align: center;
-  vertical-align: baseline;
-}
+
 #authoriseTitle{
   font-size: 1rem;
   margin-top: -.3em;
@@ -252,10 +246,6 @@ option {
 .accessInfo{
   color:rgb(119, 119, 119);
 }
-#userProfileIcon{
-  height:30px;
-  margin: 0 .4rem 0 0;
-}
 
 #thirdPartApp, #userDashboard{
   color:#3bbf3b;
@@ -268,11 +258,40 @@ option {
 #userInfo{
   position: absolute;
   left:2em;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
 }
 
 @media (max-width: 640px) {
   .headerMain{
     max-width: 300px !important;
+  }
+  #userInfo{
+    position: relative;
+    left:0;
+  }
+  .user-name,.user-email{
+    text-align: center;
+  }
+  .delta_logo{
+    position: relative;
+    right: 0;
+    margin-top: 0;
+  }
+  #deltaLogo{
+    position: relative;
+    right: 0;
+  }
+  .greetingHeader{
+    text-align: center;
+    display: block;
+  }
+  #authoriseTitle{
+    margin-bottom: 0;
+  }
+  .mainContent{
+    margin-top: 0;
   }
 }
 
@@ -421,8 +440,9 @@ option {
   width: 100%;
   align-items: center;
 }
-.client-name,.client-description{
+.client-name,.client-description,.user-name,.user-email{
   margin:0;
+  text-align: left;
 }
 
 .client-header,.client-name,.client-description{
@@ -431,6 +451,7 @@ option {
 .clientDetails-container ul li{
   list-style: none;
   padding: 0.4rem;
+  word-wrap: break-word;
 }
 .clientDetails-container ul {
   width: 100%;
