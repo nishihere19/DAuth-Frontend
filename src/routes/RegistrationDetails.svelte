@@ -29,8 +29,7 @@
     });
     return departments;
   }
-  onMount(async () => {
-    await getDepartments();
+  onMount(() => {
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
@@ -165,7 +164,7 @@
         id="input_department"
         name="department"
         bind:value={state.department}
-        on:blur={handleChange}
+        on:select={handleChange}
       >
         <option disabled selected value> -- select an option -- </option>
         {#each departments as department}
