@@ -153,7 +153,7 @@
         class="input_details"
         id="input_name"
         name="name"
-        value={state.name}
+        bind:value={state.name}
         on:change={e => {
           handleChange(e);
         }}
@@ -188,7 +188,7 @@
         class="input_details"
         id="input_year"
         name="batch"
-        value={state.batch}
+        bind:value={state.batch}
         on:change={handleChange}
       /><br />
       <br />
@@ -199,7 +199,7 @@
         bind:this={phoneInputField}
         id="input_phone"
         name="phone"
-        value={state.phone}
+        bind:value={state.phone}
         on:change={handleChange}
       /><br />
       <br />
@@ -209,7 +209,7 @@
         class="input_details"
         id="input_mail"
         name="email"
-        value={state.email}
+        bind:value={state.email}
         on:change={handleChange}
       /><br />
       <br />
@@ -219,7 +219,7 @@
         class="input_details"
         id="input_password"
         name="password"
-        value={state.password}
+        bind:value={state.password}
         on:change={handleChange}
       /><br />
       <br />
@@ -229,7 +229,7 @@
         class="input_details"
         id="input_repeat_password"
         name="confirmPassword"
-        value={state.confirmPassword}
+        bind:value={state.confirmPassword}
         on:change={handleChange}
       /><br />
       <br />
