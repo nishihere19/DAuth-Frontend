@@ -24,12 +24,11 @@
       method: 'get',
       url: `${config.backendurl}/auth/departments`
     });
-    result.data.forEach(item => {
-      departments.push(item.department);
-    });
+    departments = result.data;
     return departments;
   }
-  onMount(() => {
+  onMount(async () => {
+    await getDepartments();
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
@@ -170,12 +169,12 @@
         {#each departments as department}
           {#if $theme.name == 'dark'}
             <option value={department} style="background:#212121; color:#f1f1f1"
-              >{department}</option
+              >{department.department}</option
             >
           {/if}
           {#if $theme.name == 'light'}
             <option value={department} style="background:#f1f1f1; color:#282230"
-              >{department}</option
+              >{department.department}</option
             >
           {/if}
         {/each}
