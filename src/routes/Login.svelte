@@ -119,6 +119,7 @@
       class="input_details"
       id="password"
       name="password"
+      bind:value={password}
       on:change={e => {
         handlechange(e);
       }}

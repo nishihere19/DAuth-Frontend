@@ -11,6 +11,11 @@ body {
 	font-family: 'Roboto', 'Segoe UI', sans-serif !important;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 main{
   text-align: center !important;
 }
@@ -167,7 +172,7 @@ h6{
 
 //authorise apps
 
-.authoriseAppContainer{
+.authoriseAppContainer, .clientDetailsContainer{
   padding:7rem 0;
 }
 
@@ -385,3 +390,42 @@ h6{
   font-size: 1.3rem;
   letter-spacing: 2px;
 }
+
+/*client manager*/
+
+.avatar{
+  margin: .4rem;
+  border-radius: 50%;
+}
+
+.clientManager-container{
+  margin: auto;
+  width: 100%;
+  max-width: 400px;
+}
+.client-container, .client-header, .clientDetails-header,.clientDetails-container{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
+.client-name,.client-description{
+  margin:0;
+}
+
+.client-header,.client-name,.client-description{
+  text-align: left;
+}
+.clientDetails-container ul li{
+  list-style: none;
+  padding: 0.4rem;
+}
+.clientDetails-container ul {
+  width: 100%;
+  padding-left: 0;
+  text-align: left;
+}
+
+.listTitle{
+   color: #3bbf3b;
+}
+

@@ -73,7 +73,7 @@
         <div id="userInfo">
           <img
             id="userProfileIcon"
-            src="https://gravatar.com/avatar/c9b235a9c585af737b7f4ba185ea27df.jpg?d=retro"
+            src={'https://ui-avatars.com/api/?background=random&name=ABC'}
             alt="profileImage"
           />
           <span id="userGreeting">Hi User!</span>

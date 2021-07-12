@@ -6,6 +6,8 @@
 </style>
 
 <script lang="ts">
+  import Clients from './routes/Clients.svelte';
+  import RegisterClient from './routes/RegisterClient.svelte';
   import AuthorizeApp from './routes/AuthorizeApp.svelte';
   import { navigate } from 'svelte-routing';
   import RegistrationDetails from './routes/RegistrationDetails.svelte';
@@ -24,6 +26,7 @@
   import { Footer } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
+  import ClientDetails from './routes/ClientDetails.svelte';
   let isauth = '';
   let url = '';
   if ($auth) {
@@ -107,6 +110,9 @@
           <button class="nav-links" id="logoutBtn" on:click={logout}
             ><div class="text-button">Logout</div></button
           >
+          <Link to="/client-manager" class="nav-links"
+            ><div class="text-button">My Clients</div></Link
+          >
         </nav>
       {/if}
 
@@ -115,6 +121,9 @@
       <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
+      <Route path="new-client" component={RegisterClient} />
+      <Route path="client-manager" component={Clients} />
+      <Route path="client-details" component={ClientDetails} />
       <Route path="/*" component={Error} />
       <Route path="verify" component={VerifyEmail} />
       <Route exact path="/" component={Login} bind:isauth />
