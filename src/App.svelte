@@ -6,6 +6,9 @@
 </style>
 
 <script lang="ts">
+  import ClientDetails from './routes/ClientDetails.svelte';
+  import Clients from './routes/Clients.svelte';
+  import RegisterClient from './routes/RegisterClient.svelte';
   import AuthorizeApp from './routes/AuthorizeApp.svelte';
   import { navigate } from 'svelte-routing';
   import RegistrationDetails from './routes/RegistrationDetails.svelte';
@@ -36,22 +39,6 @@
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
     element.style.display = 'inline-flex';
-    axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/auth/is-auth`,
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        localStorage.setItem('isDAuth', 'true');
-        auth.set(localStorage.getItem('isDAuth'));
-        isauth = $auth;
-        navigate('/dashboard', { replace: true });
-      })
-      .catch(error => {
-        localStorage.removeItem('isDAuth');
-        isauth = $auth;
-        auth.set(localStorage.getItem('isDAuth'));
-      });
   });
   function logout() {
     axiosInstance({
@@ -93,6 +80,7 @@
 
 <svelte:head>
   <title>DAuth</title>
+  <link rel="shortcut icon" href="images/favicon.ico" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css"
@@ -109,17 +97,24 @@
     <div class="main-content">
       {#if !$auth || $auth == 'false'}
         <nav class="navbar">
-          <Link to="/"><div class="text-button">Login</div></Link>
-          <Link to="/register"><div class="text-button">Register</div></Link>
+          <Link to="/" class="nav-links"><div class="text-button">Login</div></Link>
+          <Link to="/register" class="nav-links"
+            ><div class="text-button">Register</div></Link
+          >
         </nav>
       {/if}
       {#if $auth == 'true'}
         <nav class="navbar">
-          <a as="button" href="/" on:click={logout}
-            ><div class="text-button">Logout</div></a
+          <button class="nav-links" id="logoutBtn" on:click={logout}
+            ><div class="text-button">Logout</div></button
           >
-          <Link to="/dashboard"><div class="text-button">Profile</div></Link>
-          <Link to="/apps"><div class="text-button">Apps</div></Link>
+          <Link to="/dashboard" class="nav-links"
+            ><div class="text-button">Profile</div></Link
+          >
+          <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
+          <Link to="/client-manager" class="nav-links"
+            ><div class="text-button">Clients</div></Link
+          >
         </nav>
       {/if}
 
@@ -128,8 +123,13 @@
       <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
+      <Route path="new-client" component={RegisterClient} />
+      <Route path="client-manager" component={Clients} />
+      <Route path="client-details/:id" let:params>
+        <ClientDetails id={params.id} />
+      </Route>
       <Route path="/*" component={Error} />
-      <Route path="/verify" component={VerifyEmail} />
+      <Route path="verify" component={VerifyEmail} />
       <Route path="/" component={Login} bind:isauth />
       <Route path="apps" component={AuthorizedApps} bind:isauth />
     </div>

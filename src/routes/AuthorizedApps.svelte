@@ -1,6 +1,6 @@
 <style>
-  main{
-    margin:0.25rem;
+  main {
+    margin: 0.25rem;
     text-align: center;
   }
   section {
@@ -16,12 +16,12 @@
       grid-template-columns: repeat(1, 1fr);
     }
   }
-  @media only screen and (max-width: 1024px) and (min-width: 768px)  {
+  @media only screen and (max-width: 1024px) and (min-width: 768px) {
     section {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  @media only screen and (min-width: 1024px){
+  @media only screen and (min-width: 1024px) {
     section {
       grid-template-columns: repeat(3, 1fr);
     }

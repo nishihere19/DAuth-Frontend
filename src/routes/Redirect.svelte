@@ -31,8 +31,39 @@
       })
         .then(result => {
           const isAuthorized = result.data.isAuthorized;
-          if (isAuthorized == true) location.replace(result.data.client.redirectUri);
-          else navigate(`/authorize?${finalParams}`, { replace: true });
+          if (isAuthorized == true) {
+            document.body.innerHTML +=
+              '<form id="dynForm" action="' +
+              config.backendurl +
+              '/oauth/authorize" method="post">\
+      <input type="hidden" name="client_id" value="' +
+              $params.client_id +
+              '">\
+      <input type="hidden" name="redirect_uri" value="' +
+              $params.redirect_uri +
+              '">\
+      <input type="hidden" name="response_type" value="' +
+              $params.response_type +
+              '">\
+      <input type="hidden" name="grant_type" value="' +
+              $params.grant_type +
+              '">\
+      <input type="hidden" name="state" value="' +
+              $params.state +
+              '">\
+      <input type="hidden" name="scope" value="' +
+              $params.scope +
+              '">\
+      <input type="hidden" name="nonce" value="' +
+              $params.nonce +
+              '">\
+      </form>';
+            let el = <HTMLFormElement>document.getElementById('dynForm');
+            el.submit();
+          } else
+            navigate(`/authorize?${finalParams}&clientName=${result.data.client.name}`, {
+              replace: true
+            });
         })
         .catch(error => {
           toasts.add({

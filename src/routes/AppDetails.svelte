@@ -28,7 +28,7 @@
   export let clientName;
   export let description;
 
-  let active = false; //dialog 
+  let active = false; //dialog
   let { theme } = getContext('theme');
 
   function removeAccess() {
@@ -79,11 +79,8 @@
       <a href={homePageUrl}>{homePageUrl}</a>
       <br />
       {description}
-      <br/>
-      <button
-        class="appdetails-button-dark"
-        on:click={open}>Remove access</button
-      >
+      <br />
+      <button class="appdetails-button-dark" on:click={open}>Remove access</button>
     </CardText>
   </Card>
 {:else}
@@ -95,10 +92,8 @@
       <a href={homePageUrl}>{homePageUrl}</a>
       <br />
       {description}
-      <br/>
-      <button
-        class="appdetails-button-light"
-        on:click={open}><b>Remove access</b></button
+      <br />
+      <button class="appdetails-button-light" on:click={open}><b>Remove access</b></button
       >
     </CardText>
   </Card>
@@ -123,7 +118,7 @@
   <Dialog bind:active>
     <Card class="appdetails-dialog-card-light">
       <CardTitle color:crimson><b>Remove access?</b></CardTitle>
-      <CardText  class="appdetails-cardtext">
+      <CardText class="appdetails-cardtext">
         {clientName} will no longer have access to your DAuth account. You'll have to grant
         permission if you want to use the service again.
       </CardText>

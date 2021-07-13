@@ -11,6 +11,11 @@ body {
 	font-family: 'Roboto', 'Segoe UI', sans-serif !important;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 main{
   text-align: center !important;
 }
@@ -21,20 +26,23 @@ main{
 
 h2{
   font-size: 4rem;
-  margin-block-start:0 !important;
-  margin-block-end:0.5rem !important;
+  margin-block-end: 0;
+  // display: contents;
+}
+.Dauth_title{
+  float: right;
 }
 
 h6{
-  margin-block-start:0 !important;
+  margin-block-end:1rem !important;
+  margin-block-start: 0;
+  display: inline-flex;
   font-size: 1.3rem;
+  word-wrap: break-word;
 }
 //logo on landing page
 .delta_logo{
 	height: 150px;
-}
-.logo_div{
-	text-align: center;
 }
 
 .navbar{
@@ -42,8 +50,10 @@ h6{
 }
 
 //navbar links
-.navbar a{
+.nav-links{
+  border: none;
   color: inherit;
+  background: inherit;
   text-decoration: none;
   font-size: 1.3rem;
   padding: 10px;
@@ -75,19 +85,62 @@ h6{
 
 //starter page
 
+.main-container{
+  margin: auto;
+  max-width: 400px;
+  text-align: left;
+}
+// .logo_div{
+//   display: inline-flex;
+// }
+
 .form{
+  text-align: left;
   margin:auto;
   font-size: 1.2rem;
 }
 
+label{
+  display: inline-flex;
+}
+
 .input_details{
   color:inherit;
-  height: 25px;
-  width: 400px;
-  border: none;
-  border-bottom: 2px solid rgb(119, 119, 119);
+  height: 35px;
+  width: 100%;
+  border: 1px solid #3bbf3beb;
   background-color: inherit;
   font-size: 1.2rem;
+  box-sizing: border-box;
+}
+
+// select {
+//   text-align: center;
+//   text-align-last: center;
+//   /* webkit*/
+// }
+// option {
+//   text-align: left;
+//   /* reset to left*/
+// }
+
+
+.iti{
+  display: block !important;
+}
+
+.registerContainer{
+  display: inline-flex;
+}
+.navigateOption{
+  margin-left: 2rem;
+  font-size: 1rem;
+}
+.navigateLink{
+  color:#3bbf3b;
+}
+p{
+  margin-block-end: 0;
 }
 
 .input_details{
@@ -96,11 +149,11 @@ h6{
     border-bottom: 2px solid #3bbf3beb;
     }
 }
-#submit_button{
+.submit_button{
   border: 2px solid rgb(119, 119, 119);
   color: rgb(119, 119, 119);
 }
-#submit_button{
+.submit_button{
   &:hover{
     border: 2px solid #3bbf3beb; 
     color: #3bbf3b;
@@ -113,12 +166,16 @@ h6{
 .webmailId{
   color: #3bbf3b;
 }
-#submit_button, #allowButton, #denyButton {
+.submit_button, #allowButton, #denyButton {
   border-radius: 0px;
   height: 35px;
   width: 150px;
-  margin: 20px !important;
+  margin-top: 20px !important;
   background-color: inherit;
+}
+select, #input_phone{
+  height: 40px !important;
+  box-sizing: border-box;
 }
 
 #denyButton{
@@ -126,16 +183,40 @@ h6{
   color: rgb(119, 119, 119);
 }
 
+#newApp-btn{
+ margin-top: 0 !important;
+ margin-left: 10px;
+}
+
 
 @media (max-width: 640px) {
-  h2{
+  .verifyTitle{
     font-size: 2rem;
   }
-  .input_details {
-    width: 300px !important;
+  .nav-links{
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+  .Dauth_title{
+    font-size: 3rem;
+    margin-block-start: 0;
+    float: none;
   }
   .headerMain{
     margin:1rem !important;
+  }
+  .main-container{
+    margin: 2rem;
+    text-align: center;
+  }
+  .navigateOption{
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+}
+@media (max-width:400px) {
+  .Dauth_title{
+    font-size: 2.5rem ;
   }
 }
 
@@ -164,27 +245,24 @@ h6{
 
 //authorise apps
 
-.authoriseAppContainer{
+.authoriseAppContainer, .clientDetailsContainer{
   padding:7rem 0;
 }
 
+#authoriseTitle{
+  display: block;
+}
 #authoriseTitle, h2,h6, footer{
     color: inherit;
     font-weight: 300;
     text-align: center;
-    // padding: 0 0 0.4em 0;
+    word-wrap: break-word;
     vertical-align: baseline;
 }
 #authoriseTitle, footer{
   letter-spacing: 4px;
 }
-#userGreeting{
-  color: inherit;
-  font-weight: 300;
-  letter-spacing: 2px;
-  text-align: center;
-  vertical-align: baseline;
-}
+
 #authoriseTitle{
   font-size: 1rem;
   margin-top: -.3em;
@@ -231,10 +309,6 @@ h6{
 .accessInfo{
   color:rgb(119, 119, 119);
 }
-#userProfileIcon{
-  height:30px;
-  margin: 0 .4rem 0 0;
-}
 
 #thirdPartApp, #userDashboard{
   color:#3bbf3b;
@@ -247,11 +321,40 @@ h6{
 #userInfo{
   position: absolute;
   left:2em;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
 }
 
 @media (max-width: 640px) {
   .headerMain{
     max-width: 300px !important;
+  }
+  #userInfo{
+    position: relative;
+    left:0;
+  }
+  .user-name,.user-email{
+    text-align: center;
+  }
+  .delta_logo{
+    position: relative;
+    right: 0;
+    margin-top: 0;
+  }
+  #deltaLogo{
+    position: relative;
+    right: 0;
+  }
+  .greetingHeader{
+    text-align: center;
+    display: block;
+  }
+  #authoriseTitle{
+    margin-bottom: 0;
+  }
+  .mainContent{
+    margin-top: 0;
   }
 }
 
@@ -381,6 +484,46 @@ h6{
 .verifyContent{
   font-size: 1.3rem;
   letter-spacing: 2px;
+}
+
+/*client manager*/
+
+.avatar{
+  margin: .4rem;
+  border-radius: 50%;
+}
+
+.clientManager-container{
+  margin: auto;
+  width: 100%;
+  max-width: 400px;
+}
+.client-container, .client-header, .clientDetails-header,.clientDetails-container{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
+.client-name,.client-description,.user-name,.user-email{
+  margin:0;
+  text-align: left;
+}
+
+.client-header,.client-name,.client-description{
+  text-align: left;
+}
+.clientDetails-container ul li{
+  list-style: none;
+  padding: 0.4rem;
+  word-wrap: break-word;
+}
+.clientDetails-container ul {
+  width: 100%;
+  padding-left: 0;
+  text-align: left;
+}
+
+.listTitle{
+   color: #3bbf3b;
 }
 
 .appdetails-card{
