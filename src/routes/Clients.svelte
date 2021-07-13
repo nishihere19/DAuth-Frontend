@@ -54,26 +54,33 @@
   {#await getClients()}
     <div>Loading...please wait!</div>
   {:then myClients}
-    <div class="clientManager-container">
-      <div class="client-header">
-        <h1>Oauth Apps</h1>
-        <Link to="/new-client"><button id="submit_button">New App</button></Link>
-      </div>
-      {#each myClients as client}
-        <div class="client-container">
-          <img
-            class="avatar"
-            src={'https://ui-avatars.com/api/?background=random&name=' + client.name}
-            alt="client-avatar"
-          />
-          <div>
-            <Link to={'/client-details?clientId=' + client.clientId}
-              ><h3 class="client-name">{client.name}</h3></Link
-            >
-            <p class="client-description">{client.description}</p>
-          </div>
+    {#if myClients.length}
+      <div class="clientManager-container">
+        <div class="client-header">
+          <h1>Oauth Apps</h1>
+          <Link to="/new-client"
+            ><button id="newApp-btn" class="submit_button">New App</button></Link
+          >
         </div>
-      {/each}
-    </div>
+        {#each myClients as client}
+          <div class="client-container">
+            <img
+              class="avatar"
+              src={'https://ui-avatars.com/api/?background=random&name=' + client.name}
+              alt="client-avatar"
+            />
+            <div>
+              <Link to={'/client-details/' + client.clientId}
+                ><h3 class="client-name">{client.name}</h3></Link
+              >
+              <p class="client-description">{client.description}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+    {/if}
+    {#if !myClients.length}
+      <div>You have not registered any applications yet!</div>
+    {/if}
   {/await}
 </main>

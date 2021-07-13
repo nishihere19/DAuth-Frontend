@@ -42,10 +42,11 @@
   });
   let state = {
     name: '',
-    department: '',
+    department:{
+      department:''
+    },
     batch: null,
     phone: `+91`,
-    email: '',
     password: '',
     confirmPassword: ''
   };
@@ -54,12 +55,12 @@
     state[val] = e.target.value;
   }
   function handleSubmit() {
+    console.log(state)
     if (
       state.name.length == 0 ||
-      state.department.length == 0 ||
+      !state.department.department||
       state.batch.length == 0 ||
       state.phone.length == 0 ||
-      state.email.length == 0 ||
       state.password.length == 0 ||
       state.confirmPassword.length == 0
     ) {
@@ -93,10 +94,9 @@
           name: state.name,
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          department: state.department,
+          department: state.department.department,
           year: state.batch,
-          phoneNumber: phoneInput.getNumber(),
-          email: state.email
+          phoneNumber: phoneInput.getNumber()
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -131,107 +131,100 @@
 </script>
 
 <main>
-  {#await getDepartments()}
-    <div>Loading..</div>
-  {:then department}
-    <div class="logo_div">
-      <img
-        class="delta_logo"
-        src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-        alt="Delta logo"
-      />
-    </div>
-    <div class="center">
-      <h2 class="Dauth_title">DAuth</h2>
-      <h6>Please enter the details to create an account!</h6>
-      <div class="form" />
-      <label for="name">Name</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_name"
-        name="name"
-        bind:value={state.name}
-        on:change={e => {
-          handleChange(e);
-        }}
-      /><br />
-      <br />
-      <label for="department">Department</label><br />
-      <select
-        class="input_details"
-        id="input_department"
-        name="department"
-        bind:value={state.department}
-        on:select={handleChange}
+  <div class="main-container">
+    {#await getDepartments()}
+      <div>Loading..</div>
+    {:then department}
+      <div class="logo_div">
+        <img
+          class="delta_logo"
+          src="https://delta.nitt.edu/images/deltaLogoGreen.png"
+          alt="Delta logo"
+        />
+        <h2 class="Dauth_title">DAuth</h2>
+        <h6>Please enter the details to create an account!</h6>
+      </div>
+      <div class="center">
+        <div class="form" />
+        <label for="name">Name</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_name"
+          name="name"
+          bind:value={state.name}
+          on:change={e => {
+            handleChange(e);
+          }}
+        /><br />
+        <br />
+        <label for="department">Department</label><br />
+        <select
+          class="input_details"
+          id="input_department"
+          name="department"
+          bind:value={state.department}
+          on:select={handleChange}
+        >
+          <option disabled selected value> -- select an option -- </option>
+          {#each departments as department}
+            {#if $theme.name == 'dark'}
+              <option value={department} style="background:#212121; color:#f1f1f1"
+                >{department.department}</option
+              >
+            {/if}
+            {#if $theme.name == 'light'}
+              <option value={department} style="background:#f1f1f1; color:#282230"
+                >{department.department}</option
+              >
+            {/if}
+          {/each}
+        </select><br />
+        <br />
+        <label for="batch">Batch</label><br />
+        <input
+          type="number"
+          class="input_details"
+          id="input_year"
+          name="batch"
+          bind:value={state.batch}
+          on:change={handleChange}
+        /><br />
+        <br />
+        <label for="phone">Phone Number</label><br />
+        <input
+          type="tel"
+          class="input_details"
+          bind:this={phoneInputField}
+          id="input_phone"
+          name="phone"
+          bind:value={state.phone}
+          on:change={handleChange}
+        /><br />
+        <br />
+        <label for="password">Password</label><br />
+        <input
+          type="password"
+          class="input_details"
+          id="input_password"
+          name="password"
+          bind:value={state.password}
+          on:change={handleChange}
+        /><br />
+        <br />
+        <label for="confirmPassword">Confirm Password</label><br />
+        <input
+          type="password"
+          class="input_details"
+          id="input_repeat_password"
+          name="confirmPassword"
+          bind:value={state.confirmPassword}
+          on:change={handleChange}
+        /><br />
+        <br />
+      </div>
+      <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button
       >
-        <option disabled selected value> -- select an option -- </option>
-        {#each departments as department}
-          {#if $theme.name == 'dark'}
-            <option value={department} style="background:#212121; color:#f1f1f1"
-              >{department.department}</option
-            >
-          {/if}
-          {#if $theme.name == 'light'}
-            <option value={department} style="background:#f1f1f1; color:#282230"
-              >{department.department}</option
-            >
-          {/if}
-        {/each}
-      </select><br />
-      <br />
-      <label for="batch">Batch</label><br />
-      <input
-        type="number"
-        class="input_details"
-        id="input_year"
-        name="batch"
-        bind:value={state.batch}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="phone">Phone Number</label><br />
-      <input
-        type="tel"
-        class="input_details"
-        bind:this={phoneInputField}
-        id="input_phone"
-        name="phone"
-        bind:value={state.phone}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="email">Alternate Email Id</label><br />
-      <input
-        type="email"
-        class="input_details"
-        id="input_mail"
-        name="email"
-        bind:value={state.email}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="password">Password</label><br />
-      <input
-        type="password"
-        class="input_details"
-        id="input_password"
-        name="password"
-        bind:value={state.password}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="confirmPassword">Confirm Password</label><br />
-      <input
-        type="password"
-        class="input_details"
-        id="input_repeat_password"
-        name="confirmPassword"
-        bind:value={state.confirmPassword}
-        on:change={handleChange}
-      /><br />
-      <br />
-    </div>
-    <button id="submit_button" type="submit" on:click={handleSubmit}>Submit</button>
-  {/await}
+    {/await}
+  </div>
 </main>

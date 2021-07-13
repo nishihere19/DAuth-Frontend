@@ -8,7 +8,7 @@
 <script lang="ts">
   import { params } from 'src/utils/queryParams';
   import { auth } from 'src/utils/auth';
-  import { navigate } from 'svelte-routing';
+  import { Link, navigate } from 'svelte-routing';
   import { axiosInstance } from 'src/utils/axios';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
@@ -94,37 +94,47 @@
 </script>
 
 <main>
-  <div class="logo_div" />
-  <img
-    class="delta_logo"
-    src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-    alt="Delta logo"
-  />
-  <h2 class="Dauth_title">DAuth</h2>
-  <div class="form">
-    <label for="webmailId">Webmail Username</label><br />
-    <input
-      type="text"
-      class="input_details"
-      name="webmailId"
-      on:change={e => {
-        handlechange(e);
-      }}
-    />
-    <br />
-    <br />
-    <label for="passworc">Password</label><br />
-    <input
-      type="password"
-      class="input_details"
-      id="password"
-      name="password"
-      bind:value={password}
-      on:change={e => {
-        handlechange(e);
-      }}
-    />
-    <br />
-    <button id="submit_button" type="submit" on:click={verify}>Submit</button>
+  <div class="main-container">
+    <div class="logo_div">
+      <img
+        class="delta_logo"
+        src="https://delta.nitt.edu/images/deltaLogoGreen.png"
+        alt="Delta logo"
+      />
+      <h2 class="Dauth_title">DAuth</h2>
+    </div>
+    <div class="form">
+      <label for="webmailId">Webmail Username</label><br />
+      <input
+        type="text"
+        class="input_details"
+        name="webmailId"
+        id="webmailId"
+        on:change={e => {
+          handlechange(e);
+        }}
+      />
+      <br />
+      <br />
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="password"
+        name="password"
+        bind:value={password}
+        on:change={e => {
+          handlechange(e);
+        }}
+      />
+      <br />
+      <div class="registerContainer">
+        <button class="submit_button" type="submit" on:click={verify}>Login</button>
+        <div class="navigateOption">
+          <p>Don't have an account?</p>
+          <Link to="/register" class="navigateLink">Register Now</Link>
+        </div>
+      </div>
+    </div>
   </div>
 </main>

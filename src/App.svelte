@@ -123,7 +123,9 @@
       <Route path="redirect" component={Redirect} bind:isauth />
       <Route path="new-client" component={RegisterClient} />
       <Route path="client-manager" component={Clients} />
-      <Route path="client-details" component={ClientDetails} />
+      <Route path="client-details/:id" let:params>
+        <ClientDetails id={params.id} />
+      </Route>
       <Route path="/*" component={Error} />
       <Route path="verify" component={VerifyEmail} />
       <Route exact path="/" component={Login} bind:isauth />

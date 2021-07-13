@@ -6,7 +6,7 @@
 </style>
 
 <script lang="ts">
-  import { navigate } from 'svelte-routing';
+  import { Link, navigate } from 'svelte-routing';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
@@ -68,26 +68,35 @@
 </script>
 
 <main>
-  <div class="logo_div" />
-  <img
-    class="delta_logo"
-    src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-    alt="Delta logo"
-  />
-  <h2 class="Dauth_title">DAuth</h2>
-  <h6>Please enter your webmail username to get started with DAuth!</h6>
-  <div class="form">
-    <label for="webmailId">Webmail</label><br />
-    <input
-      type="text"
-      class="input_details"
-      name="webmailId"
-      bind:value={webmailId}
-      on:change={e => {
-        handleChange(e);
-      }}
-    />
-    <br />
-    <Button Tile id="submit_button" type="submit" on:click={verify}>Submit</Button>
+  <div class="main-container">
+    <div class="logo_div">
+      <img
+        class="delta_logo"
+        src="https://delta.nitt.edu/images/deltaLogoGreen.png"
+        alt="Delta logo"
+      />
+      <h2 class="Dauth_title">DAuth</h2>
+    </div>
+    <h6>Please enter your webmail username to get started with DAuth!</h6>
+    <div class="form">
+      <label for="webmailId">Webmail</label><br />
+      <input
+        type="text"
+        class="input_details"
+        name="webmailId"
+        bind:value={webmailId}
+        on:change={e => {
+          handleChange(e);
+        }}
+      />
+      <br />
+      <div class="registerContainer">
+        <Button Tile class="submit_button" type="submit" on:click={verify}>Submit</Button>
+        <div class="navigateOption">
+          <p>Already have an account?</p>
+          <Link to="/" class="navigateLink">Login Now</Link>
+        </div>
+      </div>
+    </div>
   </div>
 </main>

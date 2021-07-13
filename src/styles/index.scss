@@ -26,20 +26,23 @@ main{
 
 h2{
   font-size: 4rem;
-  margin-block-start:0 !important;
-  margin-block-end:0.5rem !important;
+  margin-block-end: 0;
+  // display: contents;
+}
+.Dauth_title{
+  float: right;
 }
 
 h6{
-  margin-block-start:0 !important;
+  margin-block-end:1rem !important;
+  margin-block-start: 0;
+  display: inline-flex;
   font-size: 1.3rem;
+  word-wrap: break-word;
 }
 //logo on landing page
 .delta_logo{
 	height: 150px;
-}
-.logo_div{
-	text-align: center;
 }
 
 .navbar{
@@ -82,30 +85,62 @@ h6{
 
 //starter page
 
+.main-container{
+  margin: auto;
+  max-width: 400px;
+  text-align: left;
+}
+// .logo_div{
+//   display: inline-flex;
+// }
+
 .form{
+  text-align: left;
   margin:auto;
   font-size: 1.2rem;
 }
 
-.input_details{
-  color:inherit;
-  height: 25px;
-  width: 400px;
-  text-align: center;
-  border: none;
-  border-bottom: 2px solid rgb(119, 119, 119);
-  background-color: inherit;
-  font-size: 1.2rem;
+label{
+  display: inline-flex;
 }
 
-select {
-  text-align: center;
-  text-align-last: center;
-  /* webkit*/
+.input_details{
+  color:inherit;
+  height: 35px;
+  width: 100%;
+  border: 1px solid #3bbf3beb;
+  background-color: inherit;
+  font-size: 1.2rem;
+  box-sizing: border-box;
 }
-option {
-  text-align: left;
-  /* reset to left*/
+
+// select {
+//   text-align: center;
+//   text-align-last: center;
+//   /* webkit*/
+// }
+// option {
+//   text-align: left;
+//   /* reset to left*/
+// }
+
+
+.iti{
+  display: block !important;
+}
+
+.registerContainer{
+  display: inline-flex;
+}
+.navigateOption{
+  margin-left: 2rem;
+  font-size: 1rem;
+}
+.navigateLink{
+  color:#3bbf3b;
+}
+p{
+  margin-block-end: 0;
 }
 
 .input_details{
@@ -114,14 +149,11 @@ option {
     border-bottom: 2px solid #3bbf3beb;
     }
 }
-#input_phone{
-  padding-left: 0;
-}
-#submit_button{
+.submit_button{
   border: 2px solid rgb(119, 119, 119);
   color: rgb(119, 119, 119);
 }
-#submit_button{
+.submit_button{
   &:hover{
     border: 2px solid #3bbf3beb; 
     color: #3bbf3b;
@@ -134,12 +166,16 @@ option {
 .webmailId{
   color: #3bbf3b;
 }
-#submit_button, #allowButton, #denyButton {
+.submit_button, #allowButton, #denyButton {
   border-radius: 0px;
   height: 35px;
   width: 150px;
-  margin: 20px !important;
+  margin-top: 20px !important;
   background-color: inherit;
+}
+select, #input_phone{
+  height: 40px !important;
+  box-sizing: border-box;
 }
 
 #denyButton{
@@ -147,16 +183,36 @@ option {
   color: rgb(119, 119, 119);
 }
 
+#newApp-btn{
+ margin-top: 0 !important;
+ margin-left: 10px;
+}
+
 
 @media (max-width: 640px) {
-  h2{
+  .verifyTitle{
     font-size: 2rem;
   }
-  .input_details {
-    width: 300px !important;
+  .Dauth_title{
+    font-size: 3rem;
+    margin-block-start: 0;
+    float: none;
   }
   .headerMain{
     margin:1rem !important;
+  }
+  .main-container{
+    margin: 2rem;
+    text-align: center;
+  }
+  .navigateOption{
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+}
+@media (max-width:400px) {
+  .Dauth_title{
+    font-size: 2.5rem ;
   }
 }
 
@@ -189,11 +245,14 @@ option {
   padding:7rem 0;
 }
 
+#authoriseTitle{
+  display: block;
+}
 #authoriseTitle, h2,h6, footer{
     color: inherit;
     font-weight: 300;
     text-align: center;
-    // padding: 0 0 0.4em 0;
+    word-wrap: break-word;
     vertical-align: baseline;
 }
 #authoriseTitle, footer{

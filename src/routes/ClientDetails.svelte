@@ -10,16 +10,16 @@
   import { getContext, onMount } from 'svelte';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
+  export let id;
+  console.log(id);
   let { theme } = getContext('theme');
   let myClient;
   async function getClients() {
-    const parameter = new URLSearchParams(window.location.search);
-    console.log(parameter.get('clientId'));
     await axiosInstance({
       method: 'post',
       url: `${config.backendurl}/client/details`,
       data: {
-        clientId: parameter.get('clientId')
+        clientId: id
       },
       headers: { 'Content-Type': 'application/json' }
     })
@@ -76,9 +76,7 @@
                 {myClient.clientId}
               </li>
               <li>
-                <p>
-                  <span class="listTitle">Client Secret: </span>{myClient.clientSecret}
-                </p>
+                <span class="listTitle">Client Secret: </span>{myClient.clientSecret}
               </li>
               <li>
                 <span class="listTitle">Homepage URL:</span>
