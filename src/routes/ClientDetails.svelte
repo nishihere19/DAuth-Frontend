@@ -11,7 +11,6 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   export let id;
-  console.log(id);
   let { theme } = getContext('theme');
   let myClient;
   async function getClients() {
@@ -41,7 +40,6 @@
         });
       });
     myClient.createdAt = myClient.createdAt.slice(0, 10);
-    console.log(myClient.createdAt);
     return myClient;
   }
   onMount(async () => {

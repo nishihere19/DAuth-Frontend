@@ -42,8 +42,8 @@
   });
   let state = {
     name: '',
-    department:{
-      department:''
+    department: {
+      department: ''
     },
     batch: null,
     phone: `+91`,
@@ -55,10 +55,9 @@
     state[val] = e.target.value;
   }
   function handleSubmit() {
-    console.log(state)
     if (
       state.name.length == 0 ||
-      !state.department.department||
+      !state.department.department ||
       state.batch.length == 0 ||
       state.phone.length == 0 ||
       state.password.length == 0 ||

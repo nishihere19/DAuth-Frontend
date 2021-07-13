@@ -42,7 +42,6 @@
           theme: $theme.name
         });
       });
-    console.log(myClients);
     return myClients;
   }
   onMount(async () => {

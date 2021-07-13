@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+  import ClientDetails from './routes/ClientDetails.svelte';
   import Clients from './routes/Clients.svelte';
   import RegisterClient from './routes/RegisterClient.svelte';
   import AuthorizeApp from './routes/AuthorizeApp.svelte';
@@ -26,7 +27,8 @@
   import { Footer } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
-  import ClientDetails from './routes/ClientDetails.svelte';
+  import AuthorizedApps from './routes/AuthorizedApps.svelte';
+
   let isauth = '';
   let url = '';
   if ($auth) {
@@ -113,11 +115,13 @@
           <Link to="/client-manager" class="nav-links"
             ><div class="text-button">My Clients</div></Link
           >
+          <Link to="/dashboard"><div class="text-button">Profile</div></Link>
+          <Link to="/apps"><div class="text-button">Apps</div></Link>
         </nav>
       {/if}
 
-      <Route path="register" component={Register} />
-      <Route path="dashboard" component={Dashboard} bind:isauth />
+      <Route path="register" component={Register} bind:isauth />
+      <Route path="dashboard" component={Dashboard} />
       <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
@@ -128,7 +132,8 @@
       </Route>
       <Route path="/*" component={Error} />
       <Route path="verify" component={VerifyEmail} />
-      <Route exact path="/" component={Login} bind:isauth />
+      <Route path="/" component={Login} bind:isauth />
+      <Route path="apps" component={AuthorizedApps} bind:isauth />
     </div>
     <ThemeToggle />
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>

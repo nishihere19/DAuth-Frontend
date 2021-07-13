@@ -1,18 +1,84 @@
 <style>
   main {
-    font-family: sans-serif;
-    text-align: center;
+    width: 100%;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .card {
+    overflow: hidden;
+    display: inline-block;
+    box-shadow: 0 2px 12px rgba(230, 218, 218, 0.26);
+    padding: 4rem;
+    margin: 2rem;
+  }
+  @media only screen and (min-width: 300px) and (max-width: 600px) {
+    .card {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+  }
+  @media only screen and (max-width: 300px) {
+    .card {
+      padding: 1rem;
+      margin: 1rem;
+    }
+  }
+  header {
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #3bbf3b;
+  }
+  .name {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #3bbf3b;
+    font-size: 2rem;
+  }
+  .info {
+    font-size: 1.25rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
 </style>
 
 <script lang="ts">
   import { navigate } from 'svelte-routing';
-  export let isauth;
-  if (isauth == 'false') {
-    navigate('/', { replace: true });
-  }
+  import { onMount } from 'svelte';
+  import user from '../utils/user';
+  import { fetchUserData } from '../utils/user';
+  import { auth } from '../utils/auth';
+
+  let isauth = 'false';
+  let userInfo: any = {};
+
+  onMount(() => {
+    auth.subscribe(is_auth => {
+      isauth = is_auth;
+      if (isauth == 'false') {
+        navigate('/', { replace: true });
+      }
+    });
+    user.subscribe(userDetails => {
+      userInfo = userDetails;
+    });
+    fetchUserData();
+  });
 </script>
 
 <main>
-  <p>Dashboard</p>
+  <div class="card">
+    <img src="images/profile.png" alt="Profile" />
+    <header>
+      {#if userInfo && userInfo.email}
+        <b>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</b>
+      {/if}
+    </header>
+    <div class="name">
+      {userInfo.name}
+    </div>
+    <br />
+    <div class="info">
+      {userInfo.phoneNumber}<br />{userInfo.department} | Batch: {userInfo.year}
+    </div>
+  </div>
 </main>

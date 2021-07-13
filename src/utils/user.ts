@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { axiosInstance } from './axios';
-import config from '../../../DAuth-Frontend/env';
+import config from '../../env';
 
 const user = writable({});
 
