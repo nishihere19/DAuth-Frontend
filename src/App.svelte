@@ -80,11 +80,7 @@
 
 <svelte:head>
   <title>DAuth</title>
-  <link
-    rel="icon"
-    href="https://delta.nitt.edu/images/deltaLogoGreen.png"
-    type="image/icon type"
-  />
+  <link rel="shortcut icon" href="images/favicon.ico" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css"
@@ -112,11 +108,13 @@
           <button class="nav-links" id="logoutBtn" on:click={logout}
             ><div class="text-button">Logout</div></button
           >
-          <Link to="/client-manager" class="nav-links"
-            ><div class="text-button">My Clients</div></Link
+          <Link to="/dashboard" class="nav-links"
+            ><div class="text-button">Profile</div></Link
           >
-          <Link to="/dashboard"><div class="text-button">Profile</div></Link>
-          <Link to="/apps"><div class="text-button">Apps</div></Link>
+          <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
+          <Link to="/client-manager" class="nav-links"
+            ><div class="text-button">Clients</div></Link
+          >
         </nav>
       {/if}
 

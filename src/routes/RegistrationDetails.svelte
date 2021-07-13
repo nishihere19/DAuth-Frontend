@@ -135,11 +135,7 @@
       <div>Loading..</div>
     {:then department}
       <div class="logo_div">
-        <img
-          class="delta_logo"
-          src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-          alt="Delta logo"
-        />
+        <img class="delta_logo" src="images/deltaLogoGreen.png" alt="Delta logo" />
         <h2 class="Dauth_title">DAuth</h2>
         <h6>Please enter the details to create an account!</h6>
       </div>

@@ -96,11 +96,7 @@
 <main>
   <div class="main-container">
     <div class="logo_div">
-      <img
-        class="delta_logo"
-        src="https://delta.nitt.edu/images/deltaLogoGreen.png"
-        alt="Delta logo"
-      />
+      <img class="delta_logo" src="images/deltaLogoGreen.png" alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
     </div>
     <div class="form">

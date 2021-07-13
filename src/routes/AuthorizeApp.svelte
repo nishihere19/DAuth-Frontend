@@ -102,7 +102,7 @@
             <img
               class="delta_logo"
               id="authoriseDeltaLogo"
-              src="https://delta.nitt.edu/images/deltaLogoGreen.png"
+              src="images/deltaLogoGreen.png"
               alt="Delta logo"
             />
             <h6 id="authoriseTitle">DAuth</h6>

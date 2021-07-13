@@ -204,7 +204,10 @@ const config: Configuration = {
 			silent: true, // hide any errors
 			defaults: false // load '.env.defaults' as the default values if empty.
 		}),
-		new HTMLWebpackPlugin()
+		new HTMLWebpackPlugin({
+			favicon: "./public/images/favicon.ico",
+			title:"DAuth"
+		})
 	],
 	devtool: isProduction && !sourceMapsInProduction ? false : 'source-map',
 	stats: {
