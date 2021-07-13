@@ -24,6 +24,8 @@
   import { Footer } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
+  import AuthorizedApps from './routes/AuthorizedApps.svelte';
+
   let isauth = '';
   let url = '';
   if ($auth) {
@@ -116,17 +118,20 @@
           <a as="button" href="/" on:click={logout}
             ><div class="text-button">Logout</div></a
           >
+          <Link to="/dashboard"><div class="text-button">Profile</div></Link>
+          <Link to="/apps"><div class="text-button">Apps</div></Link>
         </nav>
       {/if}
 
       <Route path="register" component={Register} bind:isauth />
-      <Route path="dashboard" component={Dashboard} bind:isauth />
+      <Route path="dashboard" component={Dashboard} />
       <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
       <Route path="/*" component={Error} />
       <Route path="/verify" component={VerifyEmail} />
       <Route path="/" component={Login} bind:isauth />
+      <Route path="apps" component={AuthorizedApps} bind:isauth />
     </div>
     <ThemeToggle />
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>

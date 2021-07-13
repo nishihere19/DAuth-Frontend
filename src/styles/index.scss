@@ -382,3 +382,81 @@ h6{
   font-size: 1.3rem;
   letter-spacing: 2px;
 }
+
+.appdetails-card{
+  padding: 1rem;
+  justify-content: center;
+  font-family: sans-serif;
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.appdetails-title-light{
+  justify-content: center;
+  word-break: break-all;
+}
+
+.appdetails-title-dark{
+  justify-content: center;
+  word-break: break-all;
+  color: #FFFEF2;
+}
+
+.appdetails-button-light{
+  background: none;
+  border: none;
+  color:#d0312d;
+  font-size: 1rem;
+  font-family: sans-serif;
+  margin: 10px;
+}
+
+.appdetails-button-dark{
+  background: none;
+  border: none;
+  color:lightsalmon;
+  font-size: 1rem;
+  font-family: sans-serif;
+  margin: 10px;
+}
+
+.appdetails-cardtext{
+  word-break: break-all;
+  width: inherit !important;
+}
+
+.appdetails-dialog-card-light{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  background:#f1f1f1 !important;
+}
+
+.appdetails-dialog-card-dark{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  background:#212121 !important;
+}
+
+.appdetails-dialog-button-dark{
+  border: solid;
+  border-color: crimson;
+  border-radius: 5px;
+  background: none;
+  margin-bottom: 1rem;
+  color:#f1f1f1;
+}
+
+.appdetails-dialog-button-light{
+  border: solid;
+  border-color:crimson;
+  border-radius: 5px;
+  background: none;
+  margin-bottom: 1rem;
+  color: #212121 
+}
+
+.appdetails-card-actions{
+  justify-content: center;
+}
