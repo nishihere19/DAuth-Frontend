@@ -14,6 +14,8 @@
   import config from '../../env';
   import { getContext, onMount } from 'svelte';
   import { searchQuery } from 'src/utils/queryHandler';
+  import logo from '../statics/deltaLogoGreen.png';
+
   let { theme } = getContext('theme');
   export let isauth;
   //if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
@@ -96,7 +98,7 @@
 <main>
   <div class="main-container">
     <div class="logo_div">
-      <img class="delta_logo" src="images/deltaLogoGreen.png" alt="Delta logo" />
+      <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
     </div>
     <div class="form">

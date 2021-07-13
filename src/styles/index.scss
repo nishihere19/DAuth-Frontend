@@ -166,7 +166,7 @@ p{
 .webmailId{
   color: #3bbf3b;
 }
-.submit_button, #allowButton, #denyButton {
+.submit_button, #allowButton, #denyButton,#updateBtn, #deleteBtn {
   border-radius: 0px;
   height: 35px;
   width: 150px;
@@ -188,8 +188,20 @@ select, #input_phone{
  margin-left: 10px;
 }
 
+.addNewApp{
+  border: 2px solid #3bbf3b;
+  color: #3bbf3b;
+  margin-left: .5rem;
+}
+
 
 @media (max-width: 640px) {
+  .client-container{
+    padding: 0 !important;
+  }
+  .clientName{
+    font-size: 2rem;
+  }
   .verifyTitle{
     font-size: 2rem;
   }
@@ -245,8 +257,8 @@ select, #input_phone{
 
 //authorise apps
 
-.authoriseAppContainer, .clientDetailsContainer{
-  padding:7rem 0;
+.authoriseAppContainer{
+  padding:5rem 0;
 }
 
 #authoriseTitle{
@@ -327,6 +339,9 @@ select, #input_phone{
 }
 
 @media (max-width: 640px) {
+  .input_details{
+    font-size: 1rem;
+  }
   .headerMain{
     max-width: 300px !important;
   }
@@ -498,23 +513,52 @@ select, #input_phone{
   width: 100%;
   max-width: 400px;
 }
+.client-container{
+  border: 1px solid;
+  padding: 1rem;
+}
+.clientDetails-container{
+  display: block !important;
+}
 .client-container, .client-header, .clientDetails-header,.clientDetails-container{
   display: inline-flex;
   width: 100%;
   align-items: center;
 }
-.client-name,.client-description,.user-name,.user-email{
+.client-name,.client-description,.user-name,.user-email,.client-header,.clientName{
   margin:0;
   text-align: left;
 }
 
-.client-header,.client-name,.client-description{
-  text-align: left;
+textarea{
+  height: auto !important;
+}
+#generateSecret{
+  position: absolute;
+  right: 2rem;
+  height: 30px;
+  background: inherit;
+  color: #3bbf3b;
+  border: 2px solid #3bbf3b;
 }
 .clientDetails-container ul li{
   list-style: none;
   padding: 0.4rem;
   word-wrap: break-word;
+  font-size: 1.2rem;
+}
+
+.clientSecret{
+  display: none;
+}
+
+#updateBtn{
+  border: 2px solid #3bbf3b;
+  color: #3bbf3b;
+}
+#deleteBtn{
+  border: 2px solid red;
+  color: red;
 }
 .clientDetails-container ul {
   width: 100%;

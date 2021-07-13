@@ -80,7 +80,7 @@
 
 <svelte:head>
   <title>DAuth</title>
-  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="icon" href="favicon.ico" type="image/ico" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css"

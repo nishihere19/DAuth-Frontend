@@ -8,6 +8,8 @@
 <script lang="ts">
   import { axiosInstance } from 'src/utils/axios';
   import { getContext, onMount } from 'svelte';
+  import { Button, Icon } from 'svelte-materialify';
+  import { mdiPlus } from '@mdi/js';
   import { Link } from 'svelte-routing';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
@@ -57,8 +59,10 @@
       <div class="clientManager-container">
         <div class="client-header">
           <h1>Oauth Apps</h1>
-          <Link to="/new-client"
-            ><button id="newApp-btn" class="submit_button">New App</button></Link
+          <Link to="/new-client">
+            <Button fab size="small" class="addNewApp blue white-text">
+              <Icon path={mdiPlus} />
+            </Button></Link
           >
         </div>
         {#each myClients as client}

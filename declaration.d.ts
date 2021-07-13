@@ -15,3 +15,5 @@ declare module '*.jpeg';
 declare module 'svelte-toasts'
 
 declare module 'intl-tel-input';
+
+declare module '@mdi/js';

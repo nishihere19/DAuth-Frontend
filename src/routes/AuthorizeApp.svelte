@@ -15,6 +15,7 @@
   import { params } from 'src/utils/queryParams';
   import { axiosInstance } from 'src/utils/axios';
   import { toasts } from 'svelte-toasts';
+  import logo from '../statics/deltaLogoGreen.png';
   let { theme } = getContext('theme');
   let userInfo: any = {};
   let clientName: string;
@@ -99,12 +100,7 @@
       <div class="headerMain">
         <div class="greetingHeader">
           <div id="deltaLogo">
-            <img
-              class="delta_logo"
-              id="authoriseDeltaLogo"
-              src="images/deltaLogoGreen.png"
-              alt="Delta logo"
-            />
+            <img class="delta_logo" id="authoriseDeltaLogo" src={logo} alt="Delta logo" />
             <h6 id="authoriseTitle">DAuth</h6>
           </div>
           <div id="userInfo">

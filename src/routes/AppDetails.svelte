@@ -71,7 +71,7 @@
 </script>
 
 {#if $theme.name == 'dark'}
-  <Card class="appdetails-card" style="background: #414141;">
+  <Card class="appdetails-card" style="background: #101010a3;">
     <CardTitle class="appdetails-title-dark"><b>{clientName}</b></CardTitle>
     <CardText class="appdetails-cardtext">
       Access given on<br />{accessGivenOn}
