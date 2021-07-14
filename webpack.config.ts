@@ -69,7 +69,7 @@ const config: Configuration = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: path.resolve(__dirname, './public/build'),
+		path: path.resolve(__dirname, './build'),
 		publicPath: '/',
 		filename: isProduction ? 'app-[contenthash].js' : 'app.js'
 	},
@@ -116,19 +116,23 @@ const config: Configuration = {
 					fullySpecified: false
 				}
 			},
+			// {
+			// 	test: /\.(png|svg|jpg|gif)$/,
+			// 	use:  [
+			// 			'file-loader',
+			// 	],
+			// },
 			{
-				test: /\.(png|svg|jpg|gif)$/,
-				use:  [
-						'file-loader',
-				],
-			},
-			{
-        test: /\.(png|jpe?g|gif|jp2|webp)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
-      },
+				test: /\.(jpe?g|png|gif|svg)$/i, 
+				loader: 'url-loader',
+		},
+			// {
+      //   test: /\.(png|jpe?g|gif|jp2|webp)$/,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[name].[ext]',
+      //   },
+      // },
 
 			// Rule: SASS
 			{
@@ -205,7 +209,7 @@ const config: Configuration = {
 			defaults: false // load '.env.defaults' as the default values if empty.
 		}),
 		new HTMLWebpackPlugin({
-			favicon: "./public/images/favicon.ico",
+			favicon: "./src/statics/favicon.ico",
 			title:"DAuth"
 		})
 	],
@@ -216,7 +220,12 @@ const config: Configuration = {
 		modules: false,
 		assets: true,
 		entrypoints: false
-	}
+	},
+	performance: {
+    maxEntrypointSize: 400000,
+		maxAssetSize:100000,
+		hints:false
+  }
 };
 
 /**

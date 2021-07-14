@@ -47,6 +47,7 @@
   import user from '../utils/user';
   import { fetchUserData } from '../utils/user';
   import { auth } from '../utils/auth';
+  import profileImg from '../statics/profile.png';
 
   let isauth = 'false';
   let userInfo: any = {};
@@ -67,7 +68,7 @@
 
 <main>
   <div class="card">
-    <img src="images/profile.png" alt="Profile" />
+    <img src={profileImg} alt="Profile" />
     <header>
       {#if userInfo && userInfo.email}
         <b>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</b>

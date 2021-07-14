@@ -14,8 +14,8 @@
   let { theme } = getContext('theme');
 
   const parameter = new URLSearchParams(window.location.search);
-  let webmailId;
-  let token;
+  let webmailId: string;
+  let token: string;
   function initialize() {
     webmailId = parameter.get('webmailId');
     token = parameter.get('token');

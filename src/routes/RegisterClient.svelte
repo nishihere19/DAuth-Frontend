@@ -12,7 +12,7 @@
   import { axiosInstance } from 'src/utils/axios';
   import { navigate, Link } from 'svelte-routing';
   import { onMount, getContext } from 'svelte';
-  import Register from './Register.svelte';
+  import logo from '../statics/deltaLogoGreen.png';
   let { theme } = getContext('theme');
   onMount(() => {
     document
@@ -94,7 +94,7 @@
 <main>
   <div class="main-container">
     <div class="logo_div">
-      <img class="delta_logo" src="images/deltaLogoGreen.png" alt="Delta logo" />
+      <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
       <h6>Please enter the details to register a new application!</h6>
     </div>
@@ -123,7 +123,7 @@
       /><br />
       <br />
       <label for="description">Short description</label><br />
-      <input
+      <textarea
         type="text"
         class="input_details"
         id="input_description"
