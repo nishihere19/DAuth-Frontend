@@ -1,0 +1,10 @@
+version: "3"
+
+services: 
+    frontend:
+        image: "dauthfrontend"
+        container_name: "dauth_frontend"
+        build: .
+        restart: always
+        ports:
+            - "${FRONTEND_LOCAL_PORT}:5000"
