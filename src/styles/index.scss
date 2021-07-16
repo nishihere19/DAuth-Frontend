@@ -205,10 +205,6 @@ select, #input_phone{
   .verifyTitle{
     font-size: 2rem;
   }
-  .nav-links{
-    font-size: 0.8rem;
-    padding: 5px;
-  }
   .Dauth_title{
     font-size: 3rem;
     margin-block-start: 0;
@@ -646,4 +642,13 @@ textarea{
 
 .appdetails-card-actions{
   justify-content: center;
+}
+
+.appbar{
+  padding-left: 10px;
+  justify-content: center;
+}
+
+.appbar-link{
+  color: #3bbf3b;
 }

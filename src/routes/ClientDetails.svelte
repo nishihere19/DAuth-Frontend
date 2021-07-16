@@ -10,6 +10,7 @@
   import { getContext, onMount } from 'svelte';
   import { Button } from 'svelte-materialify';
   import { toasts } from 'svelte-toasts';
+  import { navigate } from 'svelte-routing';
   import config from '../../env';
   export let id;
   let clientSecret;
@@ -156,6 +157,7 @@
           showProgress: true,
           theme: $theme.name
         });
+        navigate('/client-manager', { replace: true });
       })
       .catch(error => {
         toasts.add({

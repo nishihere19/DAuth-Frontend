@@ -24,10 +24,11 @@
   import config from '../env';
   import { onMount } from 'svelte';
   import { auth } from './utils/auth';
-  import { Footer } from 'svelte-materialify';
+  import { Footer, AppBar, Icon } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
   import AuthorizedApps from './routes/AuthorizedApps.svelte';
+  import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus } from '@mdi/js';
 
   let isauth = '';
   let url = '';
@@ -36,10 +37,6 @@
       isauth = value;
     });
   }
-  onMount(() => {
-    let element: HTMLBodyElement = document.querySelector('.navbar');
-    element.style.display = 'inline-flex';
-  });
   function logout() {
     axiosInstance({
       method: 'post',
@@ -101,21 +98,44 @@
           <Link to="/register" class="nav-links"
             ><div class="text-button">Register</div></Link
           >
+          <ThemeToggle />
         </nav>
       {/if}
       {#if $auth == 'true'}
-        <nav class="navbar">
-          <button class="nav-links" id="logoutBtn" on:click={logout}
-            ><div class="text-button">Logout</div></button
-          >
-          <Link to="/dashboard" class="nav-links"
-            ><div class="text-button">Profile</div></Link
-          >
-          <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
-          <Link to="/client-manager" class="nav-links"
-            ><div class="text-button">Clients</div></Link
-          >
-        </nav>
+        {#if window.matchMedia('(min-width: 540px)').matches}
+          <nav class="navbar">
+            <button class="nav-links" id="logoutBtn" on:click={logout}
+              ><div class="text-button">Logout</div></button
+            >
+            <Link to="/dashboard" class="nav-links"
+              ><div class="text-button">Profile</div></Link
+            >
+            <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
+            <Link to="/client-manager" class="nav-links"
+              ><div class="text-button">Clients</div></Link
+            >
+            <ThemeToggle />
+          </nav>
+        {:else}
+          <AppBar dense class="appbar" flat>
+            <div slot="icon">
+              <button
+                class="appbar-link"
+                id="logoutBtn"
+                style="border:none;background:none;"
+                on:click={logout}
+              >
+                <Icon path={mdiLogout} />
+              </button>
+              <Link to="/dashboard" class="appbar-link"><Icon path={mdiAccount} /></Link>
+              <Link to="/apps" class="appbar-link"><Icon path={mdiApps} /></Link>
+              <Link to="/client-manager" class="appbar-link"
+                ><Icon path={mdiAccountMultiplePlus} /></Link
+              >
+            </div>
+            <ThemeToggle />
+          </AppBar>
+        {/if}
       {/if}
 
       <Route path="register" component={Register} bind:isauth />
@@ -133,7 +153,6 @@
       <Route path="/" component={Login} bind:isauth />
       <Route path="apps" component={AuthorizedApps} bind:isauth />
     </div>
-    <ThemeToggle />
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>
     <ToastContainer let:data><FlatToast {data} /></ToastContainer>
   </ThemeContext>
