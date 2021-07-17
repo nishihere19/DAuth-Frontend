@@ -106,53 +106,52 @@
     </div>
     <h6>Please enter the details to register a new application!</h6>
     <div class="center">
-      <div class="form">
-        <label for="name">Name of your application</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_name"
-          name="name"
-          placeholder="My App"
-          bind:value={state.name}
-          on:change={e => {
-            handleChange(e);
-          }}
-        /><br />
-        <br />
-        <label for="homepageUrl">Homepage Url</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_homepageUrl"
-          name="homepageUrl"
-          placeholder="https://example.com"
-          bind:value={state.homepageUrl}
-          on:change={handleChange}
-        /><br />
-        <br />
-        <label for="description">Short description</label><br />
-        <textarea
-          type="text"
-          class="input_details"
-          id="input_description"
-          name="description"
-          bind:value={state.description}
-          on:change={handleChange}
-        /><br />
-        <br />
-        <label for="callbackUrl">Callback Url</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_callbackUrl"
-          name="callbackUrl"
-          placeholder="https://example.com/callback"
-          bind:value={state.callbackUrl}
-          on:change={handleChange}
-        /><br />
-        <br />
-      </div>
+      <div class="form" />
+      <label for="name">Name of your application</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        placeholder="My App"
+        bind:value={state.name}
+        on:change={e => {
+          handleChange(e);
+        }}
+      /><br />
+      <br />
+      <label for="homepageUrl">Homepage Url</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_homepageUrl"
+        name="homepageUrl"
+        placeholder="https://example.com"
+        bind:value={state.homepageUrl}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="description">Short description</label><br />
+      <textarea
+        type="text"
+        class="input_details"
+        id="input_description"
+        name="description"
+        bind:value={state.description}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="callbackUrl">Callback Url</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_callbackUrl"
+        name="callbackUrl"
+        placeholder="https://example.com/callback"
+        bind:value={state.callbackUrl}
+        on:change={handleChange}
+      /><br />
+      <br />
     </div>
     <button class="submit_button" type="submit" on:click={handleSubmit}>Create</button>
   </div>
