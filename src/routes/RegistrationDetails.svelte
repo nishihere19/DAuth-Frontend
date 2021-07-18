@@ -7,7 +7,7 @@
     min-height: 80vh;
     align-items: center;
   }
-  .main-container {
+  .main-container{
     min-width: 0;
   }
   /* .content{
@@ -28,7 +28,6 @@
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;
-  export let token;
   // let departments = [];
   // async function getDepartments() {
   //   let result = await axiosInstance({
@@ -39,12 +38,7 @@
   //   return departments;
   // }
   onMount(() => {
-    axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/auth/email/verify/${token}`
-    }).catch(error => {
-      navigate('/error', { replace: true });
-    });
+    // await getDepartments();
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
@@ -141,27 +135,29 @@
   <div class="main-container">
     <!-- {#await getDepartments()}
       <div>Loading..</div>
-    {:then departments}
-      <div class="logo_div">
-        <img class="delta_logo" src={logo} alt="Delta logo" />
-        <h2 class="Dauth_title">DAuth</h2>
-        <h6>Please enter the details to create an account!</h6>
-      </div>
-      <div class="center">
-        <div class="form" />
-        <label for="name">Full Name</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_name"
-          name="name"
-          bind:value={state.name}
-          on:change={e => {
-            handleChange(e);
-          }}
-        /><br />
-        <br />
-        <label for="department">Department</label><br />
+    {:then departments} -->
+    <div class="logo_div">
+      <img class="delta_logo" src={logo} alt="Delta logo" />
+      <h2 class="Dauth_title">DAuth</h2>
+    </div>
+    <div class="content">
+      <h6>Please enter the details to create an account!</h6>
+    </div>
+    <div class="center">
+      <div class="form" />
+      <label for="name">Full Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        bind:value={state.name}
+        on:change={e => {
+          handleChange(e);
+        }}
+      /><br />
+      <br />
+      <!-- <label for="department">Department</label><br />
         <select
           class="input_details"
           id="input_department"
@@ -183,8 +179,8 @@
             {/if}
           {/each}
         </select><br />
-        <br />
-        <label for="batch">Year of Graduation</label><br />
+        <br /> -->
+      <!-- <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
           class="input_details"
@@ -228,4 +224,5 @@
     </div>
     <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button>
     <!-- {/await} -->
+  </div>
 </main>

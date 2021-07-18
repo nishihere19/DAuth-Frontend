@@ -3,7 +3,7 @@
     background-color: var(--theme-background);
     color: var(--theme-text);
   }
-  #logoutBtn:hover {
+  #logoutBtn:hover{
     cursor: pointer;
   }
 </style>

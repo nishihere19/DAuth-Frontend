@@ -7,7 +7,7 @@
     min-height: 80vh;
     align-items: center;
   }
-  .main-container {
+  .main-container{
     min-width: 0;
   }
   
@@ -106,7 +106,7 @@
     </div>
     <h6>Please enter the details to register a new application!</h6>
     <div class="center">
-      <div class="form" />
+      <div class="form" >
       <label for="name">Name of your application</label><br />
       <input
         type="text"
@@ -152,6 +152,7 @@
         on:change={handleChange}
       /><br />
       <br />
+      </div>
     </div>
     <button class="submit_button" type="submit" on:click={handleSubmit}>Create</button>
   </div>
