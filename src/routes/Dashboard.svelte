@@ -56,7 +56,6 @@
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
-    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'flex';
     auth.subscribe(is_auth => {
       isauth = is_auth;

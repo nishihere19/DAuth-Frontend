@@ -7,7 +7,7 @@
     min-height: 80vh;
     align-items: center;
   }
-  .main-container{
+  .main-container {
     min-width: 0;
   }
   /* .content{
@@ -28,6 +28,7 @@
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;
+  export let token;
   // let departments = [];
   // async function getDepartments() {
   //   let result = await axiosInstance({
@@ -38,7 +39,12 @@
   //   return departments;
   // }
   onMount(() => {
-    // await getDepartments();
+    axiosInstance({
+        method: 'get',
+        url: `${config.backendurl}/auth/email/verify/${token}`
+      }).catch(error=>{
+        navigate('/error',{replace:true});
+      })
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
