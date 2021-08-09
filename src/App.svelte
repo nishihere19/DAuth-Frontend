@@ -141,16 +141,16 @@
       {/if}
 
       <Route path="register" component={Register} bind:isauth />
-      <Route path="registerdetails/:token" let:params bind:isauth >
+      <Route path="registerdetails/:token" let:params bind:isauth>
         <RegistrationDetails token={params.token} />
-        </Route>
+      </Route>
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
       <Route path="/*" component={Error} />
-      <Route path="**/" component={Error}/>
+      <Route path="**/" component={Error} />
       <Route path="verify" component={VerifyEmail} />
       <Route path="/" component={Login} bind:isauth />
-      {#if $auth=='true'}
+      {#if $auth == 'true'}
         <Route path="dashboard" component={Dashboard} bind:isauth />
         <Route path="new-client" component={RegisterClient} bind:isauth />
         <Route path="client-manager" component={Clients} bind:isauth />

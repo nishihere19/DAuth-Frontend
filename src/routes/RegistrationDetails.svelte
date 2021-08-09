@@ -40,11 +40,11 @@
   // }
   onMount(() => {
     axiosInstance({
-        method: 'get',
-        url: `${config.backendurl}/auth/email/verify/${token}`
-      }).catch(error=>{
-        navigate('/error',{replace:true});
-      })
+      method: 'get',
+      url: `${config.backendurl}/auth/email/verify/${token}`
+    }).catch(error => {
+      navigate('/error', { replace: true });
+    });
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
