@@ -192,7 +192,11 @@ const config: Configuration = {
 		hot: true,
 		stats: 'none',
 		contentBase: 'public',
-		historyApiFallback: true,
+		historyApiFallback: {
+			rewrites: [
+				{from: /\./, to: '/'}
+			]
+		},
 		watchContentBase: true
 	},
 	target: isDevelopment ? 'web' : 'browserslist',

@@ -9,6 +9,7 @@
   import { onMount } from 'svelte';
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
   });
 </script>

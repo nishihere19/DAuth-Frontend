@@ -2,6 +2,9 @@
   main {
     font-family: sans-serif;
     text-align: center;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
   }
 </style>
 
@@ -83,7 +86,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -102,12 +105,13 @@
       <h2 class="Dauth_title">DAuth</h2>
     </div>
     <div class="form">
-      <label for="webmailId">Webmail Username</label><br />
+      <label for="webmailId">Webmail</label><br />
       <input
         type="text"
         class="input_details"
         name="webmailId"
         id="webmailId"
+        placeholder="Your_roll_number@nitt.edu"
         on:change={e => {
           handlechange(e);
         }}

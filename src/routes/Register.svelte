@@ -2,6 +2,9 @@
   main {
     font-family: sans-serif;
     text-align: center;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
   }
 </style>
 
@@ -10,7 +13,6 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
-  import { Button } from 'svelte-materialify';
   import { getContext, onMount } from 'svelte';
   import logo from '../statics/deltaLogoGreen.png';
   let { theme } = getContext('theme');
@@ -56,7 +58,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -81,6 +83,7 @@
         type="text"
         class="input_details"
         name="webmailId"
+        placeholder="Your_roll_number@nitt.edu"
         bind:value={webmailId}
         on:change={e => {
           handleChange(e);
@@ -88,7 +91,7 @@
       />
       <br />
       <div class="registerContainer">
-        <Button Tile class="submit_button" type="submit" on:click={verify}>Submit</Button>
+        <button class="submit_button" type="submit" on:click={verify}>Submit</button>
         <div class="navigateOption">
           <p>Already have an account?</p>
           <Link to="/" class="navigateLink">Login Now</Link>

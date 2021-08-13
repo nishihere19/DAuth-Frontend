@@ -3,13 +3,22 @@
     font-family: sans-serif;
     text-align: center;
     overflow-x: hidden;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
   }
+  .main-container {
+    min-width: 0;
+  }
+  /* .content{
+    text-align: center;
+  } */
 </style>
 
 <script lang="ts">
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
-  import { axiosInstance } from 'src/utils/axios';
+  import { axiosInstance } from '../utils/axios';
   import 'intl-tel-input/build/js/utils';
   import { navigate } from 'svelte-routing';
   import intlTelInput from 'intl-tel-input';
@@ -19,17 +28,23 @@
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;
-  let departments = [];
-  async function getDepartments() {
-    let result = await axiosInstance({
+  export let token;
+  // let departments = [];
+  // async function getDepartments() {
+  //   let result = await axiosInstance({
+  //     method: 'get',
+  //     url: `${config.backendurl}/auth/departments`
+  //   });
+  //   departments = result.data;
+  //   return departments;
+  // }
+  onMount(() => {
+    axiosInstance({
       method: 'get',
-      url: `${config.backendurl}/auth/departments`
+      url: `${config.backendurl}/auth/email/verify/${token}`
+    }).catch(error => {
+      navigate('/error', { replace: true });
     });
-    departments = result.data;
-    return departments;
-  }
-  onMount(async () => {
-    await getDepartments();
     phoneInput = intlTelInput(phoneInputField, {
       initialCountry: 'in'
     });
@@ -43,10 +58,6 @@
   });
   let state = {
     name: '',
-    department: {
-      department: ''
-    },
-    batch: null,
     phone: `+91`,
     password: '',
     confirmPassword: ''
@@ -58,8 +69,6 @@
   function handleSubmit() {
     if (
       state.name.length == 0 ||
-      !state.department.department ||
-      state.batch.length == 0 ||
       state.phone.length == 0 ||
       state.password.length == 0 ||
       state.confirmPassword.length == 0
@@ -94,8 +103,6 @@
           name: state.name,
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          department: state.department.department,
-          year: state.batch,
           phoneNumber: phoneInput.getNumber()
         },
         headers: { 'Content-Type': 'application/json' }
@@ -117,7 +124,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -132,29 +139,31 @@
 
 <main>
   <div class="main-container">
-    {#await getDepartments()}
+    <!-- {#await getDepartments()}
       <div>Loading..</div>
-    {:then departments}
-      <div class="logo_div">
-        <img class="delta_logo" src={logo} alt="Delta logo" />
-        <h2 class="Dauth_title">DAuth</h2>
-        <h6>Please enter the details to create an account!</h6>
-      </div>
-      <div class="center">
-        <div class="form" />
-        <label for="name">Name</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_name"
-          name="name"
-          bind:value={state.name}
-          on:change={e => {
-            handleChange(e);
-          }}
-        /><br />
-        <br />
-        <label for="department">Department</label><br />
+    {:then departments} -->
+    <div class="logo_div">
+      <img class="delta_logo" src={logo} alt="Delta logo" />
+      <h2 class="Dauth_title">DAuth</h2>
+    </div>
+    <div class="content">
+      <h6>Please enter the details to create an account!</h6>
+    </div>
+    <div class="center">
+      <div class="form" />
+      <label for="name">Full Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        bind:value={state.name}
+        on:change={e => {
+          handleChange(e);
+        }}
+      /><br />
+      <br />
+      <!-- <label for="department">Department</label><br />
         <select
           class="input_details"
           id="input_department"
@@ -176,8 +185,8 @@
             {/if}
           {/each}
         </select><br />
-        <br />
-        <label for="batch">Batch</label><br />
+        <br /> -->
+      <!-- <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
           class="input_details"
@@ -186,41 +195,40 @@
           bind:value={state.batch}
           on:change={handleChange}
         /><br />
-        <br />
-        <label for="phone">Phone Number</label><br />
-        <input
-          type="tel"
-          class="input_details"
-          bind:this={phoneInputField}
-          id="input_phone"
-          name="phone"
-          bind:value={state.phone}
-          on:change={handleChange}
-        /><br />
-        <br />
-        <label for="password">Password</label><br />
-        <input
-          type="password"
-          class="input_details"
-          id="input_password"
-          name="password"
-          bind:value={state.password}
-          on:change={handleChange}
-        /><br />
-        <br />
-        <label for="confirmPassword">Confirm Password</label><br />
-        <input
-          type="password"
-          class="input_details"
-          id="input_repeat_password"
-          name="confirmPassword"
-          bind:value={state.confirmPassword}
-          on:change={handleChange}
-        /><br />
-        <br />
-      </div>
-      <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button
-      >
-    {/await}
+        <br /> -->
+      <label for="phone">Phone Number</label><br />
+      <input
+        type="tel"
+        class="input_details"
+        bind:this={phoneInputField}
+        id="input_phone"
+        name="phone"
+        bind:value={state.phone}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_password"
+        name="password"
+        bind:value={state.password}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="confirmPassword">Confirm Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_repeat_password"
+        name="confirmPassword"
+        bind:value={state.confirmPassword}
+        on:change={handleChange}
+      /><br />
+      <br />
+    </div>
+    <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button>
+    <!-- {/await} -->
   </div>
 </main>

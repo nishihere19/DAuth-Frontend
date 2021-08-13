@@ -37,7 +37,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -51,6 +51,7 @@
   onMount(async () => {
     await getData();
     let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
     let finalParams = searchQuery();
     if ($authorizeSession == false) {

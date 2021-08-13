@@ -6,7 +6,7 @@
 </style>
 
 <script lang="ts">
-  import { axiosInstance } from 'src/utils/axios';
+  import { axiosInstance } from '../utils/axios';
   import { getContext, onMount } from 'svelte';
   import { Button, Icon } from 'svelte-materialify';
   import { mdiPlus } from '@mdi/js';
@@ -35,7 +35,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -55,16 +55,16 @@
   {#await getClients()}
     <div>Loading...please wait!</div>
   {:then myClients}
-    {#if myClients.length}
-      <div class="clientManager-container">
-        <div class="client-header">
-          <h1>Oauth Apps</h1>
-          <Link to="/new-client">
-            <Button fab size="small" class="addNewApp blue white-text">
-              <Icon path={mdiPlus} />
-            </Button></Link
-          >
-        </div>
+    <div class="clientManager-container">
+      <div class="client-header">
+        <h1>Oauth Apps</h1>
+        <Link to="/new-client">
+          <Button fab size="small" class="addNewApp blue white-text">
+            <Icon path={mdiPlus} />
+          </Button></Link
+        >
+      </div>
+      {#if myClients.length}
         {#each myClients as client}
           <div class="client-container">
             <img
@@ -80,10 +80,10 @@
             </div>
           </div>
         {/each}
-      </div>
-    {/if}
-    {#if !myClients.length}
-      <div>You have not registered any applications yet!</div>
-    {/if}
+      {/if}
+      {#if !myClients.length}
+        <div>You have not registered any applications yet!</div>
+      {/if}
+    </div>
   {/await}
 </main>

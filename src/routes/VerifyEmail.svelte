@@ -26,7 +26,7 @@
         url: `${config.backendurl}/auth/email/verify/${token}`
       })
         .then(result => {
-          navigate('/registerdetails', { replace: true });
+          navigate(`/registerdetails/${token}`, { replace: true });
           toasts.add({
             title: 'Success',
             description: result.data.message,
@@ -43,7 +43,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000,
             placement: 'bottom-right',

@@ -3,6 +3,9 @@
     background-color: var(--theme-background);
     color: var(--theme-text);
   }
+  #logoutBtn:hover {
+    cursor: pointer;
+  }
 </style>
 
 <script lang="ts">
@@ -22,7 +25,6 @@
   import { axiosInstance } from 'src/utils/axios';
   import Dashboard from './routes/Dashboard.svelte';
   import config from '../env';
-  import { onMount } from 'svelte';
   import { auth } from './utils/auth';
   import { Footer, AppBar, Icon } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
@@ -63,7 +65,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -104,15 +106,15 @@
       {#if $auth == 'true'}
         {#if window.matchMedia('(min-width: 540px)').matches}
           <nav class="navbar">
-            <button class="nav-links" id="logoutBtn" on:click={logout}
-              ><div class="text-button">Logout</div></button
-            >
             <Link to="/dashboard" class="nav-links"
               ><div class="text-button">Profile</div></Link
             >
             <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
             <Link to="/client-manager" class="nav-links"
               ><div class="text-button">Clients</div></Link
+            >
+            <button class="nav-links" id="logoutBtn" on:click={logout}
+              ><div class="text-button">Logout</div></button
             >
             <ThemeToggle />
           </nav>
@@ -139,19 +141,24 @@
       {/if}
 
       <Route path="register" component={Register} bind:isauth />
-      <Route path="dashboard" component={Dashboard} />
-      <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
+      <Route path="registerdetails/:token" let:params bind:isauth>
+        <RegistrationDetails token={params.token} />
+      </Route>
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
-      <Route path="new-client" component={RegisterClient} />
-      <Route path="client-manager" component={Clients} />
-      <Route path="client-details/:id" let:params>
-        <ClientDetails id={params.id} />
-      </Route>
       <Route path="/*" component={Error} />
+      <Route path="**/" component={Error} />
       <Route path="verify" component={VerifyEmail} />
       <Route path="/" component={Login} bind:isauth />
-      <Route path="apps" component={AuthorizedApps} bind:isauth />
+      {#if $auth == 'true'}
+        <Route path="dashboard" component={Dashboard} bind:isauth />
+        <Route path="new-client" component={RegisterClient} bind:isauth />
+        <Route path="client-manager" component={Clients} bind:isauth />
+        <Route path="client-details/:id" let:params bind:isauth>
+          <ClientDetails id={params.id} />
+        </Route>
+        <Route path="apps" component={AuthorizedApps} bind:isauth />
+      {/if}
     </div>
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>
     <ToastContainer let:data><FlatToast {data} /></ToastContainer>

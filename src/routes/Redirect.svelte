@@ -19,6 +19,7 @@
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
     authorizeSession.set(true);
     let finalParams = searchQuery();
@@ -70,7 +71,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -78,6 +79,7 @@
             showProgress: true,
             theme: $theme.name
           });
+          navigate(`/`,{replace:true});
         });
     } else {
       navigate(`/?${finalParams}`, { replace: true });

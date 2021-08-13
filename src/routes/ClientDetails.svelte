@@ -43,7 +43,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -63,42 +63,58 @@
     await getClients();
   });
   function updateClient() {
-    axiosInstance({
-      method: 'put',
-      url: '/client/update',
-      data: {
-        clientId: id,
-        homePageUrl: state.homepageUrl,
-        callbackUrl: state.callbackUrl,
-        name: state.name,
-        description: state.description
-      }
-    })
-      .then(response => {
-        toasts.add({
-          title: 'Success',
-          description: `${response.data.message}`,
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'success',
-          showProgress: true,
-          theme: $theme.name
-        });
-      })
-      .catch(error => {
-        toasts.add({
-          title: 'Oops',
-          description:
-            error.response.data.message ||
-            error.response.data.errors[0].msg ||
-            'Something went wrong, please try again!',
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'error',
-          showProgress: true,
-          theme: $theme.name
-        });
+    if (
+      state.name.length == 0 ||
+      state.homepageUrl.length == 0 ||
+      state.callbackUrl.length == 0
+    )
+      toasts.add({
+        title: 'Oops',
+        description: 'Please fill all the fields!',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'error',
+        showProgress: true,
+        theme: $theme.name
       });
+    else {
+      axiosInstance({
+        method: 'put',
+        url: '/client/update',
+        data: {
+          clientId: id,
+          homePageUrl: state.homepageUrl,
+          callbackUrl: state.callbackUrl,
+          name: state.name,
+          description: state.description
+        }
+      })
+        .then(response => {
+          toasts.add({
+            title: 'Success',
+            description: `${response.data.message}`,
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'success',
+            showProgress: true,
+            theme: $theme.name
+          });
+        })
+        .catch(error => {
+          toasts.add({
+            title: 'Oops',
+            description:
+              error.response.data.message ||
+              error.response.data.errors[1].msg ||
+              'Something went wrong, please try again!',
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'error',
+            showProgress: true,
+            theme: $theme.name
+          });
+        });
+    }
   }
   function generateSecret() {
     axiosInstance({
@@ -128,7 +144,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -164,7 +180,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',

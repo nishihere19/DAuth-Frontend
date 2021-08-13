@@ -53,6 +53,9 @@
   let userInfo: any = {};
 
   onMount(() => {
+    let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
+    element.style.display = 'flex';
     auth.subscribe(is_auth => {
       isauth = is_auth;
       if (isauth == 'false') {
@@ -79,7 +82,8 @@
     </div>
     <br />
     <div class="info">
-      {userInfo.phoneNumber}<br />{userInfo.department} | Batch: {userInfo.year}
+      {userInfo.phoneNumber}<br />
+      <!-- {userInfo.department} | Batch: {userInfo.year} -->
     </div>
   </div>
 </main>

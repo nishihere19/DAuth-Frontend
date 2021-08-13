@@ -8,7 +8,11 @@ body {
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
-	font-family: 'Roboto', 'Segoe UI', sans-serif !important;
+	font-family: "Lato","Helvetica Neue",Arial,Helvetica,sans-serif !important;
+}
+
+main{
+  font-family: "Lato","Helvetica Neue",Arial,Helvetica,sans-serif !important;
 }
 
 a{
@@ -87,12 +91,9 @@ h6{
 
 .main-container{
   margin: auto;
-  max-width: 400px;
   text-align: left;
+  min-width: 500px;
 }
-// .logo_div{
-//   display: inline-flex;
-// }
 
 .form{
   text-align: left;
@@ -105,8 +106,9 @@ label{
 }
 
 .input_details{
+  margin: 1rem 0;
   color:inherit;
-  height: 35px;
+  height: 45px;
   width: 100%;
   border: 1px solid #3bbf3beb;
   background-color: inherit;
@@ -127,13 +129,15 @@ label{
 
 .iti{
   display: block !important;
+  margin: 1rem 0;
 }
 
-.registerContainer{
-  display: inline-flex;
-}
+// .registerContainer{
+//   display: inline-flex;
+// }
 .navigateOption{
-  margin-left: 2rem;
+  float: right;
+  margin-top: 0.5rem;
   font-size: 1rem;
 }
 .navigateLink{
@@ -157,6 +161,7 @@ p{
   &:hover{
     border: 2px solid #3bbf3beb; 
     color: #3bbf3b;
+    cursor: pointer;
   }
 }
 #allowButton {
@@ -172,10 +177,6 @@ p{
   width: 150px;
   margin-top: 20px !important;
   background-color: inherit;
-}
-select, #input_phone{
-  height: 40px !important;
-  box-sizing: border-box;
 }
 
 #denyButton{
@@ -196,6 +197,15 @@ select, #input_phone{
 
 
 @media (max-width: 640px) {
+  .registerContainer{
+    display: inline-flex;
+  }
+  .navigateOption{
+    margin-left: 1rem;
+  }
+  .main-container{
+    min-width: 0;
+  }
   .client-container{
     padding: 0 !important;
   }
@@ -232,6 +242,7 @@ select, #input_phone{
 .love-footer-dark {
   text-align: center;
   background-color: inherit;
+  display: block !important;
   color: inherit;
   overflow: hidden;
 }
@@ -524,6 +535,7 @@ select, #input_phone{
 .client-name,.client-description,.user-name,.user-email,.client-header,.clientName{
   margin:0;
   text-align: left;
+  word-break: break-word;
 }
 
 textarea{

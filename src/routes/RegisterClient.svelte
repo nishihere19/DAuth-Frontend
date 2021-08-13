@@ -3,6 +3,12 @@
     font-family: sans-serif;
     text-align: center;
     overflow-x: hidden;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
+  }
+  .main-container {
+    min-width: 0;
   }
 </style>
 
@@ -78,7 +84,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -96,52 +102,56 @@
     <div class="logo_div">
       <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
-      <h6>Please enter the details to register a new application!</h6>
     </div>
+    <h6>Please enter the details to register a new application!</h6>
     <div class="center">
-      <div class="form" />
-      <label for="name">Name</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_name"
-        name="name"
-        bind:value={state.name}
-        on:change={e => {
-          handleChange(e);
-        }}
-      /><br />
-      <br />
-      <label for="homepageUrl">Homepage Url</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_homepageUrl"
-        name="homepageUrl"
-        bind:value={state.homepageUrl}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="description">Short description</label><br />
-      <textarea
-        type="text"
-        class="input_details"
-        id="input_description"
-        name="description"
-        bind:value={state.description}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="callbackUrl">Callback Url</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_callbackUrl"
-        name="callbackUrl"
-        bind:value={state.callbackUrl}
-        on:change={handleChange}
-      /><br />
-      <br />
+      <div class="form">
+        <label for="name">Name of your application</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_name"
+          name="name"
+          placeholder="My App"
+          bind:value={state.name}
+          on:change={e => {
+            handleChange(e);
+          }}
+        /><br />
+        <br />
+        <label for="homepageUrl">Homepage Url</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_homepageUrl"
+          name="homepageUrl"
+          placeholder="https://example.com"
+          bind:value={state.homepageUrl}
+          on:change={handleChange}
+        /><br />
+        <br />
+        <label for="description">Short description</label><br />
+        <textarea
+          type="text"
+          class="input_details"
+          id="input_description"
+          name="description"
+          bind:value={state.description}
+          on:change={handleChange}
+        /><br />
+        <br />
+        <label for="callbackUrl">Callback Url</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_callbackUrl"
+          name="callbackUrl"
+          placeholder="https://example.com/callback"
+          bind:value={state.callbackUrl}
+          on:change={handleChange}
+        /><br />
+        <br />
+      </div>
     </div>
     <button class="submit_button" type="submit" on:click={handleSubmit}>Create</button>
   </div>
