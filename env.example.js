@@ -1,3 +1,4 @@
 module.exports={
-    backendurl:""
+    backendurl:"",
+    FRONTEND_URL_PORT:"8080"
 }
