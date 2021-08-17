@@ -24,6 +24,7 @@
     authorizeSession.set(true);
     let finalParams = searchQuery();
     if ($auth == 'true') {
+      localStorage.clear();
       axiosInstance({
         method: 'get',
         url: `${config.backendurl}/oauth/authorize`,
@@ -79,9 +80,10 @@
             showProgress: true,
             theme: $theme.name
           });
-          navigate(`/`,{replace:true});
+          navigate(`/`, { replace: true });
         });
     } else {
+      localStorage.setItem('Dauth_params',finalParams);
       navigate(`/?${finalParams}`, { replace: true });
     }
   });

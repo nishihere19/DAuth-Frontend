@@ -9,14 +9,12 @@
 </style>
 
 <script lang="ts">
-  import { params } from 'src/utils/queryParams';
   import { auth } from 'src/utils/auth';
   import { Link, navigate } from 'svelte-routing';
   import { axiosInstance } from 'src/utils/axios';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { getContext, onMount } from 'svelte';
-  import { searchQuery } from 'src/utils/queryHandler';
   import logo from '../statics/deltaLogoGreen.png';
 
   let { theme } = getContext('theme');
@@ -66,9 +64,10 @@
       .then(response => {
         localStorage.setItem('isDAuth', 'true');
         auth.set('true');
-        if (!$params.client_id.length) navigate('/dashboard', { replace: true });
+        let finalParams = localStorage.getItem('Dauth_params');
+        localStorage.clear();
+        if (!finalParams) navigate('/dashboard', { replace: true });
         else {
-          let finalParams = searchQuery();
           navigate(`/redirect?${finalParams}`, { replace: true });
         }
         toasts.add({
@@ -104,6 +103,7 @@
       <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
     </div>
+    <h6>We do not accept webmail credentials!</h6>
     <div class="form">
       <label for="webmailId">Webmail</label><br />
       <input
