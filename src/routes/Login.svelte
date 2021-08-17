@@ -65,7 +65,7 @@
         localStorage.setItem('isDAuth', 'true');
         auth.set('true');
         let finalParams = localStorage.getItem('Dauth_params');
-        localStorage.clear();
+        localStorage.removeItem('Dauth_params');
         if (!finalParams) navigate('/dashboard', { replace: true });
         else {
           navigate(`/redirect?${finalParams}`, { replace: true });
