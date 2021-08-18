@@ -103,7 +103,7 @@
       <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
     </div>
-    <h6>We do not accept webmail credentials!</h6>
+    <h6>We do not accept webmail credentials! If this is your first time here, please <Link to="/register" class="navigateLink">Register</Link> before logging in.</h6>
     <div class="form">
       <label for="webmailId">Webmail</label><br />
       <input
