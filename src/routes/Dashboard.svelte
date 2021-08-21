@@ -8,7 +8,9 @@
   .card {
     overflow: hidden;
     display: inline-block;
-    box-shadow: 0 2px 12px rgba(230, 218, 218, 0.26);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
     padding: 4rem;
     margin: 2rem;
   }
@@ -71,7 +73,11 @@
 
 <main>
   <div class="card">
-    <img src={profileImg} alt="Profile" />
+    <img
+      class="dashboardImage"
+      src={'https://ui-avatars.com/api/?background=random&size=200&name=' + userInfo.name}
+      alt="Profile"
+    />
     <header>
       {#if userInfo && userInfo.email}
         <b>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</b>

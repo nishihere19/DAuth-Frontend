@@ -12,6 +12,7 @@ body {
 }
 
 main{
+  overflow: inherit !important;
   font-family: "Lato","Helvetica Neue",Arial,Helvetica,sans-serif !important;
 }
 
@@ -22,6 +23,22 @@ a{
 
 main{
   text-align: center !important;
+}
+
+.main-container{
+  max-width: 600px;
+  padding:2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+  rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+  rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+@media(max-width:600px){
+  .main-container{
+    margin: 0 !important;
+    padding: .5rem !important;
+    background-color: inherit !important;
+    box-shadow: none;
+  }
 }
 
 .main-content{
@@ -663,4 +680,12 @@ textarea{
 
 .appbar-link{
   color: #3bbf3b;
+}
+
+.dashboardImage{
+  border-radius: 50%;
+}
+
+.s-card-text{
+  word-break: break-word;
 }

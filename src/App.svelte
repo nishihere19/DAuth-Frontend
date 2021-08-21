@@ -121,6 +121,11 @@
         {:else}
           <AppBar dense class="appbar" flat>
             <div slot="icon">
+              <Link to="/dashboard" class="appbar-link"><Icon path={mdiAccount} /></Link>
+              <Link to="/apps" class="appbar-link"><Icon path={mdiApps} /></Link>
+              <Link to="/client-manager" class="appbar-link"
+                ><Icon path={mdiAccountMultiplePlus} /></Link
+              >
               <button
                 class="appbar-link"
                 id="logoutBtn"
@@ -129,11 +134,6 @@
               >
                 <Icon path={mdiLogout} />
               </button>
-              <Link to="/dashboard" class="appbar-link"><Icon path={mdiAccount} /></Link>
-              <Link to="/apps" class="appbar-link"><Icon path={mdiApps} /></Link>
-              <Link to="/client-manager" class="appbar-link"
-                ><Icon path={mdiAccountMultiplePlus} /></Link
-              >
             </div>
             <ThemeToggle />
           </AppBar>
