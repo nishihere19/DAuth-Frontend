@@ -30,7 +30,7 @@
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
   import AuthorizedApps from './routes/AuthorizedApps.svelte';
-  import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus } from '@mdi/js';
+  import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus, mdiBookOpenVariant } from '@mdi/js';
 
   let isauth = '';
   let url = '';
@@ -113,6 +113,9 @@
             <Link to="/client-manager" class="nav-links"
               ><div class="text-button">Clients</div></Link
             >
+            <a class="nav-links" id="logoutBtn" href="https://delta.github.io/DAuth-Docs/"
+              ><div class="text-button">Docs</div></a
+            >
             <button class="nav-links" id="logoutBtn" on:click={logout}
               ><div class="text-button">Logout</div></button
             >
@@ -125,6 +128,9 @@
               <Link to="/apps" class="appbar-link"><Icon path={mdiApps} /></Link>
               <Link to="/client-manager" class="appbar-link"
                 ><Icon path={mdiAccountMultiplePlus} /></Link
+              >
+              <a href="https://delta.github.io/DAuth-Docs/" class="appbar-link"
+                ><Icon path={mdiBookOpenVariant} /></a
               >
               <button
                 class="appbar-link"
@@ -160,7 +166,7 @@
         <Route path="apps" component={AuthorizedApps} bind:isauth />
       {/if}
     </div>
-    <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>
+    <Footer class="love-footer-dark">Made with ❤ by <a href="https://delta.nitt.edu" style="color: #3bbf3b">Delta Force</a></Footer>
     <ToastContainer let:data><FlatToast {data} /></ToastContainer>
   </ThemeContext>
 </Router>
