@@ -49,7 +49,6 @@
   import user from '../utils/user';
   import { fetchUserData } from '../utils/user';
   import { auth } from '../utils/auth';
-  import profileImg from '../statics/profile.png';
 
   let isauth = 'false';
   let userInfo: any = {};
