@@ -13,6 +13,7 @@
   import Clients from './routes/Clients.svelte';
   import RegisterClient from './routes/RegisterClient.svelte';
   import AuthorizeApp from './routes/AuthorizeApp.svelte';
+  import ForgotPassword from './routes/ForgotPassword.svelte';
   import { navigate } from 'svelte-routing';
   import RegistrationDetails from './routes/RegistrationDetails.svelte';
   import { Router, Link, Route } from 'svelte-routing';
@@ -31,6 +32,7 @@
   import VerifyEmail from './routes/VerifyEmail.svelte';
   import AuthorizedApps from './routes/AuthorizedApps.svelte';
   import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus, mdiBookOpenVariant } from '@mdi/js';
+  import PasswordReset from './routes/PasswordReset.svelte';
 
   let isauth = '';
   let url = '';
@@ -155,7 +157,9 @@
       <Route path="/*" component={Error} />
       <Route path="**/" component={Error} />
       <Route path="verify" component={VerifyEmail} />
+      <Route path="forgotPassword" component={ForgotPassword} />
       <Route path="/" component={Login} bind:isauth />
+      <Route path="/resetPassword" component={PasswordReset} />
       {#if $auth == 'true'}
         <Route path="dashboard" component={Dashboard} bind:isauth />
         <Route path="new-client" component={RegisterClient} bind:isauth />

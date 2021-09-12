@@ -83,7 +83,7 @@
           navigate(`/`, { replace: true });
         });
     } else {
-      localStorage.setItem('Dauth_params',finalParams);
+      localStorage.setItem('Dauth_params', finalParams);
       navigate(`/?${finalParams}`, { replace: true });
     }
   });

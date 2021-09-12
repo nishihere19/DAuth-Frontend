@@ -103,7 +103,10 @@
       <img class="delta_logo" src={logo} alt="Delta logo" />
       <h2 class="Dauth_title">DAuth</h2>
     </div>
-    <h6>We do not accept webmail credentials! If this is your first time here, please register before logging in.</h6>
+    <h6>
+      We do not accept webmail credentials! If this is your first time here, please
+      register before logging in.
+    </h6>
     <div class="form">
       <label for="webmailId">Webmail</label><br />
       <input
@@ -133,6 +136,7 @@
       <div class="registerContainer">
         <button class="submit_button" type="submit" on:click={verify}>Login</button>
         <div class="navigateOption">
+          <Link to="/forgotPassword" class="navigateLink">Forgot password?</Link>
           <p>Don't have an account?</p>
           <Link to="/register" class="navigateLink">Register Now</Link>
         </div>

@@ -10,7 +10,6 @@
   .main-container {
     min-width: 0;
   }
-  
 </style>
 
 <script lang="ts">
