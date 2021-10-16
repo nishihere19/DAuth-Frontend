@@ -126,7 +126,6 @@
     })
       .then(response => {
         clientSecret = response.data.secret;
-        console.log(clientSecret);
         let el: HTMLBodyElement = document.querySelector('.clientSecret');
         el.style.display = 'block';
         toasts.add({

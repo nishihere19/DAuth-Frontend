@@ -25,6 +25,7 @@
   import { onMount, getContext } from 'svelte';
   import logo from '../statics/deltaLogoGreen.png';
   import '../../node_modules/intl-tel-input/build/css/intlTelInput.css';
+
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;
@@ -59,9 +60,14 @@
   let state = {
     name: '',
     phone: `+91`,
+    gender: '',
     password: '',
     confirmPassword: ''
   };
+  const items = [
+    {name: "MALE", value: "MALE"},
+    {name: "FEMALE", value: "FEMALE"}
+  ];
   function handleChange(e) {
     let val = e.target.name;
     state[val] = e.target.value;
@@ -71,7 +77,8 @@
       state.name.length == 0 ||
       state.phone.length == 0 ||
       state.password.length == 0 ||
-      state.confirmPassword.length == 0
+      state.confirmPassword.length == 0 ||
+      state.gender.length == 0
     ) {
       toasts.add({
         title: 'Something is missing!',
@@ -101,6 +108,7 @@
         url: `${config.backendurl}/auth/register`,
         data: {
           name: state.name,
+          gender: state.gender.toString(),
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
           phoneNumber: phoneInput.getNumber()
@@ -124,7 +132,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[1].msg ||
+              error.response.data.errors[0].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -205,8 +213,30 @@
         name="phone"
         bind:value={state.phone}
         on:change={handleChange}
-      /><br />
+      />
       <br />
+      <label for="gender">Gender</label><br/>
+      <select
+          class="input_details"
+          id="input_gender"
+          name="gender"
+          bind:value={state.gender}
+        >
+          <option disabled selected value> -- select an option -- </option>
+          {#each items as gender}
+            {#if $theme.name == 'dark'}
+              <option value={gender.value} style="background:#212121; color:#f1f1f1"
+                >{gender.name}</option
+              >
+            {/if}
+            {#if $theme.name == 'light'}
+              <option value={gender.value} style="background:#f1f1f1; color:#282230"
+                >{gender.name}</option
+              >
+            {/if}
+          {/each}
+        </select><br />
+      <br/>
       <label for="password">Password</label><br />
       <input
         type="password"

@@ -33,6 +33,7 @@
   import AuthorizedApps from './routes/AuthorizedApps.svelte';
   import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus, mdiBookOpenVariant } from '@mdi/js';
   import PasswordReset from './routes/PasswordReset.svelte';
+  import EditProfile from './routes/EditProfile.svelte';
 
   let isauth = '';
   let url = '';
@@ -168,6 +169,7 @@
           <ClientDetails id={params.id} />
         </Route>
         <Route path="apps" component={AuthorizedApps} bind:isauth />
+        <Route path="editProfile" component={EditProfile} bind:isauth/>
       {/if}
     </div>
     <Footer class="love-footer-dark">Made with ❤ by <a href="https://delta.nitt.edu" style="color: #3bbf3b">Delta Force</a></Footer>

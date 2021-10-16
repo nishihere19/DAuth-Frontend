@@ -44,11 +44,13 @@
 </style>
 
 <script lang="ts">
-  import { navigate } from 'svelte-routing';
+  import { navigate, Link } from 'svelte-routing';
   import { onMount } from 'svelte';
   import user from '../utils/user';
   import { fetchUserData } from '../utils/user';
   import { auth } from '../utils/auth';
+  import { mdiAccountEdit } from '@mdi/js';
+  import { Icon } from 'svelte-materialify';
 
   let isauth = 'false';
   let userInfo: any = {};
@@ -88,7 +90,11 @@
     <br />
     <div class="info">
       {userInfo.phoneNumber}<br />
-      <!-- {userInfo.department} | Batch: {userInfo.year} -->
+      {#if userInfo.gender && userInfo.gender != "NONE"}
+        {userInfo.gender}
+      {/if}
     </div>
+    <br/>
+    <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
   </div>
 </main>
