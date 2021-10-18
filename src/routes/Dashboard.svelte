@@ -90,11 +90,11 @@
     <br />
     <div class="info">
       {userInfo.phoneNumber}<br />
-      {#if userInfo.gender && userInfo.gender != "NONE"}
+      {#if userInfo.gender && userInfo.gender != 'NONE'}
         {userInfo.gender}
       {/if}
     </div>
-    <br/>
+    <br />
     <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
   </div>
 </main>

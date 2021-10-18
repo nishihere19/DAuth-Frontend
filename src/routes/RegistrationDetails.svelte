@@ -65,8 +65,8 @@
     confirmPassword: ''
   };
   const items = [
-    {name: "MALE", value: "MALE"},
-    {name: "FEMALE", value: "FEMALE"}
+    { name: 'MALE', value: 'MALE' },
+    { name: 'FEMALE', value: 'FEMALE' }
   ];
   function handleChange(e) {
     let val = e.target.name;
@@ -215,28 +215,28 @@
         on:change={handleChange}
       />
       <br />
-      <label for="gender">Gender</label><br/>
+      <label for="gender">Gender</label><br />
       <select
-          class="input_details"
-          id="input_gender"
-          name="gender"
-          bind:value={state.gender}
-        >
-          <option disabled selected value> -- select an option -- </option>
-          {#each items as gender}
-            {#if $theme.name == 'dark'}
-              <option value={gender.value} style="background:#212121; color:#f1f1f1"
-                >{gender.name}</option
-              >
-            {/if}
-            {#if $theme.name == 'light'}
-              <option value={gender.value} style="background:#f1f1f1; color:#282230"
-                >{gender.name}</option
-              >
-            {/if}
-          {/each}
-        </select><br />
-      <br/>
+        class="input_details"
+        id="input_gender"
+        name="gender"
+        bind:value={state.gender}
+      >
+        <option disabled selected value> -- select an option -- </option>
+        {#each items as gender}
+          {#if $theme.name == 'dark'}
+            <option value={gender.value} style="background:#212121; color:#f1f1f1"
+              >{gender.name}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={gender.value} style="background:#f1f1f1; color:#282230"
+              >{gender.name}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
       <label for="password">Password</label><br />
       <input
         type="password"

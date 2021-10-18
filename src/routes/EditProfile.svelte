@@ -1,3 +1,33 @@
+<style>
+  main {
+    width: 100%;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .card {
+    overflow: hidden;
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 4rem;
+    margin: 2rem;
+  }
+  @media only screen and (min-width: 300px) and (max-width: 600px) {
+    .card {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+  }
+  @media only screen and (max-width: 300px) {
+    .card {
+      padding: 1rem;
+      margin: 1rem;
+    }
+  }
+</style>
+
 <script lang="ts">
   import user from 'src/utils/user';
   import { fetchUserData } from '../utils/user';
@@ -8,15 +38,13 @@
   import { axiosInstance } from '../utils/axios';
   import config from '../../env';
 
-
   let isauth = 'false';
   let { theme } = getContext('theme');
   let userInfo: any = {};
   const items = [
-    {name: "MALE", value: "MALE"},
-    {name: "FEMALE", value: "FEMALE"}
+    { name: 'MALE', value: 'MALE' },
+    { name: 'FEMALE', value: 'FEMALE' }
   ];
-
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -34,12 +62,19 @@
     fetchUserData();
   });
 
-  function save(){
-    if(userInfo.name && userInfo.name.length != 0 && userInfo.phoneNumber &&
-    userInfo.phoneNumber.length != 0 && userInfo.gender && userInfo.gender.length != 0 && userInfo.gender != "NONE"){
+  function save() {
+    if (
+      userInfo.name &&
+      userInfo.name.length != 0 &&
+      userInfo.phoneNumber &&
+      userInfo.phoneNumber.length != 0 &&
+      userInfo.gender &&
+      userInfo.gender.length != 0 &&
+      userInfo.gender != 'NONE'
+    ) {
       let phno = userInfo.phoneNumber.toString();
       let number = phno.substring(1, phno.length);
-      if(phno[0] != '+' || isNaN(number)){
+      if (phno[0] != '+' || isNaN(number)) {
         toasts.add({
           title: 'Oops!',
           description: 'Make sure to add country code and valid phone number',
@@ -48,7 +83,7 @@
           type: 'error',
           showProgress: true,
           theme: $theme.name
-          });
+        });
         return;
       }
       axiosInstance({
@@ -87,7 +122,7 @@
             theme: $theme.name
           });
         });
-    }else{
+    } else {
       toasts.add({
         title: 'Something is missing!',
         description: 'Please fill all details',
@@ -100,98 +135,72 @@
     }
   }
 
-  function discard(){
+  function discard() {
     navigate('/dashboard', { replace: true });
   }
 </script>
 
-<style>
-  main {
-    width: 100%;
-    justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-      Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  .card {
-    overflow: hidden;
-    display: inline-block;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
-      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
-      rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    padding: 4rem;
-    margin: 2rem;
-  }
-  @media only screen and (min-width: 300px) and (max-width: 600px) {
-    .card {
-      padding: 1.5rem;
-      margin: 1rem;
-    }
-  }
-  @media only screen and (max-width: 300px) {
-    .card {
-      padding: 1rem;
-      margin: 1rem;
-    }
-  }
-</style>
-
 <main>
-<div class="card">
-  <div class="form">
-    <br/>
-    <label for="name">Full Name</label><br />
-    <input
-      type="text"
-      class="input_details"
-      id="input_name"
-      name="name"
-      bind:value={userInfo.name}
-    /><br />
-    <br />
-    <!--Phone number-->
-    <label for="phone">Phone Number</label><br />
-    <input
-      type="tel"
-      class="input_details"
-      id="input_phone"
-      name="phone"
-      bind:value={userInfo.phoneNumber}
-    /><br />
-    <br/>
-    <!--Gender-->
-    <label for="gender">Gender</label><br/>
+  <div class="card">
+    <div class="form">
+      <br />
+      <label for="name">Full Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        bind:value={userInfo.name}
+      /><br />
+      <br />
+      <!--Phone number-->
+      <label for="phone">Phone Number</label><br />
+      <input
+        type="tel"
+        class="input_details"
+        id="input_phone"
+        name="phone"
+        bind:value={userInfo.phoneNumber}
+      /><br />
+      <br />
+      <!--Gender-->
+      <label for="gender">Gender</label><br />
       <select
-          class="input_details"
-          id="input_gender"
-          name="gender"
-          bind:value={userInfo.gender}
+        class="input_details"
+        id="input_gender"
+        name="gender"
+        bind:value={userInfo.gender}
+      >
+        <option disabled selected value> -- select an option -- </option>
+        {#each items as gender}
+          {#if $theme.name == 'dark'}
+            <option value={gender.value} style="background:#212121; color:#f1f1f1"
+              >{gender.name}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={gender.value} style="background:#f1f1f1; color:#282230"
+              >{gender.name}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
+      <!--Save & discard buttons-->
+      {#if $theme.name == 'dark'}
+        <button class="appdetails-button-dark" style="color:#3bbf3b" on:click={save}
+          >Save</button
         >
-          <option disabled selected value> -- select an option -- </option>
-          {#each items as gender}
-            {#if $theme.name == 'dark'}
-              <option value={gender.value} style="background:#212121; color:#f1f1f1"
-                >{gender.name}</option
-              >
-            {/if}
-            {#if $theme.name == 'light'}
-              <option value={gender.value} style="background:#f1f1f1; color:#282230"
-                >{gender.name}</option
-              >
-            {/if}
-          {/each}
-        </select><br />
-      <br/>
-    <!--Save & discard buttons-->
-    {#if $theme.name == "dark"}
-      <button class="appdetails-button-dark" style="color:#3bbf3b" on:click={save}>Save</button>
-    {:else}
-      <button class="appdetails-button-light" style="color:#3bbf3b" on:click={save}>Save</button>
-    {/if}
-    {#if $theme.name == "dark"}
-      <button class="appdetails-button-dark" on:click={discard}>Discard</button>
-    {:else}
-      <button class="appdetails-button-light" on:click={discard}>Discard</button>
-    {/if}
+      {:else}
+        <button class="appdetails-button-light" style="color:#3bbf3b" on:click={save}
+          >Save</button
+        >
+      {/if}
+      {#if $theme.name == 'dark'}
+        <button class="appdetails-button-dark" on:click={discard}>Discard</button>
+      {:else}
+        <button class="appdetails-button-light" on:click={discard}>Discard</button>
+      {/if}
+    </div>
   </div>
-</div>
 </main>

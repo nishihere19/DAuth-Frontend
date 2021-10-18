@@ -22,7 +22,7 @@
     webmailId = e.target.value;
   }
 
-  function forgotPassword(){
+  function forgotPassword() {
     axiosInstance({
       method: 'post',
       url: `${config.backendurl}/auth/forgotPassword`,
@@ -41,7 +41,7 @@
           showProgress: true,
           theme: $theme.name
         });
-        navigate('/', {replace: true});
+        navigate('/', { replace: true });
       })
       .catch(error => {
         toasts.add({
@@ -74,7 +74,8 @@
     />
     <br />
     <div class="registerContainer">
-      <button class="submit_button" type="submit" on:click={forgotPassword}>Submit</button>
+      <button class="submit_button" type="submit" on:click={forgotPassword}>Submit</button
+      >
     </div>
   </div>
 </main>
