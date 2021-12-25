@@ -38,12 +38,12 @@
 
   // sets CSS vars for easy use in components
   // ex: var(--theme-background)
-  const setRootColors = (theme: {
+  const setRootColors = (theme:{
     colors: {
-      text: string;
-      background: string;
-    };
-    name: string;
+      text: string,
+      background: string,
+    }
+    name: string,
   }) => {
     for (let [prop, color] of Object.entries(theme.colors)) {
       let varString = `--theme-${prop}`;

@@ -96,37 +96,19 @@
 </script>
 
 <main>
-  {#await getUserDetails()}
-    <div class="loader" role="status" />
-  {:then userInfo}
-    <div class="card">
-      <img
-        class="dashboardImage"
-        src={'https://ui-avatars.com/api/?background=random&size=200&name=' +
-          userInfo.name}
-        alt="Profile"
-      />
-      <header>
-        {#if userInfo && userInfo.email}
-          <p>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</p>
-        {/if}
-      </header>
-      <div class="name">
-        {userInfo.name}
-      </div>
-      <br />
-      <div class="info">
-        {#if userInfo.batch && userInfo.batch != 'NULL'}
-          {userInfo.batch}
-        {/if}
-        <br />
-        {userInfo.phoneNumber}<br />
-        {#if userInfo.gender && userInfo.gender != 'NONE'}
-          {userInfo.gender}
-        {/if}
-      </div>
-      <br />
-      <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
+  <div class="card">
+    <img
+      class="dashboardImage"
+      src={'https://ui-avatars.com/api/?background=random&size=200&name=' + userInfo.name}
+      alt="Profile"
+    />
+    <header>
+      {#if userInfo && userInfo.email}
+        <p>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</p>
+      {/if}
+    </header>
+    <div class="name">
+      {userInfo.name}
     </div>
   {/await}
 </main>
