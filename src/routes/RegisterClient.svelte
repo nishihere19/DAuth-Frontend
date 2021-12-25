@@ -16,7 +16,7 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from 'src/utils/axios';
-  import { navigate, Link } from 'svelte-routing';
+  import { navigate } from 'svelte-routing';
   import { onMount, getContext } from 'svelte';
   import logo from '../statics/dauth-full.png';
   let { theme } = getContext('theme');

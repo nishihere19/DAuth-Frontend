@@ -29,17 +29,13 @@
   header {
     margin-top: 1rem;
     font-size: 2rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     color: #3bbf3b;
   }
   .name {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: #3bbf3b;
     font-size: 2rem;
   }
   .info {
     font-size: 1.25rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
   }
 </style>
 
@@ -81,7 +77,7 @@
     />
     <header>
       {#if userInfo && userInfo.email}
-        <b>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</b>
+        <p>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</p>
       {/if}
     </header>
     <div class="name">

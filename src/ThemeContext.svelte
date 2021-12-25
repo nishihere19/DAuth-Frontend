@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { setContext, onMount } from 'svelte';
   import { writable } from 'svelte/store';
-  import { themes as _themes } from './themes.ts';
+  import { themes as _themes } from './themes';
   // expose props for customization and set default values
   export let themes = _themes;
   // set state of current theme's name
@@ -38,7 +38,13 @@
 
   // sets CSS vars for easy use in components
   // ex: var(--theme-background)
-  const setRootColors = theme => {
+  const setRootColors = (theme:{
+    colors: {
+      text: string,
+      background: string,
+    }
+    name: string,
+  }) => {
     for (let [prop, color] of Object.entries(theme.colors)) {
       let varString = `--theme-${prop}`;
       document.documentElement.style.setProperty(varString, color);

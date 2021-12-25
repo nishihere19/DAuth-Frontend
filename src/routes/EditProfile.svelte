@@ -73,7 +73,7 @@
       userInfo.gender != 'NONE'
     ) {
       let phno = userInfo.phoneNumber.toString();
-      let number = phno.substring(1, phno.length);
+      let number: number = phno.substring(1, phno.length);
       if (phno[0] != '+' || isNaN(number)) {
         toasts.add({
           title: 'Oops!',

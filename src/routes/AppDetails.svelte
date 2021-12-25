@@ -76,7 +76,7 @@
     <CardText class="appdetails-cardtext">
       Access given on<br />{accessGivenOn}
       <br />
-      <a href={homePageUrl}>{homePageUrl}</a>
+      <a href={homePageUrl} class="navigateLink">{homePageUrl}</a>
       <br />
       {description}
       <br />
@@ -89,7 +89,7 @@
     <CardText class="appdetails-cardtext">
       Access given on<br />{accessGivenOn}
       <br />
-      <a href={homePageUrl}>{homePageUrl}</a>
+      <a href={homePageUrl} class="navigateLink">{homePageUrl}</a>
       <br />
       {description}
       <br />
