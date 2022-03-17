@@ -110,5 +110,18 @@
     <div class="name">
       {userInfo.name}
     </div>
-  {/await}
+    <br />
+    <div class="info">
+      {#if userInfo.batch && userInfo.batch != 'NA'}
+        {userInfo.batch}
+      {/if}
+      <br/>
+      {userInfo.phoneNumber}<br />
+      {#if userInfo.gender && userInfo.gender != 'NONE'}
+        {userInfo.gender}
+      {/if}
+    </div>
+    <br />
+    <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
+  </div>
 </main>

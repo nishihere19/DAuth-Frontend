@@ -68,7 +68,7 @@
     gender: '',
     password: '',
     confirmPassword: '',
-    batch: ''
+    batch:''
   };
   const items = [
     { name: 'MALE', value: 'MALE' },
@@ -119,8 +119,8 @@
           gender: state.gender.toString(),
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          phoneNumber: state.phone.toString(),
-          batch: state.batch
+          phoneNumber: phoneInput.getNumber(),
+          batch:state.batch
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -159,28 +159,28 @@
     {#await getBatches()}
       <div>Loading..</div>
     {:then batches}
-      <div class="logo_div">
-        <img class="dauth_logo" src={logo} alt="Delta logo" />
-        <!-- <h2 class="Dauth_title">DAuth</h2> -->
-      </div>
-      <div class="content">
-        <h6>Please enter the details to create an account!</h6>
-      </div>
-      <div class="center">
-        <div class="form" />
-        <label for="name">Full Name</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_name"
-          name="name"
-          bind:value={state.name}
-          on:change={e => {
-            handleChange(e);
-          }}
-        /><br />
-        <br />
-        <!-- <label for="department">Department</label><br />
+    <div class="logo_div">
+      <img class="dauth_logo" src={logo} alt="Delta logo" />
+      <!-- <h2 class="Dauth_title">DAuth</h2> -->
+    </div>
+    <div class="content">
+      <h6>Please enter the details to create an account!</h6>
+    </div>
+    <div class="center">
+      <div class="form" />
+      <label for="name">Full Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        bind:value={state.name}
+        on:change={e => {
+          handleChange(e);
+        }}
+      /><br />
+      <br />
+      <!-- <label for="department">Department</label><br />
         <select
           class="input_details"
           id="input_department"
@@ -202,7 +202,7 @@
             {/if}
           {/each}
         </select><br />
-        <br /> -->
+        <br /> -->      
         <label for="batches">Batches</label><br />
         <select
           class="input_details"
@@ -214,20 +214,20 @@
           <option disabled selected value> -- select an option -- </option>
           {#each batches as batch}
             {#if $theme.name == 'dark'}
-              <option value={batch} style="background:#212121; color:#f1f1f1"
-                >{batch}</option
+              <option value={batch.batch} style="background:#212121; color:#f1f1f1"
+                >{batch.batch}</option
               >
             {/if}
             {#if $theme.name == 'light'}
-              <option value={batch} style="background:#f1f1f1; color:#282230"
-                >{batch}</option
+              <option value={batch.batch} style="background:#f1f1f1; color:#282230"
+                >{batch.batch}</option
               >
             {/if}
           {/each}
         </select><br />
         <br />
 
-        <!-- <label for="batch">Year of Graduation</label><br />
+      <!-- <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
           class="input_details"
@@ -292,6 +292,43 @@
       </div>
       <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button
       >
+        <option disabled selected value> -- select an option -- </option>
+        {#each items as gender}
+          {#if $theme.name == 'dark'}
+            <option value={gender.value} style="background:#212121; color:#f1f1f1"
+              >{gender.name}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={gender.value} style="background:#f1f1f1; color:#282230"
+              >{gender.name}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_password"
+        name="password"
+        bind:value={state.password}
+        on:change={handleChange}
+      /><br />
+      <br />
+      <label for="confirmPassword">Confirm Password</label><br />
+      <input
+        type="password"
+        class="input_details"
+        id="input_repeat_password"
+        name="confirmPassword"
+        bind:value={state.confirmPassword}
+        on:change={handleChange}
+      /><br />
+      <br />
+    </div>
+    <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button>
     {/await}
   </div>
 </main>

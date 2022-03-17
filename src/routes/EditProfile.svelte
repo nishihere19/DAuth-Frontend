@@ -47,6 +47,16 @@
     { name: 'MALE', value: 'MALE' },
     { name: 'FEMALE', value: 'FEMALE' }
   ];
+  
+  let batches=[];
+  async function getBatches() {
+    let result = await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/batches`
+    });
+    batches = result.data;
+    return batches;
+  }
 
   let batches = [];
   async function getBatches() {
@@ -72,6 +82,7 @@
       userInfo = userDetails;
     });
     fetchUserData();
+    console.log(userInfo)
   });
 
   function save() {
@@ -107,7 +118,7 @@
           name: userInfo.name.toString(),
           gender: userInfo.gender.toString(),
           phoneNumber: userInfo.phoneNumber.toString(),
-          batch: userInfo.batch.toString()
+          batch:userInfo.batch.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -163,38 +174,79 @@
 
 <main>
   {#await getBatches()}
-    <div>Loading..</div>
-  {:then batches}
-    <div class="card">
-      <div class="form">
-        <h6>Please enter your profile details completely!</h6>
-        <br />
-        <label for="name">Full Name</label><br />
-        <input
-          type="text"
-          class="input_details"
-          id="input_name"
-          name="name"
-          bind:value={userInfo.name}
-        /><br />
-        <br />
-        <!--Phone number-->
-        <label for="phone">Phone Number</label><br />
-        <input
-          type="tel"
-          class="input_details"
-          id="input_phone"
-          name="phone"
-          bind:value={userInfo.phoneNumber}
-        /><br />
-        <br />
-        <!-- Batch -->
-        <label for="batches">Batches</label><br />
-        <select
-          class="input_details"
-          id="input_batches"
-          name="batch"
-          bind:value={userInfo.batch}
+  <div>Loading..</div>
+{:then batches}
+  <div class="card">
+    <div class="form">
+      <br />
+      <label for="name">Full Name</label><br />
+      <input
+        type="text"
+        class="input_details"
+        id="input_name"
+        name="name"
+        bind:value={userInfo.name}
+      /><br />
+      <br />
+      <!--Phone number-->
+      <label for="phone">Phone Number</label><br />
+      <input
+        type="tel"
+        class="input_details"
+        id="input_phone"
+        name="phone"
+        bind:value={userInfo.phoneNumber}
+      /><br />
+      <br />
+      <!-- Batch -->
+      <label for="batches">Batches</label><br />
+      <select
+      class="input_details"
+      id="input_batches"
+      name="batch"
+      bind:value={userInfo.batch}
+    >
+      <!-- <option disabled selected value> -- select an option -- </option> -->
+      {#each batches as batch}
+        {#if $theme.name == 'dark'}
+          <option value={batch} style="background:#212121; color:#f1f1f1"
+            >{batch.batch}</option
+          >
+        {/if}
+        {#if $theme.name == 'light'}
+          <option value={batch} style="background:#f1f1f1; color:#282230"
+            >{batch.batch}</option
+          >
+        {/if}
+      {/each}
+    </select><br />
+      <!--Gender-->
+      <label for="gender">Gender</label><br />
+      <select
+        class="input_details"
+        id="input_gender"
+        name="gender"
+        bind:value={userInfo.gender}
+      >
+        <option disabled selected value> -- select an option -- </option>
+        {#each items as gender}
+          {#if $theme.name == 'dark'}
+            <option value={gender.value} style="background:#212121; color:#f1f1f1"
+              >{gender.name}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={gender.value} style="background:#f1f1f1; color:#282230"
+              >{gender.name}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
+      <!--Save & discard buttons-->
+      {#if $theme.name == 'dark'}
+        <button class="appdetails-button-dark" style="color:#3bbf3b" on:click={save}
+          >Save</button
         >
           <!-- <option disabled selected value> -- select an option -- </option> -->
           {#each batches as batch}
@@ -250,5 +302,6 @@
         {/if}
       </div>
     </div>
+  </div>
   {/await}
 </main>
