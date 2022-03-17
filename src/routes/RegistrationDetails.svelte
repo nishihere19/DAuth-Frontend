@@ -39,6 +39,15 @@
   //   departments = result.data;
   //   return departments;
   // }
+  let batches = [];
+  async function getBatches() {
+    let result = await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/batches`
+    });
+    batches = result.data;
+    return batches;
+  }
   onMount(() => {
     axiosInstance({
       method: 'get',
@@ -62,7 +71,8 @@
     phone: `+91`,
     gender: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    batch:''
   };
   const items = [
     { name: 'MALE', value: 'MALE' },
@@ -111,7 +121,8 @@
           gender: state.gender.toString(),
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          phoneNumber: phoneInput.getNumber()
+          phoneNumber: phoneInput.getNumber(),
+          batch:state.batch
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -147,9 +158,9 @@
 
 <main>
   <div class="main-container">
-    <!-- {#await getDepartments()}
+    {#await getBatches()}
       <div>Loading..</div>
-    {:then departments} -->
+    {:then batches}
     <div class="logo_div">
       <img class="dauth_logo" src={logo} alt="Delta logo" />
       <!-- <h2 class="Dauth_title">DAuth</h2> -->
@@ -193,7 +204,31 @@
             {/if}
           {/each}
         </select><br />
-        <br /> -->
+        <br /> -->      
+        <label for="batches">Batches</label><br />
+        <select
+          class="input_details"
+          id="input_batches"
+          name="batches"
+          bind:value={state.batch}
+          on:select={handleChange}
+        >
+          <option disabled selected value> -- select an option -- </option>
+          {#each batches as batch}
+            {#if $theme.name == 'dark'}
+              <option value={batch.batch} style="background:#212121; color:#f1f1f1"
+                >{batch.batch}</option
+              >
+            {/if}
+            {#if $theme.name == 'light'}
+              <option value={batch.batch} style="background:#f1f1f1; color:#282230"
+                >{batch.batch}</option
+              >
+            {/if}
+          {/each}
+        </select><br />
+        <br />
+
       <!-- <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
@@ -259,6 +294,6 @@
       <br />
     </div>
     <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button>
-    <!-- {/await} -->
+    {/await}
   </div>
 </main>

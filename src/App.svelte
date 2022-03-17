@@ -35,6 +35,7 @@
   import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus, mdiBookOpenVariant } from '@mdi/js';
   import PasswordReset from './routes/PasswordReset.svelte';
   import EditProfile from './routes/EditProfile.svelte';
+  import AddBatch from './routes/AddBatch.svelte';
 
   let isauth = '';
   let url = '';
@@ -161,6 +162,7 @@
       <Route path="**/" component={Error} />
       <Route path="verify" component={VerifyEmail} />
       <Route path="forgotPassword" component={ForgotPassword} />
+      <Route path="addBatch" component={AddBatch} />
       <Route path="/" component={Login} bind:isauth />
       <Route path="/resetPassword" component={PasswordReset} />
       {#if $auth == 'true'}

@@ -15,15 +15,40 @@
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import { getContext, onMount } from 'svelte';
+  import user from '../utils/user';
+  import { fetchUserData } from '../utils/user';
   let { theme } = getContext('theme');
 
   onMount(() => {
+
+    //handle nav bar visibility depending on screen size (hiding nav bar because loader page)
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
+
+    //to save userInfo in user store
+    let userInfo: any = {};
     authorizeSession.set(true);
+
+    //get all fields from query params
     let finalParams = searchQuery();
+
+    //in case the user is logged in
     if ($auth == 'true') {
+
+      //get user info
+      user.subscribe(userDetails => {
+      userInfo = userDetails;
+    });
+
+    //fetch user data
+    fetchUserData();
+
+    if(userInfo.batch=="NA"){
+      localStorage.setItem('Dauth_params', finalParams);
+      navigate(`/addBatch?${finalParams}`, { replace: true });
+    }
+    else{
       localStorage.removeItem('Dauth_params');
       axiosInstance({
         method: 'get',
@@ -82,6 +107,7 @@
           });
           navigate(`/`, { replace: true });
         });
+      }
     } else {
       localStorage.setItem('Dauth_params', finalParams);
       navigate(`/?${finalParams}`, { replace: true });

@@ -45,6 +45,16 @@
     { name: 'MALE', value: 'MALE' },
     { name: 'FEMALE', value: 'FEMALE' }
   ];
+  
+  let batches=[];
+  async function getBatches() {
+    let result = await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/batches`
+    });
+    batches = result.data;
+    return batches;
+  }
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -60,6 +70,7 @@
       userInfo = userDetails;
     });
     fetchUserData();
+    console.log(userInfo)
   });
 
   function save() {
@@ -92,7 +103,8 @@
         data: {
           name: userInfo.name.toString(),
           gender: userInfo.gender.toString(),
-          phoneNumber: userInfo.phoneNumber.toString()
+          phoneNumber: userInfo.phoneNumber.toString(),
+          batch:userInfo.batch.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -141,6 +153,9 @@
 </script>
 
 <main>
+  {#await getBatches()}
+  <div>Loading..</div>
+{:then batches}
   <div class="card">
     <div class="form">
       <br />
@@ -163,6 +178,28 @@
         bind:value={userInfo.phoneNumber}
       /><br />
       <br />
+      <!-- Batch -->
+      <label for="batches">Batches</label><br />
+      <select
+      class="input_details"
+      id="input_batches"
+      name="batch"
+      bind:value={userInfo.batch}
+    >
+      <!-- <option disabled selected value> -- select an option -- </option> -->
+      {#each batches as batch}
+        {#if $theme.name == 'dark'}
+          <option value={batch} style="background:#212121; color:#f1f1f1"
+            >{batch.batch}</option
+          >
+        {/if}
+        {#if $theme.name == 'light'}
+          <option value={batch} style="background:#f1f1f1; color:#282230"
+            >{batch.batch}</option
+          >
+        {/if}
+      {/each}
+    </select><br />
       <!--Gender-->
       <label for="gender">Gender</label><br />
       <select
@@ -203,4 +240,5 @@
       {/if}
     </div>
   </div>
+  {/await}
 </main>
