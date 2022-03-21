@@ -14,7 +14,7 @@
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import { getContext, onMount } from 'svelte';
-  import logo from '../statics/deltaLogoGreen.png';
+  import logo from '../statics/dauth-full.png';
   let { theme } = getContext('theme');
   // if (isauth) {
   //   navigate('/dashboard', { replace: true });
@@ -73,8 +73,8 @@
 <main>
   <div class="main-container">
     <div class="logo_div">
-      <img class="delta_logo" src={logo} alt="Delta logo" />
-      <h2 class="Dauth_title">DAuth</h2>
+      <img class="dauth_logo" src={logo} alt="Delta logo" />
+      <!-- <h2 class="Dauth_title">DAuth</h2> -->
     </div>
     <h6>Please enter your webmail username to get started with DAuth!</h6>
     <div class="form">

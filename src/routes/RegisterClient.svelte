@@ -18,7 +18,7 @@
   import { axiosInstance } from 'src/utils/axios';
   import { navigate, Link } from 'svelte-routing';
   import { onMount, getContext } from 'svelte';
-  import logo from '../statics/deltaLogoGreen.png';
+  import logo from '../statics/dauth-full.png';
   let { theme } = getContext('theme');
   onMount(() => {
     document
@@ -100,8 +100,8 @@
 <main>
   <div class="main-container">
     <div class="logo_div">
-      <img class="delta_logo" src={logo} alt="Delta logo" />
-      <h2 class="Dauth_title">DAuth</h2>
+      <img class="dauth_logo" src={logo} alt="Delta logo" />
+      <!-- <h2 class="Dauth_title">DAuth</h2> -->
     </div>
     <h6>Please enter the details to register a new application!</h6>
     <div class="center">

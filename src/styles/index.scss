@@ -66,6 +66,17 @@ h6{
 	height: 150px;
 }
 
+.logo_div {
+  text-align: right;
+}
+
+.dauth_logo {
+  max-width: 360px;
+  width: 80%;
+  height: auto;
+  margin: 20px 0px;
+}
+
 .navbar{
   display: inline-flex;
 }
@@ -232,6 +243,9 @@ p{
   .verifyTitle{
     font-size: 2rem;
   }
+  .logo_div {
+    text-align: center;
+  }
   .Dauth_title{
     font-size: 3rem;
     margin-block-start: 0;
@@ -368,6 +382,7 @@ p{
   }
   .headerMain{
     max-width: 300px !important;
+    margin: auto !important;
   }
   #userInfo{
     position: relative;

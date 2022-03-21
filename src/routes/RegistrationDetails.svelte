@@ -23,7 +23,7 @@
   import { navigate } from 'svelte-routing';
   import intlTelInput from 'intl-tel-input';
   import { onMount, getContext } from 'svelte';
-  import logo from '../statics/deltaLogoGreen.png';
+  import logo from '../statics/dauth-full.png';
   import '../../node_modules/intl-tel-input/build/css/intlTelInput.css';
 
   let { theme } = getContext('theme');
@@ -151,8 +151,8 @@
       <div>Loading..</div>
     {:then departments} -->
     <div class="logo_div">
-      <img class="delta_logo" src={logo} alt="Delta logo" />
-      <h2 class="Dauth_title">DAuth</h2>
+      <img class="dauth_logo" src={logo} alt="Delta logo" />
+      <!-- <h2 class="Dauth_title">DAuth</h2> -->
     </div>
     <div class="content">
       <h6>Please enter the details to create an account!</h6>
