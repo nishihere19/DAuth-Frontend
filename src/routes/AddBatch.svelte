@@ -36,7 +36,7 @@
       method: 'post',
       url: `${config.backendurl}/auth/updateBatch`,
       data: {
-        batch:batch
+        batch: batch
       },
       headers: { 'Content-Type': 'application/json' }
     })
@@ -78,31 +78,30 @@
     <div class="form">
       <h6>Please add your batch details</h6>
       <!-- <label for="batches">Batches</label><br /> -->
-        <select
-          class="input_details"
-          id="input_batches"
-          name="batches"
-          bind:value={batch}
-          on:select={handleChange}
-        >
-          <option disabled selected value> -- select an option -- </option>
-          {#each batches as batch}
-            {#if $theme.name == 'dark'}
-              <option value={batch} style="background:#212121; color:#f1f1f1"
-                >{batch.batch}</option
-              >
-            {/if}
-            {#if $theme.name == 'light'}
-              <option value={batch} style="background:#f1f1f1; color:#282230"
-                >{batch.batch}</option
-              >
-            {/if}
-          {/each}
-        </select><br />
-        <br />
+      <select
+        class="input_details"
+        id="input_batches"
+        name="batches"
+        bind:value={batch}
+        on:select={handleChange}
+      >
+        <option disabled selected value> -- select an option -- </option>
+        {#each batches as batch}
+          {#if $theme.name == 'dark'}
+            <option value={batch} style="background:#212121; color:#f1f1f1"
+              >{batch.batch}</option
+            >
+          {/if}
+          {#if $theme.name == 'light'}
+            <option value={batch} style="background:#f1f1f1; color:#282230"
+              >{batch.batch}</option
+            >
+          {/if}
+        {/each}
+      </select><br />
+      <br />
       <div class="registerContainer">
-        <button class="submit_button" type="submit" on:click={addBatchInfo}
-          >Submit</button
+        <button class="submit_button" type="submit" on:click={addBatchInfo}>Submit</button
         >
       </div>
     </div>

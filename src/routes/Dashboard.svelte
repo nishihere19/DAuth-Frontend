@@ -92,6 +92,11 @@
         navigate('/', { replace: true });
       }
     });
+    user.subscribe(userDetails => {
+      userInfo = userDetails;
+    });
+    fetchUserData();
+    console.log(userInfo)
   });
 </script>
 
@@ -115,7 +120,7 @@
       {#if userInfo.batch && userInfo.batch != 'NA'}
         {userInfo.batch}
       {/if}
-      <br/>
+      <br />
       {userInfo.phoneNumber}<br />
       {#if userInfo.gender && userInfo.gender != 'NONE'}
         {userInfo.gender}

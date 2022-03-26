@@ -23,10 +23,6 @@
   let finalParams = searchQuery();
 
   onMount(() => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 43f8f58 (add: batch details for a user)
     //handle nav bar visibility depending on screen size (hiding nav bar because loader page)
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');

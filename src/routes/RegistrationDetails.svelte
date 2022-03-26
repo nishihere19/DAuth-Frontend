@@ -68,7 +68,7 @@
     gender: '',
     password: '',
     confirmPassword: '',
-    batch:''
+    batch: ''
   };
   const items = [
     { name: 'MALE', value: 'MALE' },
@@ -120,7 +120,7 @@
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
           phoneNumber: phoneInput.getNumber(),
-          batch:state.batch
+          batch: state.batch
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -202,7 +202,7 @@
             {/if}
           {/each}
         </select><br />
-        <br /> -->      
+        <br /> -->
         <label for="batches">Batches</label><br />
         <select
           class="input_details"
@@ -227,7 +227,7 @@
         </select><br />
         <br />
 
-      <!-- <label for="batch">Year of Graduation</label><br />
+        <!-- <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
           class="input_details"
@@ -241,6 +241,7 @@
         <input
           type="tel"
           class="input_details"
+          bind:this={phoneInputField}
           id="input_phone"
           name="phone"
           bind:value={state.phone}
@@ -292,43 +293,6 @@
       </div>
       <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button
       >
-        <option disabled selected value> -- select an option -- </option>
-        {#each items as gender}
-          {#if $theme.name == 'dark'}
-            <option value={gender.value} style="background:#212121; color:#f1f1f1"
-              >{gender.name}</option
-            >
-          {/if}
-          {#if $theme.name == 'light'}
-            <option value={gender.value} style="background:#f1f1f1; color:#282230"
-              >{gender.name}</option
-            >
-          {/if}
-        {/each}
-      </select><br />
-      <br />
-      <label for="password">Password</label><br />
-      <input
-        type="password"
-        class="input_details"
-        id="input_password"
-        name="password"
-        bind:value={state.password}
-        on:change={handleChange}
-      /><br />
-      <br />
-      <label for="confirmPassword">Confirm Password</label><br />
-      <input
-        type="password"
-        class="input_details"
-        id="input_repeat_password"
-        name="confirmPassword"
-        bind:value={state.confirmPassword}
-        on:change={handleChange}
-      /><br />
-      <br />
-    </div>
-    <button class="submit_button" type="submit" on:click={handleSubmit}>Register</button>
     {/await}
   </div>
 </main>
