@@ -98,18 +98,18 @@
       return;
     }
     let phno = state.phone.toString();
-    let number: any = phno.substring(1, phno.length);
-    if (phno[0] != '+' || isNaN(number)) {
-      toasts.add({
-        title: 'Oops!',
-        description: 'Make sure to add country code and valid phone number',
-        duration: 10000, // 0 or negative to avoid auto-remove
-        placement: 'bottom-right',
-        type: 'error',
-        showProgress: true,
-        theme: $theme.name
-      });
-      return;
+      let number:any = phno.substring(1, phno.length);
+      if (phno[0] != '+' || isNaN(number)) {
+        toasts.add({
+          title: 'Oops!',
+          description: 'Make sure to add country code and valid phone number',
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'error',
+          showProgress: true,
+          theme: $theme.name
+        });
+        return;
     } else {
       axiosInstance({
         method: 'post',
@@ -119,7 +119,7 @@
           gender: state.gender.toString(),
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          phoneNumber: phoneInput.getNumber(),
+          phoneNumber: state.phone.toString(),
           batch: state.batch
         },
         headers: { 'Content-Type': 'application/json' }
@@ -241,7 +241,6 @@
         <input
           type="tel"
           class="input_details"
-          bind:this={phoneInputField}
           id="input_phone"
           name="phone"
           bind:value={state.phone}

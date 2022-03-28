@@ -15,43 +15,61 @@
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import { getContext, onMount } from 'svelte';
-  import user from '../utils/user';
-  import { fetchUserData } from '../utils/user';
   let { theme } = getContext('theme');
+
+  let userInfo: any = {};
+
+  const getUserDetails = async () => {
+    await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/user/apps`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(
+        (response: {
+          data: {
+            apps: {
+              id: string;
+              name: string;
+              description: string;
+              icon: string;
+              redirect_url: string;
+              created_at: string;
+              updated_at: string;
+            }[];
+          };
+        }) => {
+          userInfo = response.data;
+        }
+      )
+      .catch(error => {
+        return {};
+      });
+    return userInfo;
+  };
 
   //get all fields from query params
   let finalParams = searchQuery();
 
-  onMount(() => {
+  onMount(async () => {
     //handle nav bar visibility depending on screen size (hiding nav bar because loader page)
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
 
-    //to save userInfo in user store
-    let userInfo: any = {};
     authorizeSession.set(true);
-
-    //get all fields from query params
-    let finalParams = searchQuery();
 
     //in case the user is logged in
     if ($auth == 'true') {
-
-      //get user info
-      user.subscribe(userDetails => {
-      userInfo = userDetails;
-    });
-
-    //fetch user data
-    fetchUserData();
-
-    if(userInfo.batch=="NA"){
-      localStorage.setItem('Dauth_params', finalParams);
-      navigate(`/addBatch?${finalParams}`, { replace: true });
-    }
-    else{
-      localStorage.removeItem('Dauth_params');
+      userInfo = await getUserDetails();
+      
+      //check if the batch details exist or not, if not, redirect to edit profile page.
+      if (userInfo.batch == 'NULL' || userInfo.batch == null ||userInfo.batch=='null' || userInfo.batch.length==0) {
+        localStorage.setItem('Dauth_params', finalParams);
+        navigate(`/editProfile?${finalParams}`, { replace: true });
+        localStorage.removeItem('Dauth_params');
+      }
+      else{
       axiosInstance({
         method: 'get',
         url: `${config.backendurl}/oauth/authorize`,
