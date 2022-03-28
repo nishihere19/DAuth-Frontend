@@ -47,9 +47,40 @@
   import { auth } from '../utils/auth';
   import { mdiAccountEdit } from '@mdi/js';
   import { Icon } from 'svelte-materialify';
+  import {axiosInstance} from "../utils/axios";
+  import config from "../../env"
 
   let isauth = 'false';
   let userInfo: any = {};
+
+  const getUserDetails = async () =>{
+   await axiosInstance({
+    method: 'get',
+    url: `${config.backendurl}/user/apps`,
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(
+      (response: {
+        data: {
+          apps: {
+            id: string;
+            name: string;
+            description: string;
+            icon: string;
+            redirect_url: string;
+            created_at: string;
+            updated_at: string;
+          }[];
+        };
+      }) => {
+       userInfo = response.data;
+      }
+    )
+    .catch(error => {
+      return {}
+    });
+    return userInfo;
+  }
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -61,15 +92,14 @@
         navigate('/', { replace: true });
       }
     });
-    user.subscribe(userDetails => {
-      userInfo = userDetails;
-    });
-    fetchUserData();
-    console.log(userInfo)
+    
   });
 </script>
 
 <main>
+  {#await getUserDetails() }
+  <div class="loader" role="status" />
+  {:then userInfo}
   <div class="card">
     <img
       class="dashboardImage"
@@ -98,4 +128,5 @@
     <br />
     <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
   </div>
+  {/await}
 </main>

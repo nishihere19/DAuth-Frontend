@@ -27,8 +27,6 @@
   import '../../node_modules/intl-tel-input/build/css/intlTelInput.css';
 
   let { theme } = getContext('theme');
-  let phoneInputField;
-  let phoneInput;
   export let token;
   // let departments = [];
   // async function getDepartments() {
@@ -55,16 +53,14 @@
     }).catch(error => {
       navigate('/error', { replace: true });
     });
-    phoneInput = intlTelInput(phoneInputField, {
-      initialCountry: 'in'
-    });
-    document
-      .querySelector('.center')
-      .addEventListener('keypress', function (e: KeyboardEvent) {
-        if (e.key === 'Enter') {
-          handleSubmit();
-        }
-      });
+
+    // document
+    //   .querySelector('.center')
+    //   .addEventListener('keypress', function (e: KeyboardEvent) {
+    //     if (e.key === 'Enter') {
+    //       handleSubmit();
+    //     }
+    //   });
   });
   let state = {
     name: '',
@@ -101,17 +97,19 @@
       });
       return;
     }
-    if (!phoneInput.isValidNumber()) {
-      toasts.add({
-        title: 'Oops!',
-        description: 'Please check your contact number, it is invalid!',
-        duration: 10000, // 0 or negative to avoid auto-remove
-        placement: 'bottom-right',
-        type: 'error',
-        showProgress: true,
-        theme: $theme.name
-      });
-      return;
+    let phno = state.phone.toString();
+      let number:any = phno.substring(1, phno.length);
+      if (phno[0] != '+' || isNaN(number)) {
+        toasts.add({
+          title: 'Oops!',
+          description: 'Make sure to add country code and valid phone number',
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'error',
+          showProgress: true,
+          theme: $theme.name
+        });
+        return;
     } else {
       axiosInstance({
         method: 'post',
@@ -121,7 +119,7 @@
           gender: state.gender.toString(),
           password: state.password.toString(),
           repeatPassword: state.confirmPassword.toString(),
-          phoneNumber: phoneInput.getNumber(),
+          phoneNumber: state.phone.toString(),
           batch: state.batch
         },
         headers: { 'Content-Type': 'application/json' }
@@ -243,7 +241,6 @@
         <input
           type="tel"
           class="input_details"
-          bind:this={phoneInputField}
           id="input_phone"
           name="phone"
           bind:value={state.phone}

@@ -4,14 +4,14 @@ import config from '../../env';
 
 const user = writable({});
 
-export function fetchUserData(): void {
-  axiosInstance({
+export function fetchUserData() {
+ axiosInstance({
     method: 'get',
     url: `${config.backendurl}/user/apps`,
     headers: { 'Content-Type': 'application/json' }
   })
     .then(
-      (response: {
+     (response: {
         data: {
           apps: {
             id: string;
@@ -24,11 +24,11 @@ export function fetchUserData(): void {
           }[];
         };
       }) => {
-        user.set(response.data);
+       user.set(response.data);
       }
     )
-    .catch(error => {
-      user.set({});
+    .catch( error => {
+     user.set({});
     });
 }
 

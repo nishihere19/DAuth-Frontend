@@ -37,8 +37,13 @@
   import { toasts } from 'svelte-toasts';
   import { axiosInstance } from '../utils/axios';
   import config from '../../env';
+  import { searchQuery } from './../utils/queryHandler';
 
   let isauth = 'false';
+
+  //get all fields from query params
+  let finalParams:any = searchQuery();
+
   let { theme } = getContext('theme');
   let userInfo: any = {};
   const items = [
@@ -70,7 +75,6 @@
       userInfo = userDetails;
     });
     fetchUserData();
-    console.log(userInfo);
   });
 
   function save() {
@@ -81,7 +85,10 @@
       userInfo.phoneNumber.length != 0 &&
       userInfo.gender &&
       userInfo.gender.length != 0 &&
-      userInfo.gender != 'NONE'
+      userInfo.gender != 'NONE' &&
+      userInfo.batch &&
+      userInfo.batch.batch &&
+      userInfo.batch.batch.toString().length!=0
     ) {
       let phno = userInfo.phoneNumber.toString();
       let number: number = phno.substring(1, phno.length);
@@ -119,6 +126,10 @@
             showProgress: true,
             theme: $theme.name
           });
+
+          //if the user came through redirect, take it to authorization page
+          if(finalParams.substr(10,4)!="null")
+            navigate(`/redirect?${finalParams}`, { replace: true });
         })
         .catch(error => {
           toasts.add({
@@ -148,7 +159,10 @@
   }
 
   function discard() {
-    navigate('/dashboard', { replace: true });
+    if(finalParams.substr(10,4)!="null")
+      navigate(`/redirect?${finalParams}`, { replace: true });
+    else 
+      navigate('/dashboard', { replace: true });
   }
 </script>
 
@@ -158,6 +172,7 @@
   {:then batches}
     <div class="card">
       <div class="form">
+        <h6>Please enter your profile details completely!</h6>
         <br />
         <label for="name">Full Name</label><br />
         <input
