@@ -47,40 +47,40 @@
   import { auth } from '../utils/auth';
   import { mdiAccountEdit } from '@mdi/js';
   import { Icon } from 'svelte-materialify';
-  import {axiosInstance} from "../utils/axios";
-  import config from "../../env"
+  import { axiosInstance } from '../utils/axios';
+  import config from '../../env';
 
   let isauth = 'false';
   let userInfo: any = {};
 
-  const getUserDetails = async () =>{
-   await axiosInstance({
-    method: 'get',
-    url: `${config.backendurl}/user/apps`,
-    headers: { 'Content-Type': 'application/json' }
-  })
-    .then(
-      (response: {
-        data: {
-          apps: {
-            id: string;
-            name: string;
-            description: string;
-            icon: string;
-            redirect_url: string;
-            created_at: string;
-            updated_at: string;
-          }[];
-        };
-      }) => {
-       userInfo = response.data;
-      }
-    )
-    .catch(error => {
-      return {}
-    });
+  const getUserDetails = async () => {
+    await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/user/apps`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(
+        (response: {
+          data: {
+            apps: {
+              id: string;
+              name: string;
+              description: string;
+              icon: string;
+              redirect_url: string;
+              created_at: string;
+              updated_at: string;
+            }[];
+          };
+        }) => {
+          userInfo = response.data;
+        }
+      )
+      .catch(error => {
+        return {};
+      });
     return userInfo;
-  }
+  };
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -92,41 +92,41 @@
         navigate('/', { replace: true });
       }
     });
-    
   });
 </script>
 
 <main>
-  {#await getUserDetails() }
-  <div class="loader" role="status" />
+  {#await getUserDetails()}
+    <div class="loader" role="status" />
   {:then userInfo}
-  <div class="card">
-    <img
-      class="dashboardImage"
-      src={'https://ui-avatars.com/api/?background=random&size=200&name=' + userInfo.name}
-      alt="Profile"
-    />
-    <header>
-      {#if userInfo && userInfo.email}
-        <p>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</p>
-      {/if}
-    </header>
-    <div class="name">
-      {userInfo.name}
-    </div>
-    <br />
-    <div class="info">
-      {#if userInfo.batch && userInfo.batch != 'NA'}
-        {userInfo.batch}
-      {/if}
+    <div class="card">
+      <img
+        class="dashboardImage"
+        src={'https://ui-avatars.com/api/?background=random&size=200&name=' +
+          userInfo.name}
+        alt="Profile"
+      />
+      <header>
+        {#if userInfo && userInfo.email}
+          <p>{userInfo.email.email.substring(0, userInfo.email.email.length - 9)}</p>
+        {/if}
+      </header>
+      <div class="name">
+        {userInfo.name}
+      </div>
       <br />
-      {userInfo.phoneNumber}<br />
-      {#if userInfo.gender && userInfo.gender != 'NONE'}
-        {userInfo.gender}
-      {/if}
+      <div class="info">
+        {#if userInfo.batch && userInfo.batch != 'NULL'}
+          {userInfo.batch}
+        {/if}
+        <br />
+        {userInfo.phoneNumber}<br />
+        {#if userInfo.gender && userInfo.gender != 'NONE'}
+          {userInfo.gender}
+        {/if}
+      </div>
+      <br />
+      <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
     </div>
-    <br />
-    <Link to="/editProfile" class="appbar-link"><Icon path={mdiAccountEdit} /></Link>
-  </div>
   {/await}
 </main>

@@ -98,18 +98,18 @@
       return;
     }
     let phno = state.phone.toString();
-      let number:any = phno.substring(1, phno.length);
-      if (phno[0] != '+' || isNaN(number)) {
-        toasts.add({
-          title: 'Oops!',
-          description: 'Make sure to add country code and valid phone number',
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'error',
-          showProgress: true,
-          theme: $theme.name
-        });
-        return;
+    let number: any = phno.substring(1, phno.length);
+    if (phno[0] != '+' || isNaN(number)) {
+      toasts.add({
+        title: 'Oops!',
+        description: 'Make sure to add country code and valid phone number',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'error',
+        showProgress: true,
+        theme: $theme.name
+      });
+      return;
     } else {
       axiosInstance({
         method: 'post',
@@ -159,28 +159,28 @@
     {#await getBatches()}
       <div>Loading..</div>
     {:then batches}
-    <div class="logo_div">
-      <img class="dauth_logo" src={logo} alt="Delta logo" />
-      <!-- <h2 class="Dauth_title">DAuth</h2> -->
-    </div>
-    <div class="content">
-      <h6>Please enter the details to create an account!</h6>
-    </div>
-    <div class="center">
-      <div class="form" />
-      <label for="name">Full Name</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_name"
-        name="name"
-        bind:value={state.name}
-        on:change={e => {
-          handleChange(e);
-        }}
-      /><br />
-      <br />
-      <!-- <label for="department">Department</label><br />
+      <div class="logo_div">
+        <img class="dauth_logo" src={logo} alt="Delta logo" />
+        <!-- <h2 class="Dauth_title">DAuth</h2> -->
+      </div>
+      <div class="content">
+        <h6>Please enter the details to create an account!</h6>
+      </div>
+      <div class="center">
+        <div class="form" />
+        <label for="name">Full Name</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_name"
+          name="name"
+          bind:value={state.name}
+          on:change={e => {
+            handleChange(e);
+          }}
+        /><br />
+        <br />
+        <!-- <label for="department">Department</label><br />
         <select
           class="input_details"
           id="input_department"
@@ -214,13 +214,13 @@
           <option disabled selected value> -- select an option -- </option>
           {#each batches as batch}
             {#if $theme.name == 'dark'}
-              <option value={batch.batch} style="background:#212121; color:#f1f1f1"
-                >{batch.batch}</option
+              <option value={batch} style="background:#212121; color:#f1f1f1"
+                >{batch}</option
               >
             {/if}
             {#if $theme.name == 'light'}
-              <option value={batch.batch} style="background:#f1f1f1; color:#282230"
-                >{batch.batch}</option
+              <option value={batch} style="background:#f1f1f1; color:#282230"
+                >{batch}</option
               >
             {/if}
           {/each}

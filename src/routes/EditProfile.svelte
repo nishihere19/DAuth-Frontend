@@ -42,7 +42,7 @@
   let isauth = 'false';
 
   //get all fields from query params
-  let finalParams:any = searchQuery();
+  let finalParams: any = searchQuery();
 
   let { theme } = getContext('theme');
   let userInfo: any = {};
@@ -87,8 +87,8 @@
       userInfo.gender.length != 0 &&
       userInfo.gender != 'NONE' &&
       userInfo.batch &&
-      userInfo.batch.batch &&
-      userInfo.batch.batch.toString().length!=0
+      userInfo.batch &&
+      userInfo.batch.toString().length != 0
     ) {
       let phno = userInfo.phoneNumber.toString();
       let number: number = phno.substring(1, phno.length);
@@ -111,7 +111,7 @@
           name: userInfo.name.toString(),
           gender: userInfo.gender.toString(),
           phoneNumber: userInfo.phoneNumber.toString(),
-          batch: userInfo.batch.batch.toString()
+          batch: userInfo.batch.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -128,7 +128,7 @@
           });
 
           //if the user came through redirect, take it to authorization page
-          if(finalParams.substr(10,4)!="null")
+          if (finalParams.substr(10, 4) != 'null')
             navigate(`/redirect?${finalParams}`, { replace: true });
         })
         .catch(error => {
@@ -159,10 +159,9 @@
   }
 
   function discard() {
-    if(finalParams.substr(10,4)!="null")
+    if (finalParams.substr(10, 4) != 'null')
       navigate(`/redirect?${finalParams}`, { replace: true });
-    else 
-      navigate('/dashboard', { replace: true });
+    else navigate('/dashboard', { replace: true });
   }
 </script>
 
@@ -205,7 +204,7 @@
           {#each batches as batch}
             {#if $theme.name == 'dark'}
               <option value={batch} style="background:#212121; color:#f1f1f1"
-                >{batch.batch}</option
+                >{batch}</option
               >
             {/if}
             {#if $theme.name == 'light'}
