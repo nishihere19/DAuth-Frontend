@@ -41,12 +41,9 @@
 
   let isauth = 'false';
 
-<<<<<<< HEAD
-=======
   //get all fields from query params
-  let finalParams:any = searchQuery();
+  let finalParams: any = searchQuery();
 
->>>>>>> c2c8958 (fixes: batch details for a user)
   let { theme } = getContext('theme');
   let userInfo: any = {};
   const items = [
@@ -101,11 +98,16 @@
       userInfo.gender != 'NONE' &&
       userInfo.batch &&
 <<<<<<< HEAD
+<<<<<<< HEAD
       userInfo.batch.toString().length != 0
 =======
       userInfo.batch.batch &&
       userInfo.batch.batch.toString().length!=0
 >>>>>>> c2c8958 (fixes: batch details for a user)
+=======
+      userInfo.batch &&
+      userInfo.batch.toString().length != 0
+>>>>>>> 6fc6733 (fixes: batch details for a user)
     ) {
       let phno = userInfo.phoneNumber.toString();
       let number: number = phno.substring(1, phno.length);
@@ -128,7 +130,7 @@
           name: userInfo.name.toString(),
           gender: userInfo.gender.toString(),
           phoneNumber: userInfo.phoneNumber.toString(),
-          batch: userInfo.batch.batch.toString()
+          batch: userInfo.batch.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
@@ -151,7 +153,7 @@
           });
 
           //if the user came through redirect, take it to authorization page
-          if(finalParams.substr(10,4)!="null")
+          if (finalParams.substr(10, 4) != 'null')
             navigate(`/redirect?${finalParams}`, { replace: true });
         })
         .catch(error => {
@@ -182,10 +184,9 @@
   }
 
   function discard() {
-    if(finalParams.substr(10,4)!="null")
+    if (finalParams.substr(10, 4) != 'null')
       navigate(`/redirect?${finalParams}`, { replace: true });
-    else 
-      navigate('/dashboard', { replace: true });
+    else navigate('/dashboard', { replace: true });
   }
 </script>
 
@@ -228,7 +229,7 @@
           {#each batches as batch}
             {#if $theme.name == 'dark'}
               <option value={batch} style="background:#212121; color:#f1f1f1"
-                >{batch.batch}</option
+                >{batch}</option
               >
             {/if}
             {#if $theme.name == 'light'}
