@@ -41,9 +41,6 @@
 
   let isauth = 'false';
 
-  //get all fields from query params
-  let finalParams: any = searchQuery();
-
   let { theme } = getContext('theme');
   let userInfo: any = {};
   const items = [
@@ -88,6 +85,7 @@
   });
 
   function save() {
+    console.log(window.location.toString());
     if (
       userInfo.name &&
       userInfo.name.length != 0 &&
@@ -99,6 +97,7 @@
       userInfo.batch &&
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       userInfo.batch.toString().length != 0
 =======
       userInfo.batch.batch &&
@@ -106,6 +105,8 @@
 >>>>>>> c2c8958 (fixes: batch details for a user)
 =======
       userInfo.batch &&
+=======
+>>>>>>> 6de3d91 ([Fix] error)
       userInfo.batch.toString().length != 0
 >>>>>>> 6fc6733 (fixes: batch details for a user)
     ) {
@@ -151,10 +152,6 @@
             showProgress: true,
             theme: $theme.name
           });
-
-          //if the user came through redirect, take it to authorization page
-          if (finalParams.substr(10, 4) != 'null')
-            navigate(`/redirect?${finalParams}`, { replace: true });
         })
         .catch(error => {
           toasts.add({
@@ -184,9 +181,7 @@
   }
 
   function discard() {
-    if (finalParams.substr(10, 4) != 'null')
-      navigate(`/redirect?${finalParams}`, { replace: true });
-    else navigate('/dashboard', { replace: true });
+    navigate('/dashboard', { replace: true });
   }
 </script>
 

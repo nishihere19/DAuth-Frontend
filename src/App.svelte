@@ -96,7 +96,10 @@
     integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw=="
     crossorigin="anonymous"
   />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+  />
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
     integrity="sha512-/b3Hz5C3/9PtjfdAtl9gQhYSkZirvbAOPTkcCT/9ABa4hpyQizp1DILcGZNrsmi1VvRBH3vImPNmaWtaf0IyHA=="
@@ -180,7 +183,11 @@
         <Route path="editProfile" component={EditProfile} bind:isauth />
       {/if}
     </div>
-    <Footer class="love-footer-dark">Made with ❤ by <a href="https://delta.nitt.edu" style="color: #3bbf3b !important">Delta Force</a></Footer>
+    <Footer class="love-footer-dark"
+      >Made with ❤ by <a href="https://delta.nitt.edu" style="color: #3bbf3b !important"
+        >Delta Force</a
+      ></Footer
+    >
     <ToastContainer let:data><FlatToast {data} /></ToastContainer>
   </ThemeContext>
 </Router>
