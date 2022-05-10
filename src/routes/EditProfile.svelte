@@ -37,14 +37,26 @@
   import { toasts } from 'svelte-toasts';
   import { axiosInstance } from '../utils/axios';
   import config from '../../env';
+  import { searchQuery } from './../utils/queryHandler';
 
   let isauth = 'false';
+
   let { theme } = getContext('theme');
   let userInfo: any = {};
   const items = [
     { name: 'MALE', value: 'MALE' },
     { name: 'FEMALE', value: 'FEMALE' }
   ];
+
+  let batches = [];
+  async function getBatches() {
+    let result = await axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/batches`
+    });
+    batches = result.data;
+    return batches;
+  }
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -70,10 +82,12 @@
       userInfo.phoneNumber.length != 0 &&
       userInfo.gender &&
       userInfo.gender.length != 0 &&
-      userInfo.gender != 'NONE'
+      userInfo.gender != 'NONE' &&
+      userInfo.batch &&
+      userInfo.batch.toString().length != 0
     ) {
       let phno = userInfo.phoneNumber.toString();
-      let number = phno.substring(1, phno.length);
+      let number: number = phno.substring(1, phno.length);
       if (phno[0] != '+' || isNaN(number)) {
         toasts.add({
           title: 'Oops!',
@@ -92,11 +106,18 @@
         data: {
           name: userInfo.name.toString(),
           gender: userInfo.gender.toString(),
-          phoneNumber: userInfo.phoneNumber.toString()
+          phoneNumber: userInfo.phoneNumber.toString(),
+          batch: userInfo.batch.toString()
         },
         headers: { 'Content-Type': 'application/json' }
       })
         .then(response => {
+          // user is redirected back to the oauth flow , if they're pushed here to updated thier profile forcefully
+          let params = new URLSearchParams(window.location.search);
+          if (params.get('client_id')) {
+            navigate(`/redirect?${params}`, { replace: true });
+            return;
+          }
           navigate('/dashboard', { replace: true });
           toasts.add({
             title: 'Success',
@@ -141,66 +162,93 @@
 </script>
 
 <main>
-  <div class="card">
-    <div class="form">
-      <br />
-      <label for="name">Full Name</label><br />
-      <input
-        type="text"
-        class="input_details"
-        id="input_name"
-        name="name"
-        bind:value={userInfo.name}
-      /><br />
-      <br />
-      <!--Phone number-->
-      <label for="phone">Phone Number</label><br />
-      <input
-        type="tel"
-        class="input_details"
-        id="input_phone"
-        name="phone"
-        bind:value={userInfo.phoneNumber}
-      /><br />
-      <br />
-      <!--Gender-->
-      <label for="gender">Gender</label><br />
-      <select
-        class="input_details"
-        id="input_gender"
-        name="gender"
-        bind:value={userInfo.gender}
-      >
-        <option disabled selected value> -- select an option -- </option>
-        {#each items as gender}
-          {#if $theme.name == 'dark'}
-            <option value={gender.value} style="background:#212121; color:#f1f1f1"
-              >{gender.name}</option
-            >
-          {/if}
-          {#if $theme.name == 'light'}
-            <option value={gender.value} style="background:#f1f1f1; color:#282230"
-              >{gender.name}</option
-            >
-          {/if}
-        {/each}
-      </select><br />
-      <br />
-      <!--Save & discard buttons-->
-      {#if $theme.name == 'dark'}
-        <button class="appdetails-button-dark" style="color:#3bbf3b" on:click={save}
-          >Save</button
+  {#await getBatches()}
+    <div>Loading..</div>
+  {:then batches}
+    <div class="card">
+      <div class="form">
+        <h6>Please enter your profile details completely!</h6>
+        <br />
+        <label for="name">Full Name</label><br />
+        <input
+          type="text"
+          class="input_details"
+          id="input_name"
+          name="name"
+          bind:value={userInfo.name}
+        /><br />
+        <br />
+        <!--Phone number-->
+        <label for="phone">Phone Number</label><br />
+        <input
+          type="tel"
+          class="input_details"
+          id="input_phone"
+          name="phone"
+          bind:value={userInfo.phoneNumber}
+        /><br />
+        <br />
+        <!-- Batch -->
+        <label for="batches">Batches</label><br />
+        <select
+          class="input_details"
+          id="input_batches"
+          name="batch"
+          bind:value={userInfo.batch}
         >
-      {:else}
-        <button class="appdetails-button-light" style="color:#3bbf3b" on:click={save}
-          >Save</button
+          <!-- <option disabled selected value> -- select an option -- </option> -->
+          {#each batches as batch}
+            {#if $theme.name == 'dark'}
+              <option value={batch} style="background:#212121; color:#f1f1f1"
+                >{batch}</option
+              >
+            {/if}
+            {#if $theme.name == 'light'}
+              <option value={batch} style="background:#f1f1f1; color:#282230"
+                >{batch.batch}</option
+              >
+            {/if}
+          {/each}
+        </select><br />
+        <!--Gender-->
+        <label for="gender">Gender</label><br />
+        <select
+          class="input_details"
+          id="input_gender"
+          name="gender"
+          bind:value={userInfo.gender}
         >
-      {/if}
-      {#if $theme.name == 'dark'}
-        <button class="appdetails-button-dark" on:click={discard}>Discard</button>
-      {:else}
-        <button class="appdetails-button-light" on:click={discard}>Discard</button>
-      {/if}
+          <option disabled selected value> -- select an option -- </option>
+          {#each items as gender}
+            {#if $theme.name == 'dark'}
+              <option value={gender.value} style="background:#212121; color:#f1f1f1"
+                >{gender.name}</option
+              >
+            {/if}
+            {#if $theme.name == 'light'}
+              <option value={gender.value} style="background:#f1f1f1; color:#282230"
+                >{gender.name}</option
+              >
+            {/if}
+          {/each}
+        </select><br />
+        <br />
+        <!--Save & discard buttons-->
+        {#if $theme.name == 'dark'}
+          <button class="appdetails-button-dark" style="color:#3bbf3b" on:click={save}
+            >Save</button
+          >
+        {:else}
+          <button class="appdetails-button-light" style="color:#3bbf3b" on:click={save}
+            >Save</button
+          >
+        {/if}
+        {#if $theme.name == 'dark'}
+          <button class="appdetails-button-dark" on:click={discard}>Discard</button>
+        {:else}
+          <button class="appdetails-button-light" on:click={discard}>Discard</button>
+        {/if}
+      </div>
     </div>
-  </div>
+  {/await}
 </main>

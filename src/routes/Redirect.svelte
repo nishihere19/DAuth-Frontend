@@ -17,14 +17,19 @@
   import { getContext, onMount } from 'svelte';
   let { theme } = getContext('theme');
 
+  //get all fields from query params
+  let finalParams = searchQuery();
+
   onMount(() => {
+    //handle nav bar visibility depending on screen size (hiding nav bar because loader page)
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
+
     authorizeSession.set(true);
-    let finalParams = searchQuery();
+
+    //in case the user is logged in
     if ($auth == 'true') {
-      localStorage.removeItem('Dauth_params');
       axiosInstance({
         method: 'get',
         url: `${config.backendurl}/oauth/authorize`,

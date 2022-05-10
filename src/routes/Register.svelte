@@ -92,7 +92,7 @@
       <br />
       <div class="registerContainer">
         <button class="submit_button" type="submit" on:click={verify}>Submit</button>
-        <div class="navigateOption">
+        <div class="navigateContainer">
           <p>Already have an account?</p>
           <Link to="/" class="navigateLink">Login Now</Link>
         </div>

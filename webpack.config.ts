@@ -190,14 +190,11 @@ const config: Configuration = {
 			'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
 		},
 		hot: true,
-		stats: 'none',
-		contentBase: 'public',
 		historyApiFallback: {
 			rewrites: [
 				{from: /\./, to: '/'}
 			]
 		},
-		watchContentBase: true
 	},
 	target: isDevelopment ? 'web' : 'browserslist',
 	plugins: [
@@ -245,7 +242,7 @@ if (isProduction) {
 	// Minify CSS files
 	config.optimization?.minimizer?.push(
 		new CSSMinimizerPlugin({
-			sourceMap: sourceMapsInProduction ? { inline: false, annotation: true, } : false,
+			//sourceMap: sourceMapsInProduction ? { inline: false, annotation: true, } : false,
 			parallel: true,
 			minimizerOptions: {
 				preset: [
