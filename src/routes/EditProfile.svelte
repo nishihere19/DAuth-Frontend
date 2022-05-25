@@ -58,16 +58,6 @@
     return batches;
   }
 
-  let batches = [];
-  async function getBatches() {
-    let result = await axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/auth/batches`
-    });
-    batches = result.data;
-    return batches;
-  }
-
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
@@ -85,7 +75,6 @@
   });
 
   function save() {
-    console.log(window.location.toString());
     if (
       userInfo.name &&
       userInfo.name.length != 0 &&
@@ -95,20 +84,7 @@
       userInfo.gender.length != 0 &&
       userInfo.gender != 'NONE' &&
       userInfo.batch &&
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       userInfo.batch.toString().length != 0
-=======
-      userInfo.batch.batch &&
-      userInfo.batch.batch.toString().length!=0
->>>>>>> c2c8958 (fixes: batch details for a user)
-=======
-      userInfo.batch &&
-=======
->>>>>>> 6de3d91 ([Fix] error)
-      userInfo.batch.toString().length != 0
->>>>>>> 6fc6733 (fixes: batch details for a user)
     ) {
       let phno = userInfo.phoneNumber.toString();
       let number: number = phno.substring(1, phno.length);
